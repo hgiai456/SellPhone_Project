@@ -17,6 +17,12 @@ namespace QLCoffee.Models
 
     public partial class TAIKHOAN
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public TAIKHOAN()
+        {
+            this.HOADONs = new HashSet<HOADON>();
+        }
+
         [DisplayName("TenDN")]
         [Required(ErrorMessage = "Error Empty")]
 
@@ -24,6 +30,11 @@ namespace QLCoffee.Models
         [DisplayName("MatKhau")]
         [Required(ErrorMessage = "Error Empty")]
         public string MatKhau { get; set; }
+
+        [NotMapped]
+        [Required(ErrorMessage = "Error Empty")]
+        [Compare("MatKhau")]
+        public string RePass { get; set; }
 
         private string _PhanQuyen;
         [DisplayName("PhanQuyen")]
@@ -36,12 +47,10 @@ namespace QLCoffee.Models
         }
         public string MaKH { get; set; }
         public string MaNV { get; set; }
-        [NotMapped]
-        [Required(ErrorMessage = "Error Empty")]
-        [Compare("MatKhau")]
-        public string RePass { get; set; }
 
         public virtual KHACHHANG KHACHHANG { get; set; }
         public virtual NHANVIEN NHANVIEN { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HOADON> HOADONs { get; set; }
     }
 }

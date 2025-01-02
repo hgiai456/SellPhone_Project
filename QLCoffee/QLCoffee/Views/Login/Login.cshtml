@@ -60,30 +60,34 @@
             text-align: left;
         }
     </style>
-
-    <div class="login-container">
-        <h2>Đăng Nhập</h2>
-        <form action="/AuthenLogin" method="post">
-            <!-- Tên đăng nhập -->
-            <input type="text" name="TenDN" placeholder="Tên đăng nhập">
-            @Html.ValidationMessageFor(m => m.TenDN)
-            @if (ViewBag.ErrorID != null)
-            {
-                <div class="error-message">@ViewBag.ErrorID</div>
-            }
-            <!-- Mật khẩu -->
-            <input type="password" name="MatKhau" placeholder="Mật khẩu">
-            @Html.ValidationMessageFor(m => m.MatKhau)
-            @if (ViewBag.ErrorPass != null)
-            {
-                <div class="error-message">@ViewBag.ErrorPass</div>
-            }
-
-            <!-- Nút đăng nhập -->
-            <input type="submit" value="Đăng Nhập">
-            <a href=/Login/Register style=" text-decoration: none;">Bạn chưa có tài khoản ?</a> 
-        </form>
+    <div>
+        @using(Html.BeginForm("AuthenLogin", "Login",FormMethod.Post, new {@class = "form-horizontal",  role = "form" })) {
+           @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true,"",new { @class = "text-danger"} )
+            <div class="login-container">
+                <h2>Đăng Nhập</h2>
+                    <!-- Tên đăng nhập -->
+                    <input type="text" name="TenDN" placeholder="Tên đăng nhập">
+                    @Html.ValidationMessageFor(m => m.TenDN)
+                    @if (ViewBag.ErrorID != null)
+                    {
+                        <div class="error-message">@ViewBag.ErrorID</div>
+                    }
+                    <!-- Mật khẩu -->
+                    <input type="password" name="MatKhau" placeholder="Mật khẩu">
+                    @Html.ValidationMessageFor(m => m.MatKhau)
+                    @if (ViewBag.ErrorPass != null)
+                    {
+                        <div class="error-message">@ViewBag.ErrorPass</div>
+                    }
+                    <!-- Nút đăng nhập -->
+                    <input type="submit" value="Đăng Nhập">
+                    <a href=/Login/Register style=" text-decoration: none;">Bạn chưa có tài khoản ?</a>
+    
+            </div>
+        }
     </div>
+    
     @*<table class="table">
             <tr>
                 <th>@Html.DisplayNameFor(m => m.TenDN)</th>

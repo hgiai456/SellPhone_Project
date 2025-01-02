@@ -12,9 +12,11 @@
           </Key>
           <Property Name="MaHD" Type="char" MaxLength="6" Nullable="false" />
           <Property Name="MaSP" Type="char" MaxLength="4" Nullable="false" />
-          <Property Name="Soluong" Type="int" />
+          <Property Name="Soluong" Type="int" Nullable="false" />
           <Property Name="MaKM" Type="char" MaxLength="4" />
-          <Property Name="TongTien" Type="int" />
+          <Property Name="TongTien" Type="int" Nullable="false" />
+          <Property Name="UnitPrice" Type="int" Nullable="false" />
+          <Property Name="TotalPrice" Type="int" StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="DANHGIA">
           <Key>
@@ -31,13 +33,14 @@
             <PropertyRef Name="MaHD" />
           </Key>
           <Property Name="MaHD" Type="char" MaxLength="6" Nullable="false" />
-          <Property Name="NgayTD" Type="date" />
-          <Property Name="TongGiaTriHD" Type="int" />
-          <Property Name="GhiChu" Type="nvarchar" MaxLength="50" />
+          <Property Name="NgayTD" Type="date" Nullable="false" />
+          <Property Name="TongGiaTriHD" Type="int" Nullable="false" />
+          <Property Name="GhiChu" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="TrangThaiDH" Type="nvarchar" MaxLength="50" />
           <Property Name="MaShipper" Type="char" MaxLength="4" />
-          <Property Name="MaKH" Type="char" MaxLength="6" Nullable="false" />
-          <Property Name="MaNV" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="TenDN" Type="varchar" MaxLength="100" />
+          <Property Name="HoTenKH" Type="nvarchar" MaxLength="50" />
+          <Property Name="SDT" Type="nvarchar" MaxLength="11" />
         </EntityType>
         <EntityType Name="KHACHHANG">
           <Key>
@@ -171,18 +174,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_KHACHHANG_HOADON">
-          <End Role="KHACHHANG" Type="Self.KHACHHANG" Multiplicity="1" />
-          <End Role="HOADON" Type="Self.HOADON" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="KHACHHANG">
-              <PropertyRef Name="MaKH" />
-            </Principal>
-            <Dependent Role="HOADON">
-              <PropertyRef Name="MaKH" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_KHACHHANG_TAIKHOAN">
           <End Role="KHACHHANG" Type="Self.KHACHHANG" Multiplicity="0..1" />
           <End Role="TAIKHOAN" Type="Self.TAIKHOAN" Multiplicity="*" />
@@ -255,18 +246,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_NHANVIEN_HOADON">
-          <End Role="NHANVIEN" Type="Self.NHANVIEN" Multiplicity="1" />
-          <End Role="HOADON" Type="Self.HOADON" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="NHANVIEN">
-              <PropertyRef Name="MaNV" />
-            </Principal>
-            <Dependent Role="HOADON">
-              <PropertyRef Name="MaNV" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_NHANVIEN_TAIKHOAN">
           <End Role="NHANVIEN" Type="Self.NHANVIEN" Multiplicity="0..1" />
           <End Role="TAIKHOAN" Type="Self.TAIKHOAN" Multiplicity="*" />
@@ -315,6 +294,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TAIKHOAN_HOADON">
+          <End Role="TAIKHOAN" Type="Self.TAIKHOAN" Multiplicity="0..1" />
+          <End Role="HOADON" Type="Self.HOADON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TAIKHOAN">
+              <PropertyRef Name="TenDN" />
+            </Principal>
+            <Dependent Role="HOADON">
+              <PropertyRef Name="TenDN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="QuanLyQuanCoffeeModelStoreContainer">
           <EntitySet Name="CHITIET_HOADON" EntityType="Self.CHITIET_HOADON" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DANHGIA" EntityType="Self.DANHGIA" Schema="dbo" store:Type="Tables" />
@@ -337,10 +328,6 @@
           <AssociationSet Name="FK_KHACHHANG_DANHGIA" Association="Self.FK_KHACHHANG_DANHGIA">
             <End Role="KHACHHANG" EntitySet="KHACHHANG" />
             <End Role="DANHGIA" EntitySet="DANHGIA" />
-          </AssociationSet>
-          <AssociationSet Name="FK_KHACHHANG_HOADON" Association="Self.FK_KHACHHANG_HOADON">
-            <End Role="KHACHHANG" EntitySet="KHACHHANG" />
-            <End Role="HOADON" EntitySet="HOADON" />
           </AssociationSet>
           <AssociationSet Name="FK_KHACHHANG_TAIKHOAN" Association="Self.FK_KHACHHANG_TAIKHOAN">
             <End Role="KHACHHANG" EntitySet="KHACHHANG" />
@@ -366,10 +353,6 @@
             <End Role="NHACUNGCAP" EntitySet="NHACUNGCAP" />
             <End Role="LOAISANPHAM" EntitySet="LOAISANPHAM" />
           </AssociationSet>
-          <AssociationSet Name="FK_NHANVIEN_HOADON" Association="Self.FK_NHANVIEN_HOADON">
-            <End Role="NHANVIEN" EntitySet="NHANVIEN" />
-            <End Role="HOADON" EntitySet="HOADON" />
-          </AssociationSet>
           <AssociationSet Name="FK_NHANVIEN_TAIKHOAN" Association="Self.FK_NHANVIEN_TAIKHOAN">
             <End Role="NHANVIEN" EntitySet="NHANVIEN" />
             <End Role="TAIKHOAN" EntitySet="TAIKHOAN" />
@@ -386,6 +369,10 @@
             <End Role="SHIPPER" EntitySet="SHIPPER" />
             <End Role="HOADON" EntitySet="HOADON" />
           </AssociationSet>
+          <AssociationSet Name="FK_TAIKHOAN_HOADON" Association="Self.FK_TAIKHOAN_HOADON">
+            <End Role="TAIKHOAN" EntitySet="TAIKHOAN" />
+            <End Role="HOADON" EntitySet="HOADON" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -398,12 +385,14 @@
           </Key>
           <Property Name="MaHD" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="MaSP" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="Soluong" Type="Int32" />
+          <Property Name="Soluong" Type="Int32" Nullable="false" />
           <Property Name="MaKM" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
-          <Property Name="TongTien" Type="Int32" />
+          <Property Name="TongTien" Type="Int32" Nullable="false" />
           <NavigationProperty Name="HOADON" Relationship="Self.FK_HOADON_CHITIETHOADON" FromRole="CHITIET_HOADON" ToRole="HOADON" />
           <NavigationProperty Name="KHUYENMAI" Relationship="Self.FK_KHUYENMAI_CHITIETHOADON" FromRole="CHITIET_HOADON" ToRole="KHUYENMAI" />
           <NavigationProperty Name="SANPHAM" Relationship="Self.FK_SANPHAM_CHITIETHOADON" FromRole="CHITIET_HOADON" ToRole="SANPHAM" />
+          <Property Name="UnitPrice" Type="Int32" Nullable="false" />
+          <Property Name="TotalPrice" Type="Int32" annotation:StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="DANHGIA">
           <Key>
@@ -421,17 +410,17 @@
             <PropertyRef Name="MaHD" />
           </Key>
           <Property Name="MaHD" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="NgayTD" Type="DateTime" Precision="0" />
-          <Property Name="TongGiaTriHD" Type="Int32" />
-          <Property Name="GhiChu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NgayTD" Type="DateTime" Precision="0" Nullable="false" />
+          <Property Name="TongGiaTriHD" Type="Int32" Nullable="false" />
+          <Property Name="GhiChu" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="TrangThaiDH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MaShipper" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
-          <Property Name="MaKH" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="MaNV" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
           <NavigationProperty Name="CHITIET_HOADON" Relationship="Self.FK_HOADON_CHITIETHOADON" FromRole="HOADON" ToRole="CHITIET_HOADON" />
-          <NavigationProperty Name="KHACHHANG" Relationship="Self.FK_KHACHHANG_HOADON" FromRole="HOADON" ToRole="KHACHHANG" />
-          <NavigationProperty Name="NHANVIEN" Relationship="Self.FK_NHANVIEN_HOADON" FromRole="HOADON" ToRole="NHANVIEN" />
           <NavigationProperty Name="SHIPPER" Relationship="Self.FK_SHIPPER_HOADON" FromRole="HOADON" ToRole="SHIPPER" />
+          <Property Name="TenDN" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TAIKHOAN" Relationship="QuanLyQuanCoffeeModel.FK_TAIKHOAN_HOADON" FromRole="HOADON" ToRole="TAIKHOAN" />
+          <Property Name="HoTenKH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SDT" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="KHACHHANG">
           <Key>
@@ -443,7 +432,6 @@
           <Property Name="GioiTinh" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
           <Property Name="SoDTKH" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
           <NavigationProperty Name="DANHGIAs" Relationship="Self.FK_KHACHHANG_DANHGIA" FromRole="KHACHHANG" ToRole="DANHGIA" />
-          <NavigationProperty Name="HOADONs" Relationship="Self.FK_KHACHHANG_HOADON" FromRole="KHACHHANG" ToRole="HOADON" />
           <NavigationProperty Name="TAIKHOANs" Relationship="Self.FK_KHACHHANG_TAIKHOAN" FromRole="KHACHHANG" ToRole="TAIKHOAN" />
         </EntityType>
         <EntityType Name="KHO">
@@ -498,7 +486,6 @@
           <Property Name="DiaChi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="NgaySinh" Type="DateTime" Precision="0" />
           <Property Name="ChucVu" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="HOADONs" Relationship="Self.FK_NHANVIEN_HOADON" FromRole="NHANVIEN" ToRole="HOADON" />
           <NavigationProperty Name="TAIKHOANs" Relationship="Self.FK_NHANVIEN_TAIKHOAN" FromRole="NHANVIEN" ToRole="TAIKHOAN" />
         </EntityType>
         <EntityType Name="SANPHAM">
@@ -537,6 +524,7 @@
           <Property Name="MaNV" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
           <NavigationProperty Name="KHACHHANG" Relationship="Self.FK_KHACHHANG_TAIKHOAN" FromRole="TAIKHOAN" ToRole="KHACHHANG" />
           <NavigationProperty Name="NHANVIEN" Relationship="Self.FK_NHANVIEN_TAIKHOAN" FromRole="TAIKHOAN" ToRole="NHANVIEN" />
+          <NavigationProperty Name="HOADONs" Relationship="QuanLyQuanCoffeeModel.FK_TAIKHOAN_HOADON" FromRole="TAIKHOAN" ToRole="HOADON" />
         </EntityType>
         <Association Name="FK_HOADON_CHITIETHOADON">
           <End Role="HOADON" Type="Self.HOADON" Multiplicity="1" />
@@ -583,30 +571,6 @@
             </Principal>
             <Dependent Role="DANHGIA">
               <PropertyRef Name="MaKH" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_KHACHHANG_HOADON">
-          <End Role="KHACHHANG" Type="Self.KHACHHANG" Multiplicity="1" />
-          <End Role="HOADON" Type="Self.HOADON" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="KHACHHANG">
-              <PropertyRef Name="MaKH" />
-            </Principal>
-            <Dependent Role="HOADON">
-              <PropertyRef Name="MaKH" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_NHANVIEN_HOADON">
-          <End Role="NHANVIEN" Type="Self.NHANVIEN" Multiplicity="1" />
-          <End Role="HOADON" Type="Self.HOADON" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="NHANVIEN">
-              <PropertyRef Name="MaNV" />
-            </Principal>
-            <Dependent Role="HOADON">
-              <PropertyRef Name="MaNV" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -699,14 +663,6 @@
             <End Role="KHACHHANG" EntitySet="KHACHHANGs" />
             <End Role="DANHGIA" EntitySet="DANHGIAs" />
           </AssociationSet>
-          <AssociationSet Name="FK_KHACHHANG_HOADON" Association="Self.FK_KHACHHANG_HOADON">
-            <End Role="KHACHHANG" EntitySet="KHACHHANGs" />
-            <End Role="HOADON" EntitySet="HOADONs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_NHANVIEN_HOADON" Association="Self.FK_NHANVIEN_HOADON">
-            <End Role="NHANVIEN" EntitySet="NHANVIENs" />
-            <End Role="HOADON" EntitySet="HOADONs" />
-          </AssociationSet>
           <AssociationSet Name="FK_SHIPPER_HOADON" Association="Self.FK_SHIPPER_HOADON">
             <End Role="SHIPPER" EntitySet="SHIPPERs" />
             <End Role="HOADON" EntitySet="HOADONs" />
@@ -740,6 +696,10 @@
           <AssociationSet Name="FK_LOAISANPHAM_PRODUCT" Association="QuanLyQuanCoffeeModel.FK_LOAISANPHAM_PRODUCT">
             <End Role="LOAISANPHAM" EntitySet="LOAISANPHAMs" />
             <End Role="PRODUCT" EntitySet="PRODUCTs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TAIKHOAN_HOADON" Association="QuanLyQuanCoffeeModel.FK_TAIKHOAN_HOADON">
+            <End Role="TAIKHOAN" EntitySet="TAIKHOANs" />
+            <End Role="HOADON" EntitySet="HOADONs" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="MAU">
@@ -801,6 +761,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TAIKHOAN_HOADON">
+          <End Type="QuanLyQuanCoffeeModel.TAIKHOAN" Role="TAIKHOAN" Multiplicity="0..1" />
+          <End Type="QuanLyQuanCoffeeModel.HOADON" Role="HOADON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TAIKHOAN">
+              <PropertyRef Name="TenDN" />
+            </Principal>
+            <Dependent Role="HOADON">
+              <PropertyRef Name="TenDN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -810,6 +782,8 @@
           <EntitySetMapping Name="CHITIET_HOADON">
             <EntityTypeMapping TypeName="QuanLyQuanCoffeeModel.CHITIET_HOADON">
               <MappingFragment StoreEntitySet="CHITIET_HOADON">
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
                 <ScalarProperty Name="MaHD" ColumnName="MaHD" />
                 <ScalarProperty Name="MaSP" ColumnName="MaSP" />
                 <ScalarProperty Name="Soluong" ColumnName="Soluong" />
@@ -832,15 +806,16 @@
           <EntitySetMapping Name="HOADONs">
             <EntityTypeMapping TypeName="QuanLyQuanCoffeeModel.HOADON">
               <MappingFragment StoreEntitySet="HOADON">
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="HoTenKH" ColumnName="HoTenKH" />
+                <ScalarProperty Name="TenDN" ColumnName="TenDN" />
                 <ScalarProperty Name="MaHD" ColumnName="MaHD" />
                 <ScalarProperty Name="NgayTD" ColumnName="NgayTD" />
                 <ScalarProperty Name="TongGiaTriHD" ColumnName="TongGiaTriHD" />
                 <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
                 <ScalarProperty Name="TrangThaiDH" ColumnName="TrangThaiDH" />
                 <ScalarProperty Name="MaShipper" ColumnName="MaShipper" />
-                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
-                <ScalarProperty Name="MaNV" ColumnName="MaNV" />
-              </MappingFragment>
+                </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="KHACHHANGs">

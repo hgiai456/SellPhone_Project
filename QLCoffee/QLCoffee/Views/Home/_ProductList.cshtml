@@ -104,7 +104,7 @@
                 max-width: 100%;
                 height: auto;
                 border-bottom: 1px solid #dee2e6;
-                margin-bottom: 10px;
+                margin-bottom: 15px;
             }
 
             .lproduct-item:hover {
@@ -129,28 +129,28 @@
 <body>
     <div class="container">
         <h2 class="section-title">Tìm kiếm và lọc sản phẩm</h2>
-
-            @using (Html.BeginForm("_ProductList", "Home", FormMethod.Get))
-            {
-                <div class="search-container">                    
-                        @Html.TextBoxFor(m => m.SearchTerm, new
-                               {
-                                   @class = "form-control",
-                                   placeholder = "Nhập tên, mô tả hoặc chủng loại sản phẩm"
-                               })                     
-                    <button type="submit" class="btn btn-primary" style="">Tìm kiếm</button>
-                 </div>
-                <div id="div-left">
-                    <div class="form-group">
-                        <label for="productName">Lọc theo tên sản phẩm:</label>
-                        @Html.DropDownListFor(m => m.SelectedProName, Model.ProductNames, "Chọn sản phẩm", new { @class = "form-control" })
-                    </div>
-                    <div class="form-group">
-                        <label for="color">Lọc theo màu sắc:</label>
-                        @Html.DropDownListFor(m => m.SelectedColor, Model.Colors, "Chọn màu sắc", new { @class = "form-control" })
-                    </div>
-                    <button type="submit" class="btn btn-primary">Lọc kết quả</button>
-                </div>}
+        @using (Html.BeginForm("_ProductList", "Home", FormMethod.Get)
+)
+        {
+            <div class="search-container">
+                @Html.TextBoxFor(m => m.SearchTerm, new
+                       {
+                           @class = "form-control",
+                           placeholder = "Nhập tên, mô tả hoặc chủng loại sản phẩm"
+                       })
+                <button type="submit" class="btn btn-primary" style="">Tìm kiếm</button>
+            </div>
+            <div id="div-left">
+                <div class="form-group">
+                    <label for="productName">Lọc theo tên sản phẩm:</label>
+                    @Html.DropDownListFor(m => m.SelectedProName, Model.ProductNames, "Chọn sản phẩm", new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <label for="color">Lọc theo màu sắc:</label>
+                    @Html.DropDownListFor(m => m.SelectedColor, Model.Colors, "Chọn màu sắc", new { @class = "form-control" })
+                </div>
+                <button type="submit" class="btn btn-primary">Lọc kết quả</button>
+            </div>}
 
         <div id="div-content">
             @Html.Partial("_PVProList", Model)

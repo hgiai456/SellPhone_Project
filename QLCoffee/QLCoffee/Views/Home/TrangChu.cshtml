@@ -4,71 +4,147 @@
     Layout = "~/Views/Shared/_LayoutTrangChu.cshtml";
 }
 
+<head>
+  
+    <style>
+        .box-drinks, .fm-drink {
+            height: 150px;
+            width: 150px;
+            border-radius: 10px;
+        }
 
-<style>
-    .box-drinks, .fm-drink {
-        height: 150px;
-        width: 150px;
-        border-radius: 10px;
-    }
+        .box-dess {
+            height: 150px;
+            width: 150px;
+            border-radius: 10px;
+            background-color: saddlebrown;
+        }
 
-    .box-dess {
-        height: 150px;
-        width: 150px;
-        border-radius: 10px;
-        background-color: saddlebrown;
-    }
+        .home-image {
+            width: 450px;
+            height: 600px;
+        }
 
-    .home-image {
-        width: 450px;
-        height: 600px;
-    }
+        .home-des {
+            text-align: center;
+        }
 
-    .home-des {
-        text-align: center;
-    }
+        #font-type {
+            color: #bf9369;
+            font-family: 'Fira Sans';
+            font-weight: bold;
+            font-style: normal;
+            font-size: 24pt;
+        }
 
-    #font-type {
-        color: #bf9369;
-        font-family: 'Fira Sans';
-        font-weight: bold;
-        font-style: normal;
-        font-size: 24pt;
-    }
+        .img_menu {
+            width: 150px;
+            height: 150px;
+            margin-left: 65px;
+            margin-right: 65px;
+        }
+        /* Position the "next button" to the right */
+        ._prev, ._next {
+            position: absolute;
+            top: 50%; /* Căn giữa theo chiều dọc */
+            transform: translateY(-50%); /* Đảm bảo nút nằm chính giữa */
+            color: darkgrey;
+            font-size: 24px;
+            padding: 10px;
+            cursor: pointer;
+            user-select: none; /* Tắt tính năng bôi đen */
+        }
 
-    .img_menu {
-        width: 150px;
-        height: 150px;
-        margin-left: 65px;
-        margin-right: 65px;
-    }
-    /* Position the "next button" to the right */
-    ._prev,._next{
-        position: absolute;
-        top: 50%; /* Căn giữa theo chiều dọc */
-        transform: translateY(-50%); /* Đảm bảo nút nằm chính giữa */
-        color: darkgrey;
-        font-size: 24px;
-        padding: 10px;
-        cursor: pointer;
-        user-select: none; /* Tắt tính năng bôi đen */
-    }
+        ._prev {
+            left: 10px; /* Cách lề trái 10px */
+        }
 
-    ._prev {
-        left: 10px; /* Cách lề trái 10px */
-    }
+        ._next {
+            right: 10px; /* Cách lề phải 10px */
+        }
 
-    ._next {
-        right: 10px; /* Cách lề phải 10px */
-    }
-    ._prev:hover{
-        color:#fff;
-    }
-    ._next:hover {
-        color: #fff;
-    }
+        ._prev:hover {
+            color: #fff;
+        }
 
-</style>
+        ._next:hover {
+            color: #fff;
+        }
+        .listProduct {
+            background-color: #f9f9f9; /* Light background for the container */
+            padding: 20px;
+            border-radius: 8px;
+            color: #333;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .list-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            list-style-type: none;
+            
+            padding: 0;
+            margin: 0;
+        }
+
+        .product-item {
+            background-color: #ffffff; /* White background for each product */
+            width: calc(25% - 10px);
+            
+            border-radius: 8px;
+            text-align: center;           
+            transition: transform 0.3s, background-color 0.3s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow */
+        }
+
+            .product-item:hover {
+                transform: scale(1.05);
+                background-color: #f1f1f1; /* Light gray hover background */
+            }
+
+        .product-img img {
+            max-width: 100%;
+            height: 150px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .product-info {
+            margin-top: 10px;
+        }
+
+        .product-name {
+            font-size: 1rem;
+            font-weight: bold;
+            margin: 10px 0 5px;
+            color: #333;
+        }
+
+        .product-price {
+            color: #f39c12;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .product-sale {
+            color: #8e8e8e;
+            font-size: 0.9rem;
+        }
+        .text-menu{
+            text-align:center;
+        }
+    </style>
+</head>
 <div class="row">
     <div class="container">
 

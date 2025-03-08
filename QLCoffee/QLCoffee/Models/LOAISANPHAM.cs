@@ -22,9 +22,7 @@ namespace QLCoffee.Models
     
         public string MaLoaiSP { get; set; }
         public string TenLoaiSP { get; set; }
-        public string MaNCC { get; set; }
     
-        public virtual NHACUNGCAP NHACUNGCAP { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PRODUCT> PRODUCTs { get; set; }
     }

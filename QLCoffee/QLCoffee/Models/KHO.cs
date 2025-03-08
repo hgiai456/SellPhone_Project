@@ -14,12 +14,13 @@ namespace QLCoffee.Models
     
     public partial class KHO
     {
-        public string MaHH { get; set; }
-        public string TenHH { get; set; }
-        public int SoLuongNhap { get; set; }
-        public Nullable<int> GiaHH { get; set; }
+        public int MaKho { get; set; }
+        public string MaSP { get; set; }
         public string MaNCC { get; set; }
+        public int SoLuongTon { get; set; }
+        public Nullable<System.DateTime> LastUpdate { get; set; }
     
         public virtual NHACUNGCAP NHACUNGCAP { get; set; }
+        public virtual SANPHAM SANPHAM { get; set; }
     }
 }

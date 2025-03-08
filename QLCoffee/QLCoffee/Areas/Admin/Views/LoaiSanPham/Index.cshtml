@@ -16,10 +16,7 @@
         </th>
         <th>
             Tên loại
-        </th>
-        <th>
-            Mã nhà cung cấp
-        </th>
+        </th>       
         <th></th>
     </tr>
 
@@ -32,9 +29,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.TenLoaiSP)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MaNCC)
-            </td>
+           
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.MaLoaiSP }, new { @class = "btn btn-primary" }) |
                 @Html.ActionLink("Details", "Details", new { id = item.MaLoaiSP }, new { @class = "btn btn-dark" }) |

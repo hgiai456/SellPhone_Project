@@ -30,6 +30,8 @@ namespace QLCoffee.Models
         public string Img2 { get; set; }
         public string Img3 { get; set; }
         public string MaLoaiSP { get; set; }
+
+
         [Required(ErrorMessage = "Hay chon file anh")]
         //[RegularExpression(@"[a-zA-Z0-9\s_\\.\-:] + (.png|.jpg|.gif)$",ErrorMessage = "Chi nhan dinh dang .PNG, .JPG , .GIF")]
         [NotMapped]

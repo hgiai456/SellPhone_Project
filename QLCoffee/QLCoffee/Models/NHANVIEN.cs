@@ -17,7 +17,6 @@ namespace QLCoffee.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public NHANVIEN()
         {
-            this.HOADONs = new HashSet<HOADON>();
             this.TAIKHOANs = new HashSet<TAIKHOAN>();
         }
     
@@ -29,8 +28,6 @@ namespace QLCoffee.Models
         public Nullable<System.DateTime> NgaySinh { get; set; }
         public string ChucVu { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HOADON> HOADONs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TAIKHOAN> TAIKHOANs { get; set; }
     }

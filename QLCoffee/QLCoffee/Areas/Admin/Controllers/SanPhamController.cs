@@ -72,8 +72,9 @@ namespace QLCoffee.Areas.Admin.Controllers
             {
                 NgaySX = DateTime.Now
             };
-            ViewBag.IDPro = new SelectList(database.PRODUCTs, "IDPro", "NamePro");
+            ViewBag.IDPro = new SelectList(database.PRODUCTs, "IDPro", "NamePro", sanpham.IDPro);
             ViewBag.MaMau = new SelectList(database.MAUs, "MaMau", "TenMau", sanpham.MaMau);
+            ViewBag.MaDungLuong = new SelectList(database.DUNGLUONGs, "MaDungLuong", "TenDungLuong", sanpham.MaDungLuong);
             return View(sanpham);
         }
         [HttpPost]
@@ -85,6 +86,7 @@ namespace QLCoffee.Areas.Admin.Controllers
                 ModelState.AddModelError("MaSP", "Khóa chính đã tồn tại!");
                 ViewBag.IDPro = new SelectList(database.PRODUCTs, "IDPro", "NamePro", sanpham.IDPro);
                 ViewBag.MaMau = new SelectList(database.MAUs, "MaMau", "TenMau", sanpham.MaMau);
+                ViewBag.MaDungLuong = new SelectList(database.DUNGLUONGs, "MaDungLuong", "TenDungLuong", sanpham.MaDungLuong);
                 return View(sanpham);
             }
       

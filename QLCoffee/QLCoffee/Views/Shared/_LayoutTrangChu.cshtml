@@ -3,19 +3,15 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <link href="https://fonts.googleapis.com/css2?family=Grey+Qo&display=swap" rel="stylesheet"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Grey+Qo&display=swap" rel="stylesheet" />
     <link href="~/Content/mycss/mystyle.css" rel="stylesheet" />
     <title>Bootstrap Example</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <style>
-        body {
-            font-family: Arial;
-            margin: 0;
-        }
 
+    <style>
         * {
             box-sizing: border-box;
         }
@@ -95,15 +91,46 @@
             margin-left: 20px;
         }
 
-        .fm-img-footer {
-            width: 240px;
-            height: 240px;
-        }
 
         #div-footer {
-            width: 100%;
-            clear: both;
+            display: flex;
+            justify-content: space-around; /* Căn đều các khối theo chiều ngang */
+            align-items: flex-start; /* Căn đỉnh các khối theo chiều dọc */
+            padding: 20px;
+            color: white;
+            flex-wrap: wrap; /* Đảm bảo bố cục không bị tràn */
+        }
+
+            #div-footer .col {
+                flex: 1;
+                max-width: 450px; /* Giới hạn chiều rộng mỗi khối */
+                margin: 10px;
+                text-align: left; /* Căn chữ sang trái */
+            }
+
+        .fm-gt-footer img {
+            margin-top: 20px; /* Thêm khoảng cách giữa các nội dung và logo */
+            max-width: 100%; /* Giữ tỷ lệ ảnh */
             height: auto;
+        }
+
+        .fm-gt-footer {
+            padding: 10px;
+        }
+
+        .fm-gt-footer {
+            min-height: 150px; /* Chiều cao tối thiểu cho nội dung trong footer */
+            margin-left: 20px;
+            font-size: medium;
+        }
+
+        .fm-img-footer {
+            margin-top: 55px;
+            margin-bottom: 55px;
+            max-width: 75%;
+            align-items: center;
+            height: auto;
+            margin-left: 100px;
         }
 
         #div-menu {
@@ -118,8 +145,7 @@
             margin: 20px
         }
 
-        .produc {
-        }
+
 
         .navbar-nav {
             display: flex;
@@ -141,10 +167,25 @@
             font-size: 16px;
             color: #fff;
         }
+
+        #div-content-001 {
+            flex-grow: 1; /* Đẩy footer xuống cuối */
+            padding: 0 1px; /* Tạo khoảng cách hai bên */
+            margin: 0; /* Căn giữa nội dung */
+        }
+
+        body {
+            font-family: Arial;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Chiều cao tối thiểu toàn màn hình */
+            padding: 0;
+            margin: 0;
+        }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm p-0 m-0"  id="div-menu">
+    <nav class="navbar navbar-expand-sm p-0 m-0" id="div-menu">
         <div class="container-fluid bg-dark">
             <a class="navbar-brand" href="/Home/TrangChu">
                 <img src="~/Content/Image/logoxoaphong.png" style="width: 80px;height:70px" />
@@ -168,26 +209,26 @@
             </div>
             @if (Session["TenDN"] != null)
             {
-                
+
                 <div style="display:flex;justify-content: flex-end;align-items:center;margin-top:auto;margin-bottom:auto">
-            
-                       
+
+
                     <div class="dropdown">
-                    <button id="dropdownMenuButton"
-                            type="button"
-                            class="btn btn-dark dropdown-toggle"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false">                       
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <li><a class="dropdown-item" href="@Url.Action("Logout", "Login")">Đăng xuất</a></li>
-                        <li><a class="dropdown-item" href="#">Thông tin cá nhân</a></li>
-                    </ul>
-                </div>
+                        <button id="dropdownMenuButton"
+                                type="button"
+                                class="btn btn-dark dropdown-toggle"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item" href="@Url.Action("Logout", "Login")">Đăng xuất</a></li>
+                            <li><a class="dropdown-item" href="#">Thông tin cá nhân</a></li>
+                        </ul>
+                    </div>
                     <div style="display:flex;justify-content: flex-end;align-items:center;margin-top:auto;margin-bottom:auto">
                         <p class="nav-tendn">@Session["TenDN"]</p>
                         <a><img style="width: 30px; height: 30px;" src="~/Content/Image/account_icon.png" /></a>
-                        <a><img style="width: 30px; height: 30px;" src="~/Content/Image/shopping-cart-white.png" /></a>
+                        <a href="@Url.Action("Index", "Cart")"><img style="width: 30px; height: 30px;" src="~/Content/Image/shopping-cart-white.png" /></a>
                     </div>
 
                 </div>
@@ -195,7 +236,7 @@
             else
             {
                 <div class="collapse navbar-collapse" id="collapsibleNavbar" style="display: flex; justify-content: flex-end; align-items: center; margin-top: auto; margin-bottom: auto">
-                <ul class="navbar-nav">
+                    <ul class="navbar-nav">
                         <li class="nav-item">
                             <a href="@Url.Action("Login", "Login")" class="nav-link" style="color:whitesmoke">Đăng nhập</a>
                         </li>
@@ -210,58 +251,58 @@
         @RenderBody()
     </div>
     <div id="div-footer" style="background-color: #343a40 ">
-        <div class="row">
-            <div class="col-sm-4 col-md-4 col-lg-4" style="margin-top: 30px; width: 450px;">
-                <div class="fm-gt-footer" style="color:white">
-                    <h4>VỀ CHÚNG TÔI</h4>
-                    <p>© 2018. Công ty cổ phần Thế Giới Di Động. GPDKKD: 0303217354 do sở KH & ĐT TP.HCM cấp ngày 02/01/2007.</p>
-                    <p>Địa chỉ: 128 Trần Quang Khải, P.Tân Định, Q.1, TP. Hồ Chí Minh. Điện thoại: 028 38125960.</p>
-                    <h4>LIÊN HỆ</h4>
-                    <p>
-                        Email: cs@hgphone.vn
-                        <br />
-                        Representative Store : 91 Đồng Khởi, Bến Nghé, Quận 1, Thành Phố Hồ Chí Minh
-                    </p>
-                </div>
-            </div>
-            <div class="col-sm-4 col-md-4 col-lg-4" style="margin-top: 30px; width: 450px">
-                <div class="fm-gt-footer" style="color:white">
 
-
-                    <h4>HỖ TRỢ VÀ CHÍNH SÁCH</h4>
-                    <p>
-                        – Quy chế hoạt động và Chính sách bảo mật.
-                        <br />
-                        – Chính sách thanh toán.
-                        <br />
-                        – Chính sách thanh toán.
-                    </p>
-                    <p>
-                        Giấy chứng nhận Đăng kí kinh doanh số 0316612746 do Sở Kế hoạch và Đầu tư. Thành phố Hồ Chí Minh cấp ngày 27/11/2020.
-
-                    </p>
-                </div>
-                <div>
-
-                    <a href="https://www.instagram.com/katinatvn">
-                        <img src="~/Content/Image/logoigtrangreal.png" style="margin-left: 50px; margin-top: 30px; width: 30px; height: 30px" />
-
-                    </a>
-                    <a href="https://www.facebook.com/katinat.vn">
-                        <img src="~/Content/Image/logofb.png" style="margin-left: 50px; margin-top: 30px; width: 50px; height: 50px" />
-                    </a>
-                </div>
-            </div>
-            <div class="col-sm-4 col-md-4 col-lg-4" style="margin-left: 200px; margin-top: 30px; width: 200px">
-                <div>
-                    <img src="~/Content/Image/logodaxoaphong.png" class="fm-img-footer" />
-
-                </div>
-
+        <div class="col">
+            <div class="fm-gt-footer" style="color:white">
+                <h4>VỀ CHÚNG TÔI</h4>
+                <p>© 2018. Công ty cổ phần Thế Giới Di Động. GPDKKD: 0303217354 do sở KH & ĐT TP.HCM cấp ngày 02/01/2007.</p>
+                <p>Địa chỉ: 128 Trần Quang Khải, P.Tân Định, Q.1, TP. Hồ Chí Minh. Điện thoại: 028 38125960.</p>
+                <h4>LIÊN HỆ</h4>
+                <p>
+                    Email: cs@hgphone.vn
+                    <br />
+                    Representative Store : 91 Đồng Khởi, Bến Nghé, Quận 1, Thành Phố Hồ Chí Minh
+                </p>
             </div>
         </div>
+        <div class="col">
+            <div class="fm-gt-footer" style="color:white">
 
+
+                <h4>HỖ TRỢ VÀ CHÍNH SÁCH</h4>
+                <p>
+                    – Quy chế hoạt động và Chính sách bảo mật.
+                    <br />
+                    – Chính sách thanh toán.
+                    <br />
+                    – Chính sách thanh toán.
+                </p>
+                <p>
+                    Giấy chứng nhận Đăng kí kinh doanh số 0316612746 do Sở Kế hoạch và Đầu tư. Thành phố Hồ Chí Minh cấp ngày 27/11/2020.
+
+                </p>
+            </div>
+            <div>
+
+                <a href="https://www.instagram.com/katinatvn">
+                    <img src="~/Content/Image/logoigtrangreal.png" style="margin-left: 50px; margin-top: 30px; width: 30px; height: 30px" />
+
+                </a>
+                <a href="https://www.facebook.com/katinat.vn">
+                    <img src="~/Content/Image/logofb.png" style="margin-left: 50px; margin-top: 30px; width: 50px; height: 50px" />
+                </a>
+            </div>
+        </div>
+        <div class="col">
+            <div>
+                <img src="~/Content/Image/logodaxoaphong.png" class="fm-img-footer" />
+
+            </div>
+
+        </div>
     </div>
+
+
 
 </body>
 </html>

@@ -23,23 +23,30 @@
 
         .product-container {
             display: flex;
-            max-width: 1200px;
-            margin: 20px auto;
+            max-width: 100%;
+            margin-left: 100px;
+            margin-right: 100px;
+            margin-top:10px;
             padding: 20px;
             background-color: #fff;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
+
         }
 
         .product-left {
-            flex: 1;
-            margin-right: 20px;
+            flex: 1;            
+            margin-left: 250px;
+        }
+        .product-right {
+            flex: 2;
+            text-align: left;
+            margin-left: 50px;
         }
 
         .product-main-image {
-            width: 100%;
             border-radius: 8px;
-            margin-bottom: 10px;
+            margin-bottom: 10px;            
         }
 
         .thumbnail-gallery {
@@ -83,10 +90,7 @@
             color: #555;
         }
 
-        .product-right {
-            flex: 2;
-        }
-
+       
         .product-title {
             font-size: 22px;
             font-weight: bold;
@@ -182,8 +186,59 @@
             .add-to-cart:hover {
                 background-color: #e03e00;
             }
+        h2.section-title {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #333333;
+        }
+
+        .list-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            gap: 10px;
+            list-style: none;
+            padding: 0;
+        }
+
+        .lproduct-item {
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: calc(25% - 18px); /* 1 hàng chứa 3 sản phẩm */
+            margin: 5px; /* Tạo khoảng cách giữa các item */
+            padding: 5px; /* Khoảng cách bên trong item */
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+        }
+
+            .lproduct-item img {
+                max-width: 100%;
+                height: auto;
+                border-bottom: 1px solid #dee2e6;
+                margin-bottom: 10px;
+            }
+
+            .lproduct-item:hover {
+                transform: translateY(-5px);
+            }
+
+        .proPrice {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .proName {
+            font-size: 16px;
+            color: #333333;
+        }
+
+        .proSale {
+            color: #6c757d;
+        }
     </style>
-    <link href="~/Content/mycss/style.css" rel="stylesheet" />
 
     <script>
         // Select all thumbnail images
@@ -200,9 +255,8 @@
 </head>
 
 <body>
-    
-    <div class="product-container">
-       
+
+    <div class="product-container">      
         <div class="product-left">
             <!-- Main Product Image -->
             <img id="mainImage" class="product-main-image" src="@Url.Content(Model.sanpham.PRODUCT.Img1)" alt="Main Product Image">
@@ -224,7 +278,7 @@
                 <span>@Model.sanpham.CHITIET_HOADON.Count Đã Bán </span>
             </p>
             <p class="product-price">
-                <span class="current-price">@Model.sanpham.GiaSP VND</span>
+                <span class="current-price">@string.Format("{0:N0} VNĐ", Model.sanpham.GiaSP)</span>
 
             </p>
             <div class="product-promotions">
@@ -246,9 +300,11 @@
                     <button>1T</button>
                     <button>128GB</button>
                 </div>
+            </div>           
+                <a class="add-to-cart btn btn-primary col-6" href="@Url.Action("AddToCart", "Cart", new { id = Model.sanpham.MaSP, quantity = 1 })">
+                    Thêm vào giỏ hàng
+                </a>           
             </div>
-            <button class="add-to-cart btn btn-primary">Thêm vào giỏ hàng</button>
-        </div>
     </div>
     <hr />
     @*Hiển thị sp nổi bật*@

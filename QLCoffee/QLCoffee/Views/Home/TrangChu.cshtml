@@ -4,119 +4,221 @@
     Layout = "~/Views/Shared/_LayoutTrangChu.cshtml";
 }
 
+<head>
 
-<style>
-    .box-drinks, .fm-drink {
-        height: 150px;
-        width: 150px;
-        border-radius: 10px;
-    }
+    <style>
+        .box-drinks, .fm-drink {
+            height: 150px;
+            width: 150px;
+            border-radius: 10px;
+        }
 
-    .box-dess {
-        height: 150px;
-        width: 150px;
-        border-radius: 10px;
-        background-color: saddlebrown;
-    }
+        .box-dess {
+            height: 150px;
+            width: 150px;
+            border-radius: 10px;
+            background-color: saddlebrown;
+        }
 
-    .home-image {
-        width: 450px;
-        height: 600px;
-    }
+        .home-image {
+            width: 450px;
+            height: 600px;
+        }
 
-    .home-des {
-        text-align: center;
-    }
+        .home-des {
+            text-align: center;
+        }
 
-    #font-type {
-        color: #bf9369;
-        font-family: 'Fira Sans';
-        font-weight: bold;
-        font-style: normal;
-        font-size: 24pt;
-    }
+        #font-type {
+            color: #bf9369;
+            font-family: 'Fira Sans';
+            font-weight: bold;
+            font-style: normal;
+            font-size: 24pt;
+        }
 
-    .img_menu {
-        width: 150px;
-        height: 150px;
-        margin-left: 65px;
-        margin-right: 65px;
-    }
-    /* Position the "next button" to the right */
-    ._prev,._next{
-        position: absolute;
-        top: 50%; /* Căn giữa theo chiều dọc */
-        transform: translateY(-50%); /* Đảm bảo nút nằm chính giữa */
-        color: darkgrey;
-        font-size: 24px;
-        padding: 10px;
-        cursor: pointer;
-        user-select: none; /* Tắt tính năng bôi đen */
-    }
 
-    ._prev {
-        left: 10px; /* Cách lề trái 10px */
-    }
+        /* Position the "next button" to the right */
+        /* Đặt chiều rộng và chiều cao của slider */
+        .slider {
+            position: relative;
+            width: 100%;
+            height: auto; /* Chiều cao toàn màn hình */
+            overflow: hidden;
+            margin: 0; /* Loại bỏ viền hoặc khoảng trống */
+            padding: 0;
+        }
 
-    ._next {
-        right: 10px; /* Cách lề phải 10px */
-    }
-    ._prev:hover{
-        color:#fff;
-    }
-    ._next:hover {
-        color: #fff;
-    }
+        /* Định dạng ảnh trong slider */
+        .slides img {
+            width: 100%; /* Độ rộng 100% */
+            height: 500px; /* Chiều cao toàn màn hình */
+            object-fit: cover; /* Giữ tỷ lệ ảnh, cắt phần thừa */
+        }
 
-</style>
-<div class="row">
-    <div class="container">
+        /* Nút chuyển slide */
+        .prev, .next {
+            position: absolute;
+            top: 50%; /* Đặt nút giữa theo chiều dọc */
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 10;
+        }
 
-        <a class="_prev" onclick="plusSlides(-1)" >❮</a>
-        <a class="_next" onclick="plusSlides(1)">❯</a>
-        <div class="mySlides">
-            <div class="numbertext"></div>
-            <img src="~/Content/Image/baner_ip.jpg" style="width: 100%; height: 500px; " />
-        </div>
-        <div class="mySlides">
-            <div class="numbertext"></div>
-            <img src="~/Content/Image/baner_dongho.jpg" style="width: 100%; height: 500px " />
-        </div>
+        /* Đặt vị trí nút */
+        .prev {
+            left: 10px;
+        }
 
-        <div class="mySlides">
-            <div class="numbertext"></div>
-            <img src="~/Content/Image/baner_taynghe.jpg" style="width: 100%; height: 500px " />
-        </div>
+        .next {
+            right: 10px;
+        }
+
+        /* Hiển thị slide đầu tiên */
+        .slides {
+            display: none;
+        }
+
+            .slides:first-child {
+                display: block;
+            }
+
+        .listProduct {
+            background-color: #f9f9f9; /* Light background for the container */
+            padding: 20px;
+            border-radius: 8px;
+            color: #333;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .list-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .product-item {
+            background-color: #ffffff; /* White background for each product */
+            width: calc(25% - 10px);
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s, background-color 0.3s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow */
+        }
+
+            .product-item:hover {
+                transform: scale(1.05);
+                background-color: #f1f1f1; /* Light gray hover background */
+            }
+
+        .product-img img {
+            max-width: 100%;
+            height: 150px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .product-info {
+            margin-top: 10px;
+        }
+
+        .product-name {
+            font-size: 1rem;
+            font-weight: bold;
+            margin: 10px 0 5px;
+            color: #333;
+        }
+
+        .product-price {
+            color: #f39c12;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .product-sale {
+            color: #8e8e8e;
+            font-size: 0.9rem;
+        }
+
+        .img_menu {
+            width: 250px;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .text-menu {
+            font-size: 16px;
+            font-weight: bold;
+            color: #354F52;
+            margin-bottom: 50px;
+        }
+
+        .list-items {
+            flex: 0 0 auto; /* Đảm bảo các item không co giãn */
+            text-align: center; /* Căn giữa nội dung */
+            border-radius: 5px;
+        }
+
+
+            .list-items:hover {
+                transform: scale(1.1); /* Phóng to mục */
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Thêm bóng */
+            }
+
+                .list-items:hover img {
+                    transform: scale(1.2); /* Phóng to hình ảnh trong mục */
+                }
+    </style>
+</head>
+
+
+
+<div class="slider">
+    <button class="prev" onclick="plusSlides(-1)">❮</button>
+    <button class="next" onclick="plusSlides(1)">❯</button>
+    <div class="slides">
+        <img src="~/Content/Image/baner_ip.jpg" alt="Slide 1" />
+    </div>
+    <div class="slides">
+        <img src="~/Content/Image/baner_dongho.jpg" alt="Slide 2" />
+    </div>
+    <div class="slides">
+        <img src="~/Content/Image/baner_taynghe.jpg" alt="Slide 3" />
     </div>
 </div>
+
 <script>
-    let slideIndex = 1;
+    let slideIndex = 0;
     showSlides(slideIndex);
 
     function plusSlides(n) {
         showSlides(slideIndex += n);
     }
 
-    function currentSlide(n) {
-        showSlides(slideIndex = n);
-    }
-
     function showSlides(n) {
-        let i;
-        let slides = document.getElementsByClassName("mySlides");
-        let dots = document.getElementsByClassName("demo");
-        let captionText = document.getElementById("caption");
-        if (n > slides.length) { slideIndex = 1 }
-        if (n < 1) { slideIndex = slides.length }
-        for (i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
-        }
-        for (i = 0; i < dots.length; i++) {
-            dots[i].className = dots[i].className.replace(" active", "");
-        }
-        slides[slideIndex - 1].style.display = "block";
-        dots[slideIndex - 1].className += " active";
-        captionText.innerHTML = dots[slideIndex - 1].alt;
+        const slides = document.querySelectorAll('.slides');
+        if (n >= slides.length) slideIndex = 0;
+        if (n < 0) slideIndex = slides.length - 1;
+        slides.forEach(slide => slide.style.display = 'none');
+        slides[slideIndex].style.display = 'block';
+
     }</script>
 
 <div class="container-fluid">
@@ -141,34 +243,36 @@
 </div>
 <hr />
 <!--Phần sản phẩm nổi bật-->
-@Html.Partial("_PVFeatuedProduct",Model)
+@Html.Partial("_PVFeatuedProduct", Model)
 <!--Phần sản phẩm mới-->
-@Html.Partial("_PVNewProduct",Model)
-<br/>
-<br/>
+@Html.Partial("_PVNewProduct", Model)
+<br />
+<br />
 <div style=" text-align: center; font-size: 48px; color: #6e6e73;">Các thiết bị và phụ kiện mà chung tôi cung cấp</div>
-<div class="row">
-    <div class="col" style="">
-        <a href="https://www.apple.com/vn-edu/store">
-            <img class="img_menu" src="~/Content/Image/iphone.png" />
-        </a>
-        <div class="text-menu">Iphone</div>
-    </div>
-    <div class="col">
-        <img class="img_menu" src="~/Content/Image/mac.png" />
-        <div class="text-menu">Mac</div>
-    </div>
-    <div class="col">
-        <img class="img_menu" src="~/Content/Image/Tainghe.png" />
-        <div class="text-menu">Tai nghe</div>
-    </div>
-    <div class="col">
-        <img class="img_menu" src="~/Content/Image/phukien.png" />
-        <div class="text-menu">Phụ kiện</div>
-    </div>
-    <div class="col" >
-        <img class="img_menu" src="~/Content/Image/ipad.png" />
-        <div class="text-menu">Ipad</div>
+<div style="margin-top:30px;margin-bottom:30px">
+    <div class="d-flex justify-content-center flex-wrap">
+        <div class="list-items text-center mx-3">
+            <a href="https://www.apple.com/vn-edu/store">
+                <img class="img_menu" src="~/Content/Image/iphone.png" alt="Iphone" />
+            </a>
+            <div class="text-menu">Iphone</div>
+        </div>
+        <div class="list-items text-center mx-3">
+            <img class="img_menu" src="~/Content/Image/mac.png" alt="Mac" />
+            <div class="text-menu">Mac</div>
+        </div>
+        <div class="list-items text-center mx-3">
+            <img class="img_menu" src="~/Content/Image/Tainghe.png" alt="Tai nghe" />
+            <div class="text-menu">Tai nghe</div>
+        </div>
+        <div class="list-items text-center mx-3">
+            <img class="img_menu" src="~/Content/Image/phukien.png" alt="Phụ kiện" />
+            <div class="text-menu">Phụ kiện</div>
+        </div>
+        <div class="list-items text-center mx-3">
+            <img class="img_menu" src="~/Content/Image/ipad.png" alt="Ipad" />
+            <div class="text-menu">Ipad</div>
+        </div>
     </div>
 </div>
 <hr />
@@ -208,7 +312,7 @@
 
 
         </div>
-        <div class=" col-lg-7" style="color: #354F52; width: 650px; display:block ;margin-top: 200px;margin-left:100px" ;>
+        <div class=" col-lg-6" style="color: #354F52; width: 650px; display:block ;margin-top: 200px;margin-left:100px" ;>
             <h1> <span style="color: #bf9369; font-size: 36pt; letter-spacing: inherit;">Về Cửa Hàng</span></h1>
             <p></p>
             <p>

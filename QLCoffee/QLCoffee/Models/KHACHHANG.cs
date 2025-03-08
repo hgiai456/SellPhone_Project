@@ -18,7 +18,6 @@ namespace QLCoffee.Models
         public KHACHHANG()
         {
             this.DANHGIAs = new HashSet<DANHGIA>();
-            this.HOADONs = new HashSet<HOADON>();
             this.TAIKHOANs = new HashSet<TAIKHOAN>();
         }
     
@@ -30,8 +29,6 @@ namespace QLCoffee.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DANHGIA> DANHGIAs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HOADON> HOADONs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TAIKHOAN> TAIKHOANs { get; set; }
     }

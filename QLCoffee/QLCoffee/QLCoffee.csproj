@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\EntityFramework.6.5.1\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" />
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -46,10 +46,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\lib\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
@@ -79,8 +79,8 @@
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
-    <Reference Include="System.Text.Encodings.Web, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Text.Encodings.Web.9.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
+    <Reference Include="System.Text.Encodings.Web, Version=9.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.9.0.2\lib\net462\System.Text.Encodings.Web.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -152,6 +152,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\DUNGLUONGsController.cs" />
     <Compile Include="Areas\Admin\Controllers\HoaDonController.cs" />
     <Compile Include="Areas\Admin\Controllers\KhachHangController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoaiSanPhamController.cs" />
@@ -161,33 +162,21 @@
     <Compile Include="Areas\Admin\Controllers\PRODUCTsController.cs" />
     <Compile Include="Areas\Admin\Controllers\SanPhamController.cs" />
     <Compile Include="Areas\Admin\Controllers\TaiKhoanController.cs" />
-    <Compile Include="Controllers\detailPDController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CHITIET_HOADON.cs">
       <DependentUpon>EntitiesDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\mapSanPham.cs" />
     <Compile Include="Models\DANHGIA.cs">
       <DependentUpon>EntitiesDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\EntitiesDB.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EntitiesDB.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\EntitiesDB.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
+    <Compile Include="Models\DUNGLUONG.cs">
       <DependentUpon>EntitiesDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\EntitiesDB.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EntitiesDB.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\HOADON.cs">
       <DependentUpon>EntitiesDB.tt</DependentUpon>
@@ -203,6 +192,22 @@
     </Compile>
     <Compile Include="Models\LOAISANPHAM.cs">
       <DependentUpon>EntitiesDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\mapSanPham.cs" />
+    <Compile Include="Models\EntitiesDB.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntitiesDB.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EntitiesDB.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntitiesDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EntitiesDB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntitiesDB.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\MAU.cs">
       <DependentUpon>EntitiesDB.tt</DependentUpon>
@@ -225,13 +230,27 @@
     <Compile Include="Models\TAIKHOAN.cs">
       <DependentUpon>EntitiesDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModel\Cart.cs" />
+    <Compile Include="Models\ViewModel\CartItem.cs" />
+    <Compile Include="Models\ViewModel\CartService.cs" />
+    <Compile Include="Models\ViewModel\CartVM.cs" />
+    <Compile Include="Models\ViewModel\CheckoutVM.cs" />
+    <Compile Include="Models\ViewModel\LoginService.cs" />
     <Compile Include="Models\ViewModel\HomeProductVM.cs" />
     <Compile Include="Models\ViewModel\Metadata.cs" />
+    <Compile Include="Models\ViewModel\OTPViewModel.cs" />
     <Compile Include="Models\ViewModel\PartialClasses.cs" />
     <Compile Include="Models\ViewModel\ProductVM.cs" />
+    <Compile Include="Models\ViewModel\ResetPasswordViewModel.cs" />
     <Compile Include="Models\ViewModel\SearchProductVM.cs" />
     <Compile Include="Models\ViewModel\ProListVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\Email\EmailServiceFactory.cs" />
+    <Compile Include="Service\Email\GmailService.cs" />
+    <Compile Include="Service\Email\IEmailService.cs" />
+    <Compile Include="Service\OTP\IOTPStrategy.cs" />
+    <Compile Include="Service\OTP\OTPManager.cs" />
+    <Compile Include="Service\OTP\RandomOTPStrategy.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Content\css\bootstrap-grid.css" />
@@ -251,6 +270,7 @@
     <Content Include="Areas\Admin\Content\css\bootstrap.rtl.css" />
     <Content Include="Areas\Admin\Content\css\bootstrap.rtl.min.css" />
     <Content Include="Areas\Admin\Content\css\Site.css" />
+    <Content Include="Areas\Admin\Content\MyCss\AdminStyle.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -312,12 +332,14 @@
     <Content Include="Content\Image\tainghe_sizenho.png" />
     <Content Include="Content\Image\thit-nuong-bbq.jpg" />
     <Content Include="Content\Image\tobboki.jpg" />
+    <Content Include="Content\Image\trash.png" />
     <Content Include="Content\Image\trasua.png" />
     <Content Include="Content\Image\tratc.png" />
     <Content Include="Content\Image\Tteokbokki.jpg" />
     <Content Include="Content\Image\Ungdungreal.png" />
     <Content Include="Content\Image\watch.png" />
     <Content Include="Content\mycss\GiaiStyle.css" />
+    <Content Include="Content\mycss\LoginStyle.css" />
     <Content Include="Content\mycss\mystyle.css" />
     <Content Include="Content\mycss\Mycss.css" />
     <Content Include="Content\mycss\style.css" />
@@ -413,6 +435,12 @@
     <Content Include="Areas\Admin\Content\css\bootstrap.rtl.css.map" />
     <Content Include="Areas\Admin\Content\css\bootstrap.rtl.min.css.map" />
     <Content Include="Areas\Admin\Views\SanPham\PVListProduct.cshtml" />
+    <Content Include="Areas\Admin\Views\HoaDon\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\DUNGLUONGs\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\DUNGLUONGs\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\DUNGLUONGs\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\DUNGLUONGs\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\DUNGLUONGs\Delete.cshtml" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />
@@ -453,6 +481,12 @@
     <Content Include="Views\Home\_PVTopProduct.cshtml" />
     <Content Include="Views\Home\_ProductList.cshtml" />
     <Content Include="Views\Home\_PVProList.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Order\Checkout.cshtml" />
+    <Content Include="Views\Order\OrderSuccess.cshtml" />
+    <Content Include="Views\Login\ForgotPassword.cshtml" />
+    <Content Include="Views\Login\VerifyOTP.cshtml" />
+    <Content Include="Views\Login\ResetPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -521,11 +555,11 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets'))" />
-    <Error Condition="!Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.5.1\build\EntityFramework.props'))" />
-    <Error Condition="!Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.5.1\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
   </Target>
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" />
-  <Import Project="..\packages\EntityFramework.6.5.1\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.targets')" />
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

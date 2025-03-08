@@ -29,7 +29,6 @@ namespace QLCoffee.Models
         public virtual DbSet<DANHGIA> DANHGIAs { get; set; }
         public virtual DbSet<HOADON> HOADONs { get; set; }
         public virtual DbSet<KHACHHANG> KHACHHANGs { get; set; }
-        public virtual DbSet<KHO> KHOes { get; set; }
         public virtual DbSet<KHUYENMAI> KHUYENMAIs { get; set; }
         public virtual DbSet<LOAISANPHAM> LOAISANPHAMs { get; set; }
         public virtual DbSet<NHACUNGCAP> NHACUNGCAPs { get; set; }
@@ -39,5 +38,7 @@ namespace QLCoffee.Models
         public virtual DbSet<TAIKHOAN> TAIKHOANs { get; set; }
         public virtual DbSet<MAU> MAUs { get; set; }
         public virtual DbSet<PRODUCT> PRODUCTs { get; set; }
+        public virtual DbSet<DUNGLUONG> DUNGLUONGs { get; set; }
+        public virtual DbSet<KHO> KHOes { get; set; }
     }
 }

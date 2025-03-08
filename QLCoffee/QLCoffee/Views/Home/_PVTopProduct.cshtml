@@ -24,8 +24,7 @@
                             </a>
                         </div>
                         <div>
-
-                            <p class="proPrice">@sanpham.GiaSP</p>
+                            <p class="proPrice">@string.Format("{0:N0} VNĐ", sanpham.GiaSP)</p>
                             <p class="proName">@sanpham.TenSP</p>
                             <p class="proSale">Đã bán:&nbsp;@Html.DisplayFor(modelItem => sanpham.CHITIET_HOADON.Count)</p>
                         </div>

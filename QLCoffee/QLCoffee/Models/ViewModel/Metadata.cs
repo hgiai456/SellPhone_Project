@@ -14,9 +14,18 @@ namespace QLCoffee.Models.ViewModel
         [Required(ErrorMessage = "Error Empty")]
 
         public string TenDN { get; set; }
+
+        [DisplayName("Email")]
+        [Required(ErrorMessage = "Error Empty")]
+        public string Email { get; set; }
+
         [DisplayName("MatKhau")]
         [Required(ErrorMessage = "Error Empty")]
         public string MatKhau { get; set; }
+        [NotMapped]
+        [Required(ErrorMessage = "Error Empty")]
+        [Compare("MatKhau")]
+        public string RePass { get; set; }
 
         private string _PhanQuyen;
         [DisplayName("PhanQuyen")]
@@ -25,22 +34,12 @@ namespace QLCoffee.Models.ViewModel
         public string PhanQuyen
         {
             get { return _PhanQuyen; }
-            set { _PhanQuyen = value?.Trim(); } // Loại bỏ khoảng trắng khi gán giá trị
+            set { _PhanQuyen = value?.Trim(); }
         }
         public string MaKH { get; set; }
         public string MaNV { get; set; }
-    }
-    public class SANPHAMMetadata
-    {
-        public string MaSP { get; set; }
-        public string TenSP { get; set; }
-        public int GiaSP { get; set; }
-        public Nullable<int> SoLuongSP { get; set; }
-        public Nullable<System.DateTime> NgaySX { get; set; }
-        public string Image1 { get; set; }
-        public Nullable<int> MaMau { get; set; }
-        public string IDPro { get; set; }
-        public Nullable<int> SoLuongDaBan { get; set; }
+
+
     }
     public class PRODUCTMetadata
     {
@@ -51,6 +50,22 @@ namespace QLCoffee.Models.ViewModel
         public string Img2 { get; set; }
         public string Img3 { get; set; }
         public string MaLoaiSP { get; set; }
-        
+
+
+        [Required(ErrorMessage = "Hay chon file anh")]
+        //[RegularExpression(@"[a-zA-Z0-9\s_\\.\-:] + (.png|.jpg|.gif)$",ErrorMessage = "Chi nhan dinh dang .PNG, .JPG , .GIF")]
+        [NotMapped]
+        public HttpPostedFileBase UploadImage { get; set; } //Anh 1
+
+        [Required(ErrorMessage = "Hay chon file anh")]
+        //[RegularExpression(@"[a-zA-Z0-9\s_\\.\-:] + (.png|.jpg|.gif)$",ErrorMessage = "Chi nhan dinh dang .PNG, .JPG , .GIF")]
+        [NotMapped]
+        public HttpPostedFileBase UploadImage1 { get; set; } //Anh 1
+
+        [Required(ErrorMessage = "Hay chon file anh")]
+        //[RegularExpression(@"[a-zA-Z0-9\s_\\.\-:] + (.png|.jpg|.gif)$",ErrorMessage = "Chi nhan dinh dang .PNG, .JPG , .GIF")]
+        [NotMapped]
+        public HttpPostedFileBase UploadImage2 { get; set; } //Anh 1
+
     }
 }

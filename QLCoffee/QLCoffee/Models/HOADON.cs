@@ -21,18 +21,18 @@ namespace QLCoffee.Models
         }
     
         public string MaHD { get; set; }
-        public Nullable<System.DateTime> NgayTD { get; set; }
-        public Nullable<int> TongGiaTriHD { get; set; }
+        public System.DateTime NgayTD { get; set; }
+        public int TongGiaTriHD { get; set; }
         public string GhiChu { get; set; }
         public string TrangThaiDH { get; set; }
         public string MaShipper { get; set; }
-        public string MaKH { get; set; }
-        public string MaNV { get; set; }
+        public string TenDN { get; set; }
+        public string HoTenKH { get; set; }
+        public string SDT { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CHITIET_HOADON> CHITIET_HOADON { get; set; }
-        public virtual KHACHHANG KHACHHANG { get; set; }
-        public virtual NHANVIEN NHANVIEN { get; set; }
         public virtual SHIPPER SHIPPER { get; set; }
+        public virtual TAIKHOAN TAIKHOAN { get; set; }
     }
 }

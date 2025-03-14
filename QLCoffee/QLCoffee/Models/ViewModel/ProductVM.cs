@@ -10,11 +10,11 @@ namespace QLCoffee.Models.ViewModel
     public class ProductVM
     {  
         public SANPHAM sanpham { get; set; }
-        public int quantity { get; set; }
-        public int estimatedValue { get; set; }
+        public int quantity { get; set; } 
+        public int estimatedValue { get; set; } 
          
-        // Thuộc tính hổ trợ lớp phân trang
-        public int PageNumber { get; set; }
+        // Thuộc tính hổ trợ lớp phân trang 
+        public int PageNumber { get; set; } 
         public int PageSize { get; set; } = 3;
 
         //8 san pham cung danh mục

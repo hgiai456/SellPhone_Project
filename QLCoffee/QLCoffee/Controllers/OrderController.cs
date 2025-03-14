@@ -158,7 +158,6 @@ namespace QLCoffee.Controllers
             if(order == null)
             {
                 return RedirectToAction("TrangChu", "Home");
-
             }
 
             var model = new CheckoutVM

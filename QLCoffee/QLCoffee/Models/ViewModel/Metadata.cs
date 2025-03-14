@@ -14,10 +14,14 @@ namespace QLCoffee.Models.ViewModel
         [Required(ErrorMessage = "Error Empty")]
 
         public string TenDN { get; set; }
+
+        [DisplayName("Email")]
+        [Required(ErrorMessage = "Error Empty")]
+        public string Email { get; set; }
+
         [DisplayName("MatKhau")]
         [Required(ErrorMessage = "Error Empty")]
         public string MatKhau { get; set; }
-
         [NotMapped]
         [Required(ErrorMessage = "Error Empty")]
         [Compare("MatKhau")]
@@ -30,12 +34,12 @@ namespace QLCoffee.Models.ViewModel
         public string PhanQuyen
         {
             get { return _PhanQuyen; }
-            set { _PhanQuyen = value?.Trim(); } // Loại bỏ khoảng trắng khi gán giá trị
+            set { _PhanQuyen = value?.Trim(); }
         }
         public string MaKH { get; set; }
         public string MaNV { get; set; }
 
-       
+
     }
     public class PRODUCTMetadata
     {

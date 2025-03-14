@@ -1,0 +1,48 @@
+﻿@model IEnumerable<QLCoffee.Models.DUNGLUONG>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>QUẢN LÝ DUNG LƯỢNG</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success" })
+</p>
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>
+                Mã dung lượng
+            </th>
+            <th>
+                Kích thước
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaDungLuong)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.KichThuocDL)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.MaDungLuong }, new { @class = "btn btn-sm btn-primary" }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.MaDungLuong }, new { @class = "btn btn-sm btn-dark" }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.MaDungLuong }, new { @class = "btn btn-sm btn-danger" })
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+
+

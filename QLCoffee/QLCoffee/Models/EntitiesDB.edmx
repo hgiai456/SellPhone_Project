@@ -28,6 +28,13 @@
           <Property Name="NoiDung" Type="nvarchar" MaxLength="255" />
           <Property Name="NgayDanhGia" Type="date" Nullable="false" />
         </EntityType>
+        <EntityType Name="DUNGLUONG">
+          <Key>
+            <PropertyRef Name="MaDungLuong" />
+          </Key>
+          <Property Name="MaDungLuong" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KichThuocDL" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="HOADON">
           <Key>
             <PropertyRef Name="MaHD" />
@@ -54,13 +61,13 @@
         </EntityType>
         <EntityType Name="KHO">
           <Key>
-            <PropertyRef Name="MaHH" />
+            <PropertyRef Name="MaKho" />
           </Key>
-          <Property Name="MaHH" Type="char" MaxLength="4" Nullable="false" />
-          <Property Name="TenHH" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="SoLuongNhap" Type="int" Nullable="false" />
-          <Property Name="GiaHH" Type="int" />
-          <Property Name="MaNCC" Type="char" MaxLength="4" />
+          <Property Name="MaKho" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaSP" Type="char" MaxLength="4" />
+          <Property Name="MaNCC" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="SoLuongTon" Type="int" Nullable="false" />
+          <Property Name="LastUpdate" Type="datetime" />
         </EntityType>
         <EntityType Name="KHUYENMAI">
           <Key>
@@ -76,7 +83,6 @@
           </Key>
           <Property Name="MaLoaiSP" Type="char" MaxLength="4" Nullable="false" />
           <Property Name="TenLoaiSP" Type="nvarchar" MaxLength="30" />
-          <Property Name="MaNCC" Type="char" MaxLength="4" />
         </EntityType>
         <EntityType Name="MAU">
           <Key>
@@ -132,6 +138,7 @@
           <Property Name="MaMau" Type="int" />
           <Property Name="IDPro" Type="char" MaxLength="4" />
           <Property Name="SoLuongDaBan" Type="int" />
+          <Property Name="MaDungLuong" Type="int" />
         </EntityType>
         <EntityType Name="SHIPPER">
           <Key>
@@ -149,7 +156,20 @@
           <Property Name="PhanQuyen" Type="varchar" MaxLength="1" />
           <Property Name="MaKH" Type="char" MaxLength="6" />
           <Property Name="MaNV" Type="char" MaxLength="4" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <Association Name="FK_DUNGLUONG_SANPHAM">
+          <End Role="DUNGLUONG" Type="Self.DUNGLUONG" Multiplicity="0..1" />
+          <End Role="SANPHAM" Type="Self.SANPHAM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DUNGLUONG">
+              <PropertyRef Name="MaDungLuong" />
+            </Principal>
+            <Dependent Role="SANPHAM">
+              <PropertyRef Name="MaDungLuong" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_HOADON_CHITIETHOADON">
           <End Role="HOADON" Type="Self.HOADON" Multiplicity="1" />
           <End Role="CHITIET_HOADON" Type="Self.CHITIET_HOADON" Multiplicity="*" />
@@ -223,25 +243,15 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_NHACUNGCAP_KHO">
-          <End Role="NHACUNGCAP" Type="Self.NHACUNGCAP" Multiplicity="0..1" />
+          <End Role="NHACUNGCAP" Type="Self.NHACUNGCAP" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="KHO" Type="Self.KHO" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="NHACUNGCAP">
               <PropertyRef Name="MaNCC" />
             </Principal>
             <Dependent Role="KHO">
-              <PropertyRef Name="MaNCC" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_NHACUNGCAP_LOAISANPHAM">
-          <End Role="NHACUNGCAP" Type="Self.NHACUNGCAP" Multiplicity="0..1" />
-          <End Role="LOAISANPHAM" Type="Self.LOAISANPHAM" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="NHACUNGCAP">
-              <PropertyRef Name="MaNCC" />
-            </Principal>
-            <Dependent Role="LOAISANPHAM">
               <PropertyRef Name="MaNCC" />
             </Dependent>
           </ReferentialConstraint>
@@ -282,6 +292,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SANPHAM_KHO">
+          <End Role="SANPHAM" Type="Self.SANPHAM" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="KHO" Type="Self.KHO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SANPHAM">
+              <PropertyRef Name="MaSP" />
+            </Principal>
+            <Dependent Role="KHO">
+              <PropertyRef Name="MaSP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SHIPPER_HOADON">
           <End Role="SHIPPER" Type="Self.SHIPPER" Multiplicity="0..1" />
           <End Role="HOADON" Type="Self.HOADON" Multiplicity="*" />
@@ -309,6 +333,7 @@
         <EntityContainer Name="QuanLyQuanCoffeeModelStoreContainer">
           <EntitySet Name="CHITIET_HOADON" EntityType="Self.CHITIET_HOADON" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DANHGIA" EntityType="Self.DANHGIA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DUNGLUONG" EntityType="Self.DUNGLUONG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HOADON" EntityType="Self.HOADON" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KHACHHANG" EntityType="Self.KHACHHANG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KHO" EntityType="Self.KHO" Schema="dbo" store:Type="Tables" />
@@ -321,6 +346,10 @@
           <EntitySet Name="SANPHAM" EntityType="Self.SANPHAM" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SHIPPER" EntityType="Self.SHIPPER" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TAIKHOAN" EntityType="Self.TAIKHOAN" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_DUNGLUONG_SANPHAM" Association="Self.FK_DUNGLUONG_SANPHAM">
+            <End Role="DUNGLUONG" EntitySet="DUNGLUONG" />
+            <End Role="SANPHAM" EntitySet="SANPHAM" />
+          </AssociationSet>
           <AssociationSet Name="FK_HOADON_CHITIETHOADON" Association="Self.FK_HOADON_CHITIETHOADON">
             <End Role="HOADON" EntitySet="HOADON" />
             <End Role="CHITIET_HOADON" EntitySet="CHITIET_HOADON" />
@@ -349,10 +378,6 @@
             <End Role="NHACUNGCAP" EntitySet="NHACUNGCAP" />
             <End Role="KHO" EntitySet="KHO" />
           </AssociationSet>
-          <AssociationSet Name="FK_NHACUNGCAP_LOAISANPHAM" Association="Self.FK_NHACUNGCAP_LOAISANPHAM">
-            <End Role="NHACUNGCAP" EntitySet="NHACUNGCAP" />
-            <End Role="LOAISANPHAM" EntitySet="LOAISANPHAM" />
-          </AssociationSet>
           <AssociationSet Name="FK_NHANVIEN_TAIKHOAN" Association="Self.FK_NHANVIEN_TAIKHOAN">
             <End Role="NHANVIEN" EntitySet="NHANVIEN" />
             <End Role="TAIKHOAN" EntitySet="TAIKHOAN" />
@@ -364,6 +389,10 @@
           <AssociationSet Name="FK_SANPHAM_CHITIETHOADON" Association="Self.FK_SANPHAM_CHITIETHOADON">
             <End Role="SANPHAM" EntitySet="SANPHAM" />
             <End Role="CHITIET_HOADON" EntitySet="CHITIET_HOADON" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SANPHAM_KHO" Association="Self.FK_SANPHAM_KHO">
+            <End Role="SANPHAM" EntitySet="SANPHAM" />
+            <End Role="KHO" EntitySet="KHO" />
           </AssociationSet>
           <AssociationSet Name="FK_SHIPPER_HOADON" Association="Self.FK_SHIPPER_HOADON">
             <End Role="SHIPPER" EntitySet="SHIPPER" />
@@ -434,17 +463,6 @@
           <NavigationProperty Name="DANHGIAs" Relationship="Self.FK_KHACHHANG_DANHGIA" FromRole="KHACHHANG" ToRole="DANHGIA" />
           <NavigationProperty Name="TAIKHOANs" Relationship="Self.FK_KHACHHANG_TAIKHOAN" FromRole="KHACHHANG" ToRole="TAIKHOAN" />
         </EntityType>
-        <EntityType Name="KHO">
-          <Key>
-            <PropertyRef Name="MaHH" />
-          </Key>
-          <Property Name="MaHH" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="TenHH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="SoLuongNhap" Type="Int32" Nullable="false" />
-          <Property Name="GiaHH" Type="Int32" />
-          <Property Name="MaNCC" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
-          <NavigationProperty Name="NHACUNGCAP" Relationship="Self.FK_NHACUNGCAP_KHO" FromRole="KHO" ToRole="NHACUNGCAP" />
-        </EntityType>
         <EntityType Name="KHUYENMAI">
           <Key>
             <PropertyRef Name="MaKM" />
@@ -460,8 +478,6 @@
           </Key>
           <Property Name="MaLoaiSP" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="TenLoaiSP" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="MaNCC" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
-          <NavigationProperty Name="NHACUNGCAP" Relationship="Self.FK_NHACUNGCAP_LOAISANPHAM" FromRole="LOAISANPHAM" ToRole="NHACUNGCAP" />
           <NavigationProperty Name="PRODUCTs" Relationship="QuanLyQuanCoffeeModel.FK_LOAISANPHAM_PRODUCT" FromRole="LOAISANPHAM" ToRole="PRODUCT" />
         </EntityType>
         <EntityType Name="NHACUNGCAP">
@@ -472,8 +488,7 @@
           <Property Name="TenNCC" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DiaChi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="SoDT" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
-          <NavigationProperty Name="KHOes" Relationship="Self.FK_NHACUNGCAP_KHO" FromRole="NHACUNGCAP" ToRole="KHO" />
-          <NavigationProperty Name="LOAISANPHAMs" Relationship="Self.FK_NHACUNGCAP_LOAISANPHAM" FromRole="NHACUNGCAP" ToRole="LOAISANPHAM" />
+          <NavigationProperty Name="KHOes" Relationship="QuanLyQuanCoffeeModel.FK_NHACUNGCAP_KHO" FromRole="NHACUNGCAP" ToRole="KHO" />
         </EntityType>
         <EntityType Name="NHANVIEN">
           <Key>
@@ -504,6 +519,9 @@
           <Property Name="IDPro" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
           <NavigationProperty Name="PRODUCT" Relationship="QuanLyQuanCoffeeModel.FK_PRODUCT_SANPHAM" FromRole="SANPHAM" ToRole="PRODUCT" />
           <Property Name="SoLuongDaBan" Type="Int32" />
+          <Property Name="MaDungLuong" Type="Int32" />
+          <NavigationProperty Name="DUNGLUONG" Relationship="QuanLyQuanCoffeeModel.FK_DUNGLUONG_SANPHAM" FromRole="SANPHAM" ToRole="DUNGLUONG" />
+          <NavigationProperty Name="KHOes" Relationship="QuanLyQuanCoffeeModel.FK_SANPHAM_KHO" FromRole="SANPHAM" ToRole="KHO" />
         </EntityType>
         <EntityType Name="SHIPPER">
           <Key>
@@ -525,6 +543,7 @@
           <NavigationProperty Name="KHACHHANG" Relationship="Self.FK_KHACHHANG_TAIKHOAN" FromRole="TAIKHOAN" ToRole="KHACHHANG" />
           <NavigationProperty Name="NHANVIEN" Relationship="Self.FK_NHANVIEN_TAIKHOAN" FromRole="TAIKHOAN" ToRole="NHANVIEN" />
           <NavigationProperty Name="HOADONs" Relationship="QuanLyQuanCoffeeModel.FK_TAIKHOAN_HOADON" FromRole="TAIKHOAN" ToRole="HOADON" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_HOADON_CHITIETHOADON">
           <End Role="HOADON" Type="Self.HOADON" Multiplicity="1" />
@@ -598,30 +617,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_NHACUNGCAP_KHO">
-          <End Role="NHACUNGCAP" Type="Self.NHACUNGCAP" Multiplicity="0..1" />
-          <End Role="KHO" Type="Self.KHO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="NHACUNGCAP">
-              <PropertyRef Name="MaNCC" />
-            </Principal>
-            <Dependent Role="KHO">
-              <PropertyRef Name="MaNCC" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_NHACUNGCAP_LOAISANPHAM">
-          <End Role="NHACUNGCAP" Type="Self.NHACUNGCAP" Multiplicity="0..1" />
-          <End Role="LOAISANPHAM" Type="Self.LOAISANPHAM" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="NHACUNGCAP">
-              <PropertyRef Name="MaNCC" />
-            </Principal>
-            <Dependent Role="LOAISANPHAM">
-              <PropertyRef Name="MaNCC" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_NHANVIEN_TAIKHOAN">
           <End Role="NHANVIEN" Type="Self.NHANVIEN" Multiplicity="0..1" />
           <End Role="TAIKHOAN" Type="Self.TAIKHOAN" Multiplicity="*" />
@@ -639,7 +634,6 @@
           <EntitySet Name="DANHGIAs" EntityType="Self.DANHGIA" />
           <EntitySet Name="HOADONs" EntityType="Self.HOADON" />
           <EntitySet Name="KHACHHANGs" EntityType="Self.KHACHHANG" />
-          <EntitySet Name="KHOes" EntityType="Self.KHO" />
           <EntitySet Name="KHUYENMAIs" EntityType="Self.KHUYENMAI" />
           <EntitySet Name="LOAISANPHAMs" EntityType="Self.LOAISANPHAM" />
           <EntitySet Name="NHACUNGCAPs" EntityType="Self.NHACUNGCAP" />
@@ -671,14 +665,6 @@
             <End Role="KHACHHANG" EntitySet="KHACHHANGs" />
             <End Role="TAIKHOAN" EntitySet="TAIKHOANs" />
           </AssociationSet>
-          <AssociationSet Name="FK_NHACUNGCAP_KHO" Association="Self.FK_NHACUNGCAP_KHO">
-            <End Role="NHACUNGCAP" EntitySet="NHACUNGCAPs" />
-            <End Role="KHO" EntitySet="KHOes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_NHACUNGCAP_LOAISANPHAM" Association="Self.FK_NHACUNGCAP_LOAISANPHAM">
-            <End Role="NHACUNGCAP" EntitySet="NHACUNGCAPs" />
-            <End Role="LOAISANPHAM" EntitySet="LOAISANPHAMs" />
-          </AssociationSet>
           <AssociationSet Name="FK_NHANVIEN_TAIKHOAN" Association="Self.FK_NHANVIEN_TAIKHOAN">
             <End Role="NHANVIEN" EntitySet="NHANVIENs" />
             <End Role="TAIKHOAN" EntitySet="TAIKHOANs" />
@@ -700,6 +686,20 @@
           <AssociationSet Name="FK_TAIKHOAN_HOADON" Association="QuanLyQuanCoffeeModel.FK_TAIKHOAN_HOADON">
             <End Role="TAIKHOAN" EntitySet="TAIKHOANs" />
             <End Role="HOADON" EntitySet="HOADONs" />
+          </AssociationSet>
+          <EntitySet Name="DUNGLUONGs" EntityType="QuanLyQuanCoffeeModel.DUNGLUONG" />
+          <AssociationSet Name="FK_DUNGLUONG_SANPHAM" Association="QuanLyQuanCoffeeModel.FK_DUNGLUONG_SANPHAM">
+            <End Role="DUNGLUONG" EntitySet="DUNGLUONGs" />
+            <End Role="SANPHAM" EntitySet="SANPHAMs" />
+          </AssociationSet>
+          <EntitySet Name="KHOes" EntityType="QuanLyQuanCoffeeModel.KHO" />
+          <AssociationSet Name="FK_NHACUNGCAP_KHO" Association="QuanLyQuanCoffeeModel.FK_NHACUNGCAP_KHO">
+            <End Role="NHACUNGCAP" EntitySet="NHACUNGCAPs" />
+            <End Role="KHO" EntitySet="KHOes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SANPHAM_KHO" Association="QuanLyQuanCoffeeModel.FK_SANPHAM_KHO">
+            <End Role="SANPHAM" EntitySet="SANPHAMs" />
+            <End Role="KHO" EntitySet="KHOes" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="MAU">
@@ -773,6 +773,66 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="DUNGLUONG">
+          <Key>
+            <PropertyRef Name="MaDungLuong" />
+          </Key>
+          <Property Name="MaDungLuong" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KichThuocDL" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SANPHAMs" Relationship="QuanLyQuanCoffeeModel.FK_DUNGLUONG_SANPHAM" FromRole="DUNGLUONG" ToRole="SANPHAM" />
+        </EntityType>
+        <Association Name="FK_DUNGLUONG_SANPHAM">
+          <End Type="QuanLyQuanCoffeeModel.DUNGLUONG" Role="DUNGLUONG" Multiplicity="0..1" />
+          <End Type="QuanLyQuanCoffeeModel.SANPHAM" Role="SANPHAM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DUNGLUONG">
+              <PropertyRef Name="MaDungLuong" />
+            </Principal>
+            <Dependent Role="SANPHAM">
+              <PropertyRef Name="MaDungLuong" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="KHO">
+          <Key>
+            <PropertyRef Name="MaKho" />
+          </Key>
+          <Property Name="MaKho" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaSP" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="MaNCC" Type="String" Nullable="false" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="SoLuongTon" Type="Int32" Nullable="false" />
+          <Property Name="LastUpdate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="NHACUNGCAP" Relationship="QuanLyQuanCoffeeModel.FK_NHACUNGCAP_KHO" FromRole="KHO" ToRole="NHACUNGCAP" />
+          <NavigationProperty Name="SANPHAM" Relationship="QuanLyQuanCoffeeModel.FK_SANPHAM_KHO" FromRole="KHO" ToRole="SANPHAM" />
+        </EntityType>
+        <Association Name="FK_NHACUNGCAP_KHO">
+          <End Type="QuanLyQuanCoffeeModel.NHACUNGCAP" Role="NHACUNGCAP" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="QuanLyQuanCoffeeModel.KHO" Role="KHO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NHACUNGCAP">
+              <PropertyRef Name="MaNCC" />
+            </Principal>
+            <Dependent Role="KHO">
+              <PropertyRef Name="MaNCC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SANPHAM_KHO">
+          <End Type="QuanLyQuanCoffeeModel.SANPHAM" Role="SANPHAM" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="QuanLyQuanCoffeeModel.KHO" Role="KHO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SANPHAM">
+              <PropertyRef Name="MaSP" />
+            </Principal>
+            <Dependent Role="KHO">
+              <PropertyRef Name="MaSP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -829,17 +889,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="KHOes">
-            <EntityTypeMapping TypeName="QuanLyQuanCoffeeModel.KHO">
-              <MappingFragment StoreEntitySet="KHO">
-                <ScalarProperty Name="MaHH" ColumnName="MaHH" />
-                <ScalarProperty Name="TenHH" ColumnName="TenHH" />
-                <ScalarProperty Name="SoLuongNhap" ColumnName="SoLuongNhap" />
-                <ScalarProperty Name="GiaHH" ColumnName="GiaHH" />
-                <ScalarProperty Name="MaNCC" ColumnName="MaNCC" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="KHUYENMAIs">
             <EntityTypeMapping TypeName="QuanLyQuanCoffeeModel.KHUYENMAI">
               <MappingFragment StoreEntitySet="KHUYENMAI">
@@ -854,7 +903,6 @@
               <MappingFragment StoreEntitySet="LOAISANPHAM">
                 <ScalarProperty Name="MaLoaiSP" ColumnName="MaLoaiSP" />
                 <ScalarProperty Name="TenLoaiSP" ColumnName="TenLoaiSP" />
-                <ScalarProperty Name="MaNCC" ColumnName="MaNCC" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -884,6 +932,7 @@
           <EntitySetMapping Name="SANPHAMs">
             <EntityTypeMapping TypeName="QuanLyQuanCoffeeModel.SANPHAM">
               <MappingFragment StoreEntitySet="SANPHAM">
+                <ScalarProperty Name="MaDungLuong" ColumnName="MaDungLuong" />
                 <ScalarProperty Name="SoLuongDaBan" ColumnName="SoLuongDaBan" />
                 <ScalarProperty Name="IDPro" ColumnName="IDPro" />
                 <ScalarProperty Name="MaMau" ColumnName="MaMau" />
@@ -907,6 +956,7 @@
           <EntitySetMapping Name="TAIKHOANs">
             <EntityTypeMapping TypeName="QuanLyQuanCoffeeModel.TAIKHOAN">
               <MappingFragment StoreEntitySet="TAIKHOAN">
+                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="TenDN" ColumnName="TenDN" />
                 <ScalarProperty Name="MatKhau" ColumnName="MatKhau" />
                 <ScalarProperty Name="PhanQuyen" ColumnName="PhanQuyen" />
@@ -934,6 +984,25 @@
                 <ScalarProperty Name="Desciption" ColumnName="Desciption" />
                 <ScalarProperty Name="NamePro" ColumnName="NamePro" />
                 <ScalarProperty Name="IDPro" ColumnName="IDPro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DUNGLUONGs">
+            <EntityTypeMapping TypeName="QuanLyQuanCoffeeModel.DUNGLUONG">
+              <MappingFragment StoreEntitySet="DUNGLUONG">
+                <ScalarProperty Name="KichThuocDL" ColumnName="KichThuocDL" />
+                <ScalarProperty Name="MaDungLuong" ColumnName="MaDungLuong" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KHOes">
+            <EntityTypeMapping TypeName="QuanLyQuanCoffeeModel.KHO">
+              <MappingFragment StoreEntitySet="KHO">
+                <ScalarProperty Name="LastUpdate" ColumnName="LastUpdate" />
+                <ScalarProperty Name="SoLuongTon" ColumnName="SoLuongTon" />
+                <ScalarProperty Name="MaNCC" ColumnName="MaNCC" />
+                <ScalarProperty Name="MaSP" ColumnName="MaSP" />
+                <ScalarProperty Name="MaKho" ColumnName="MaKho" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

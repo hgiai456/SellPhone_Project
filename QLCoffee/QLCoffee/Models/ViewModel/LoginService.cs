@@ -14,7 +14,7 @@ namespace QLCoffee.Models.ViewModel
 
         }
         public void SetUserName(string userName)
-        {
+        { 
             session["TenDN"] = userName;
 
         }

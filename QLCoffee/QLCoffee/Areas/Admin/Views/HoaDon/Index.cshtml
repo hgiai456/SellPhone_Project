@@ -6,48 +6,57 @@
 }
 
 <h2>QUẢN LÝ HÓA ĐƠN</h2>
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>
+                Mã hóa đơn
+            </th>
+            <th>
+                Địa Chỉ
+            </th>
+            <th>
+                Tổng giá trị hóa đơn
+            </th>
+            <th>
+                Trạng thái
+            </th>
+            <th>
+                Ngày đặt
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaHD)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GhiChu)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TongGiaTriHD)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TrangThaiDH)
+                </td>
+                <td>
+                    @item.NgayTD.ToString("dd/MM/yyyy")
+                </td>
+                <td>
+                    @Html.ActionLink("Chi tiết", "Details", new { id = item.MaHD }, new { @class = "btn btn-primary" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 
 <table class="table">
-    <tr>
-        <th>
-            Mã hóa đơn
-        </th>
-        <th>
-            Địa Chỉ
-        </th>
-        <th>
-            Tổng giá trị hóa đơn
-        </th>
-        <th>
-            Trạng thái
-        </th>
-        <th>
-            Ngày đặt
-        </th>
-      
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.MaHD)
-        </td>        
-        <td>
-            @Html.DisplayFor(modelItem => item.GhiChu)           
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TongGiaTriHD)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TrangThaiDH)
-        </td>  
-        <td>
-            @item.NgayTD.ToString("dd/MM/yyyy")      
-        </td>
-        <td>
-            @Html.ActionLink("Chi tiết", "Details", new { id = item.MaHD }, new { @class = "btn btn-primary" }) 
-        </td>                   
-    </tr>
-}
+    
 
 </table>

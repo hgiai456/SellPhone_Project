@@ -23,7 +23,6 @@ namespace QLCoffee.Models
             this.SANPHAMs = new HashSet<SANPHAM>();
         }
 
-
         public string IDPro { get; set; }
         public string NamePro { get; set; }
         public string Desciption { get; set; }

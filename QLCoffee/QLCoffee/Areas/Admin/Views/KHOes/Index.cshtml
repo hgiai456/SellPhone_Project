@@ -1,0 +1,52 @@
+﻿@model IEnumerable<QLCoffee.Models.KHO>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>QUẢN LÝ KHO</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SoLuongTon)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastUpdate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NHACUNGCAP.TenNCC)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SANPHAM.TenSP)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SoLuongTon)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastUpdate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NHACUNGCAP.TenNCC)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SANPHAM.TenSP)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MaKho }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MaKho }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MaKho })
+        </td>
+    </tr>
+}
+
+</table>

@@ -44,44 +44,38 @@
 
         .login-container input[type="submit"]:hover {
             background-color: #165cbd;
-        }
+        }   
+    .error-message {
+        color: red;
+        font-size: 10px;
+        margin-bottom: 1px;
+        text-align: left;
+       
+    }
 </style>
 
 @using (Html.BeginForm("AuthenRegister", "Login", FormMethod.Post))
 {
-
-
     <div class="login-container">
-        <h2>
-            Đăng ký
-        </h2>
+        <h2>Đăng ký</h2>
         <form action="/AuthenRegister" method="post">
-            <input type="text" name="TenDN" placeholder="Tên đăng nhập">
-            @*@Html.TextBoxFor(m => m.TenDN, new { @class = "input-text" })*@
-            <em style="color:red">
-                @Html.ValidationMessageFor(m => m.TenDN)
-            </em>
-            <input type="password" name="MatKhau" placeholder="Nhập mật khẩu">
-            @*@Html.PasswordFor(m => m.MatKhau, new { @class = "input-text" })*@
-            <em style="color:red">@Html.ValidationMessageFor(m => m.MatKhau)</em>
+            <input type="text" name="TenDN" placeholder="Tên đăng nhập...">
+            <div class="error-message">@Html.ValidationMessageFor(m => m.TenDN)</div>
 
-            <input type="password" name="Repass" placeholder="Nhập lại mật khẩu">
-            @*@Html.PasswordFor(m => m.MatKhau, new { @class = "input-text" })*@
-            <em style="color:red">@Html.ValidationMessageFor(m => m.RePass)</em>
+            <input type="text" name="Email" placeholder="Email...">
+            <div class="error-message">@Html.ValidationMessageFor(m => m.Email)</div>
+
+            <input type="password" name="MatKhau" placeholder="Nhập mật khẩu...">
+            <div class="error-message">@Html.ValidationMessageFor(m => m.MatKhau)</div>
+
+            <input type="password" name="Repass" placeholder="Nhập lại mật khẩu...">
+            <div class="error-message">@Html.ValidationMessageFor(m => m.RePass)</div>
 
             <input type="submit" value="Đăng ký" class="btn-submit" />
-            <a href=/Login/Login>Đăng nhập ngay</a>
+            <a href="/Login/Login">Đăng nhập ngay</a>
         </form>
-
     </div>
-
 }
-
-@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
-{
-<div class="alert alert-danger" style="margin-left:10px;margin-right:10px;margin-bottom:160px;" >
-    @ViewBag.ErrorMessage
-</div> }
 
 
 

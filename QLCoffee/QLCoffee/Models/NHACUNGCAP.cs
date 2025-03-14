@@ -18,7 +18,6 @@ namespace QLCoffee.Models
         public NHACUNGCAP()
         {
             this.KHOes = new HashSet<KHO>();
-            this.LOAISANPHAMs = new HashSet<LOAISANPHAM>();
         }
     
         public string MaNCC { get; set; }
@@ -28,7 +27,5 @@ namespace QLCoffee.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KHO> KHOes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LOAISANPHAM> LOAISANPHAMs { get; set; }
     }
 }

@@ -24,30 +24,35 @@ namespace QLCoffee.Models
         }
 
         [DisplayName("TenDN")]
-        [Required(ErrorMessage = "Error Empty")]
+        [Required(ErrorMessage = "Vui lòng không để trống.")]
 
         public string TenDN { get; set; }
+
+        [DisplayName("Email")]
+        [Required(ErrorMessage = "Vui lòng không để trống.")]
+        public string Email { get; set; }
+
         [DisplayName("MatKhau")]
-        [Required(ErrorMessage = "Error Empty")]
+        [Required(ErrorMessage = "Vui lòng không để trống.")]
         public string MatKhau { get; set; }
 
-        [NotMapped]
-        [Required(ErrorMessage = "Error Empty")]
+        [NotMapped]        
         [Compare("MatKhau")]
         public string RePass { get; set; }
 
         private string _PhanQuyen;
         [DisplayName("PhanQuyen")]
-        [Required(ErrorMessage = "Error Empty")]
+        [Required(ErrorMessage = "Vui lòng không để trống.")]
         [StringLength(1, ErrorMessage = "PhanQuyen save only 1 character")]
         public string PhanQuyen
         {
             get { return _PhanQuyen; }
-            set { _PhanQuyen = value?.Trim(); } // Loại bỏ khoảng trắng khi gán giá trị
+            set { _PhanQuyen = value?.Trim(); } 
         }
         public string MaKH { get; set; }
         public string MaNV { get; set; }
 
+    
         public virtual KHACHHANG KHACHHANG { get; set; }
         public virtual NHANVIEN NHANVIEN { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

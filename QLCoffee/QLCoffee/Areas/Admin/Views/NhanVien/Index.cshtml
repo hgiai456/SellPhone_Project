@@ -4,11 +4,12 @@
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
-
+<h2 class="text-center my-4">Quản lý nhân viên</h2>
 <p>
     @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success" })
 </p>
-    <table class="table">
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
         <tr>
             <th>
                 Mã nhân viên
@@ -30,8 +31,11 @@
             </th>
             <th>
                 Chức vụ
-            </th>           
+            </th>
+            <th></th>
         </tr>
+    </thead>
+    <tbody>
         @foreach (var item in Model)
         {
             <tr>
@@ -63,5 +67,6 @@
                 </td>
             </tr>
         }
-
-    </table>
+        </tbody>
+</table>
+   

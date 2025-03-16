@@ -1,9 +1,12 @@
-﻿@model IEnumerable<QLCoffee.Models.TAIKHOAN>
+﻿@using PagedList
+@using PagedList.Mvc
+
+@model PagedList.IPagedList<QLCoffee.Models.TAIKHOAN>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
-    int i = 1;
+    int i = (Model.PageNumber - 1) * Model.PageSize + 1;
 }
 
 <h2 class="text-center my-4">DANH SÁCH TÀI KHOẢN</h2>
@@ -11,6 +14,14 @@
 <p class="text-start">
     @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success" })
 </p>
+
+<form method="get" class="mb-3">
+    <div class="input-group">
+        <input type="text" name="searchString" class="form-control" placeholder="Tìm kiếm..."/>
+        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+    </div>
+
+</form>
 
 <table class="table table-bordered table-striped">
     <thead class="table-dark">
@@ -73,16 +84,35 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.MaNV)
                 </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.TenDN }, new { @class = "btn btn-sm btn-primary" }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.TenDN, }, new { @class = "btn btn-sm btn-dark" }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.TenDN }, new { @class = "btn btn-sm btn-danger" })
-                </td>
+
+                <td class="text-center">
+                    <div class="d-flex justify-content-center">
+                        @Html.ActionLink("Edit", "Edit", new { id = item.TenDN }, new { @class = "btn btn-sm btn-primary" }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.TenDN, }, new { @class = "btn btn-sm btn-dark" }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.TenDN }, new { @class = "btn btn-sm btn-danger" })
+                    </div>
+                </td>               
             </tr>
             i++;
         }
     </tbody>
 </table>
 
+    <div class="d-flex justify-content-center">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { searchString = Request.QueryString["searchString"], page }),
+            new PagedListRenderOptions
+            {
+                Display = PagedListDisplayMode.IfNeeded,
+                UlElementClasses = new[] { "pagination", "pagination-sm" }, // Nhỏ gọn
+                LiElementClasses = new[] { "page-item" }
 
+            })
+    </div>
+
+
+<script>
+    $(document).ready(function () {
+        $(".pagination li a").addClass("page-link");
+    });
+</script>
 

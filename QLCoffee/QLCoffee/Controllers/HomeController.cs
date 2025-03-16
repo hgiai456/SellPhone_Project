@@ -124,7 +124,7 @@ namespace QLCoffee.Controllers
             };
 
             int pageNumber = page ?? 1;
-            int pageSize = 4; //Products of each page
+            int pageSize = 8; //Products of each page
             model.ProductList = sanphams.ToPagedList(pageNumber, pageSize); 
             /*model.SortOrder = sortOrder;*/ //Continue
             return View(model); 

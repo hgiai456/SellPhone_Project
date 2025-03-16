@@ -5,7 +5,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>QUẢN LÝ SẢN PHẨM</h2>
+<h2>THÊM SẢN PHẨM MỚI</h2>
 
 @*Khai bao de Upload file*@
 @using (Html.BeginForm("UploadProduct", "PRODUCTs", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -13,7 +13,7 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Thêm mới sản phẩm</h4>
+      
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -72,18 +72,18 @@
         </div>
 
 
-        <div class="form-group" style="margin: 10px;">
+        <div class="form-group" id="bot-size">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-success" />
+                <input type="submit" value="Create" class="btn btn-success" />|@Html.ActionLink("Danh sách", "Index", null, new { @class = "btn btn-primary" })
 
             </div>
         </div>
 
     </div>
    
-    <div>
-        @Html.ActionLink("Danh sách", "Index", null, new { @class = "btn btn-primary" })
-   </div>
+   
+        
+  
 }
 
 

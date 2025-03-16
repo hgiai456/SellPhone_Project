@@ -74,7 +74,7 @@ namespace QLCoffee.Areas.Admin.Controllers
             };
             ViewBag.IDPro = new SelectList(database.PRODUCTs, "IDPro", "NamePro", sanpham.IDPro);
             ViewBag.MaMau = new SelectList(database.MAUs, "MaMau", "TenMau", sanpham.MaMau);
-            ViewBag.MaDungLuong = new SelectList(database.DUNGLUONGs, "MaDungLuong", "TenDungLuong", sanpham.MaDungLuong);
+            ViewBag.MaDungLuong = new SelectList(database.DUNGLUONGs, "MaDungLuong", "KichThuocDL", sanpham.MaDungLuong);
             return View(sanpham);
         }
         [HttpPost]
@@ -86,7 +86,7 @@ namespace QLCoffee.Areas.Admin.Controllers
                 ModelState.AddModelError("MaSP", "Khóa chính đã tồn tại!");
                 ViewBag.IDPro = new SelectList(database.PRODUCTs, "IDPro", "NamePro", sanpham.IDPro);
                 ViewBag.MaMau = new SelectList(database.MAUs, "MaMau", "TenMau", sanpham.MaMau);
-                ViewBag.MaDungLuong = new SelectList(database.DUNGLUONGs, "MaDungLuong", "TenDungLuong", sanpham.MaDungLuong);
+                ViewBag.MaDungLuong = new SelectList(database.DUNGLUONGs, "MaDungLuong", "KichThuocDL", sanpham.MaDungLuong);
                 return View(sanpham);
             }
       
@@ -100,6 +100,7 @@ namespace QLCoffee.Areas.Admin.Controllers
         }
         public ActionResult Edit(string id)
         {
+
             var sanpham = new SANPHAM
             {
                 NgaySX = DateTime.Now
@@ -107,6 +108,7 @@ namespace QLCoffee.Areas.Admin.Controllers
             ViewBag.IsEdit = true;
             ViewBag.IDPro = new SelectList(database.PRODUCTs, "IDPro", "NamePro");
             ViewBag.MaMau = new SelectList(database.MAUs, "MaMau", "TenMau");
+            ViewBag.MaDungLuong = new SelectList(database.DUNGLUONGs, "MaDungLuong", "KichThuocDL"); 
             return View(database.SANPHAMs.Where(s => s.MaSP == id).FirstOrDefault());
         }
         [HttpPost]
@@ -121,6 +123,7 @@ namespace QLCoffee.Areas.Admin.Controllers
                 
             ViewBag.IDPro = new SelectList(database.PRODUCTs, "IDPro", "NamePro", sanpham.IDPro);
             ViewBag.MaMau = new SelectList(database.MAUs, "MaMau", "TenMau", sanpham.MaMau);
+            ViewBag.MaMau = new SelectList(database.DUNGLUONGs, "MaDungLuong", "KichThuocDL", sanpham.MaDungLuong);
             return View(sanpham);
         }
         public ActionResult Delete(string id)

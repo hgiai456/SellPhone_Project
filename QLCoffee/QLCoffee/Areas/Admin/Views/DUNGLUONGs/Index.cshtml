@@ -33,16 +33,18 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.KichThuocDL)
                 </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.MaDungLuong }, new { @class = "btn btn-sm btn-primary" }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.MaDungLuong }, new { @class = "btn btn-sm btn-dark" }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.MaDungLuong }, new { @class = "btn btn-sm btn-danger" })
+                <td class="text-center">
+                    <div class="d-flex justify-content-center">
+                        @Html.ActionLink("Edit", "Edit", new { id = item.MaDungLuong }, new { @class = "btn btn-sm btn-primary" }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.MaDungLuong }, new { @class = "btn btn-sm btn-dark" }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.MaDungLuong }, new { @class = "btn btn-sm btn-danger" })
+                    </div>
                 </td>
+
             </tr>
         }
 
     </tbody>
 </table>
-
 
 

@@ -18,7 +18,7 @@
         @Html.HiddenFor(model => model.MaDungLuong)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.KichThuocDL, htmlAttributes: new { @class = "control-label col-md-2" })
+           <label>Kích thước:</label>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.KichThuocDL, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.KichThuocDL, "", new { @class = "text-danger" })

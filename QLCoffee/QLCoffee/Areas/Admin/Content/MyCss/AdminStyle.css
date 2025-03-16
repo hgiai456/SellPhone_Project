@@ -38,3 +38,36 @@
     margin-top: 20px;
 
 }
+
+.pagination li a {
+    color: #007bff;
+    background-color: white;
+    border: 1px solid #dee2e6;
+    padding: 5px 10px;
+    text-decoration: none;
+}
+
+    .pagination li a:hover {
+        background-color: #007bff;
+        color: white;
+    }
+
+ 
+
+/* Ẩn submenu mặc định */
+.dropdown-menu {
+    display: none;
+    opacity: 0; /* Để hiệu ứng fade-in khi hiện menu */
+    transform: translateY(-10px); /* Hiệu ứng trượt từ trên xuống */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+    /* Khi hiển thị dropdown */
+    .dropdown-menu.show {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+    }
+   
+
+
+

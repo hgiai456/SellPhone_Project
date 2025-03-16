@@ -1,20 +1,24 @@
-﻿@model IEnumerable<QLCoffee.Models.KHACHHANG>
+﻿
+
+@model IEnumerable<QLCoffee.Models.KHACHHANG>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    
 }
 
 
 <h2 class="text-center my-4">DANH SÁCH KHÁCH HÀNG</h2>
 
-<p class="text-end">
+<p class="text-start">
     @Html.ActionLink("Thêm mới", "UploadProduct", null, new { @class = "btn btn-success" })
 </p>
 
 <table class="table table-bordered table-striped">
     <thead class="table-dark">
         <tr>
+            
             <th>
                 Mã khách hàng
             </th>
@@ -38,6 +42,7 @@
         @foreach (var item in Model)
         {
             <tr>
+                
                 <td>
                     @Html.DisplayFor(modelItem => item.MaKH)
                 </td>
@@ -53,13 +58,19 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.SoDTKH)
                 </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.MaKH }, new { @class = "btn btn-sm btn-primary" }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.MaKH }, new { @class = "btn btn-sm btn-dark" }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.MaKH }, new { @class = "btn btn-sm btn-danger" })
+                <td class="text-center">
+                    <div class="d-flex justify-content-center">
+                        @Html.ActionLink("Edit", "Edit", new { id = item.MaKH }, new { @class = "btn btn-sm btn-primary" }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.MaKH }, new { @class = "btn btn-sm btn-dark" }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.MaKH }, new { @class = "btn btn-sm btn-danger" })
+                    </div>
                 </td>
             </tr>
+            
         }
     </tbody>
 </table>
+
+
+
 

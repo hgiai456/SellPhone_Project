@@ -1,15 +1,27 @@
-﻿@model IEnumerable<QLCoffee.Models.PRODUCT>
+﻿@using PagedList
+@using PagedList.Mvc
+
+@model PagedList.IPagedList<QLCoffee.Models.PRODUCT>
 
 @{
     ViewBag.Title = "Quản lý sản phẩm";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    int i = (Model.PageNumber - 1) * Model.PageSize + 1;
 }
 
-<h2 class="text-center my-4">Quản lý sản phẩm</h2>
+<h2 class="text-center my-4">QUẢN LÝ SẢN PHẨM</h2>
 
-<p class="text-end">
+<p class="text-start">
     @Html.ActionLink("Thêm mới", "UploadProduct", null, new { @class = "btn btn-success" })
 </p>
+
+<form method="get" class="mb-3">
+    <div class="input-group">
+        <input type="text" name="searchString" class="form-control" placeholder="Tìm kiếm..." />
+        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+    </div>
+
+</form>
 
 <table class="table table-bordered table-striped">
     <thead class="table-dark">
@@ -19,12 +31,11 @@
             <th>Tên sản phẩm</th>
             <th>Hình ảnh</th>
             <th>Loại sản phẩm</th>
-            <th>Thao tác</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @{ int i = 1; }
+       
         @foreach (var item in Model)
         {
             <tr>
@@ -33,13 +44,35 @@
                 <td>@item.NamePro</td>
                 <td><img src="@Url.Content(item.Img1)" style="height: 100px; width: 100px; object-fit: cover;" /></td>
                 <td>@item.LOAISANPHAM.TenLoaiSP</td>
-                <td>
-                    @Html.ActionLink("Sửa", "Edit", new { id = item.IDPro }, new { @class = "btn btn-primary btn-sm" })
-                    @Html.ActionLink("Chi tiết", "Details", new { id = item.IDPro }, new { @class = "btn btn-dark btn-sm" })
-                    @Html.ActionLink("Xóa", "Delete", new { id = item.IDPro }, new { @class = "btn btn-danger btn-sm" })
+
+                <td class="text-center">
+                    <div class="d-flex justify-content-center">
+                        @Html.ActionLink("Sửa", "EditProduct", new { id = item.IDPro }, new { @class = "btn btn-primary btn-sm" })|
+                        @Html.ActionLink("Chi tiết", "Details", new { id = item.IDPro }, new { @class = "btn btn-dark btn-sm" })|
+                        @Html.ActionLink("Xóa", "Delete", new { id = item.IDPro }, new { @class = "btn btn-danger btn-sm" })
+                    </div>
                 </td>
+
             </tr>
             i++;
         }
     </tbody>
 </table>
+
+<div class="d-flex justify-content-center">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { searchString = Request.QueryString["searchString"], page }),
+             new PagedListRenderOptions
+             {
+                 Display = PagedListDisplayMode.IfNeeded,
+                 UlElementClasses = new[] { "pagination", "pagination-sm" }, // Nhỏ gọn
+                 LiElementClasses = new[] { "page-item" }
+
+             })
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $(".pagination li a").addClass("page-link");
+    });
+</script>

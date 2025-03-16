@@ -23,6 +23,25 @@ namespace QLCoffee.Models
                 return false;
             }
         }
+        public bool UpdateImageProduct(string idPRODUCT, string Image1_url, string Image2_url, string Image3_url)
+        {
+            try
+            {
+                QuanLyQuanCoffeeEntities db = new QuanLyQuanCoffeeEntities();
+                var sp = db.PRODUCTs.Find(idPRODUCT);
+                sp.Img1 = Image1_url;
+                sp.Img2 = Image2_url;
+                sp.Img3 = Image3_url;
+
+                db.SaveChanges();
+                return true;
+            }
+
+            catch
+            {
+                return false;
+            }
+        }
 
     }
 }

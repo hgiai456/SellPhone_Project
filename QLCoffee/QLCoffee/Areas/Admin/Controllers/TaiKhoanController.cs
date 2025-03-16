@@ -1,4 +1,7 @@
-﻿using QLCoffee.Models;
+﻿using PagedList;
+using PagedList.Mvc;
+
+using QLCoffee.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +14,23 @@ namespace QLCoffee.Areas.Admin.Controllers
     {
         // GET: Admin/TaiKhoan
         QuanLyQuanCoffeeEntities database = new QuanLyQuanCoffeeEntities();
-        public ActionResult Index()
+        public ActionResult Index(string searchString, int? page)
         {
-            return View(database.TAIKHOANs.ToList());
+            //Số dòng trên mỗi trang
+            int pageSize = 10;
+
+            //Số trang hiện tại (nếu không có thì mặt định là 1)
+            int pageNumber = (page ?? 1);
+
+            var danhsachTaiKhoan = database.TAIKHOANs.AsQueryable();
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                danhsachTaiKhoan = danhsachTaiKhoan.Where(tk => tk.TenDN.Contains(searchString) || tk.Email.Contains(searchString));
+
+            }
+
+            return View(danhsachTaiKhoan.OrderBy(tk => tk.TenDN).ToPagedList(pageNumber, pageSize));
+
         }
         public ActionResult Create()
         {

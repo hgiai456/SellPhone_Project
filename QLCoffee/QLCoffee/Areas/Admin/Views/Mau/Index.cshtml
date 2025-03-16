@@ -8,7 +8,7 @@
 
 <h2 class="text-center my-4">QUẢN LÝ MÀU</h2>
 
-<p class="text-end">
+<p class="text-start">
     @Html.ActionLink("Thêm mới", "UploadProduct", null, new { @class = "btn btn-success" })
 </p>
 
@@ -16,13 +16,13 @@
     <thead class="table-dark">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.MaMau)
+               Mã màu
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TenMau)
+                Tên màu
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RGB)
+                RGB
             </th>
             <th></th>
         </tr>
@@ -41,10 +41,13 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.RGB)
                 </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.MaMau }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.MaMau }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.MaMau })
+                
+                <td class="text-center">
+                    <div class="d-flex justify-content-center">
+                        @Html.ActionLink("Edit", "Edit", new { id = item.MaMau }, new { @class = "btn btn-primary" }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.MaMau }, new { @class = "btn btn-dark" }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.MaMau }, new { @class = "btn btn-danger" })
+                    </div>
                 </td>
             </tr>
         }

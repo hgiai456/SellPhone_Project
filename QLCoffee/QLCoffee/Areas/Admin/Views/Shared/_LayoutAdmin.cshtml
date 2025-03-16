@@ -13,7 +13,34 @@
 
     <!-- Bootstrap JS (CDN) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+    <script>
+        $(document).ready(function () {
+            $(".dropdown-toggle").click(function (e) {
+                e.preventDefault(); // Ngăn chặn chuyển hướng
+
+                var $submenu = $(this).next(".dropdown-menu"); // Lấy submenu tương ứng
+                var $otherMenus = $(".dropdown-menu").not($submenu); // Lấy các dropdown khác
+
+                if ($submenu.hasClass("show")) {
+                    // Nếu submenu đã mở, đóng nó
+                    $submenu.removeClass("show").slideUp(300);
+                } else {
+                    // Đóng các menu khác trước khi mở menu mới
+                    $otherMenus.removeClass("show").slideUp(300);
+
+                    // Hiện submenu và trượt xuống
+                    $submenu.addClass("show").slideDown(300);
+                }
+            });
+        });
+    </script>
+
 </head>
+
 
 <body>
     <div class="container-fluid">
@@ -30,38 +57,62 @@
                         </div>
                         <br />
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="@Url.Action("Index", "PRODUCTs", new { area = "Admin" })">Quản lý sản phẩm</a>
+
+                    <!-- Quản lý sản phẩm với submenu -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link text-white dropdown-toggle" href="#">Quản lý chi tiết sản phẩm</a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "PRODUCTs", new { area = "Admin" })">Quản lý sản phẩm</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "SanPham", new { area = "Admin" })">Quản lý chi tiết sản phẩm</a></li>
+
+
+                        </ul>
                     </li>
+
+
+                    <!-- Quản lý loại sản phẩm -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link text-white dropdown-toggle" href="#">Quản lý loại sản phẩm</a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item " href="@Url.Action("Index", "DUNGLUONGs", new { area = "Admin" })">Quản lý dung lượng</a></li>
+                            <li><a class="dropdown-item " href="@Url.Action("Index", "LoaiSanPham", new { area = "Admin" })">Quản lý loại sản phẩm</a></li>
+                            <li><a class="dropdown-item " href="@Url.Action("Index", "Mau", new { area = "Admin" })">Quản lý màu sản phẩm</a></li>
+                        </ul>
+                    </li>
+                    <!-- Quản lý tài khoản -->
                     <li class="nav-item">
                         <a class="nav-link text-white" href="@Url.Action("Index", "TaiKhoan", new { area = "Admin" })">Quản lý tài khoản</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="@Url.Action("Index", "SanPham", new { area = "Admin" })">Quản lý chi tiết sản phẩm</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="@Url.Action("Index", "LoaiSanPham", new { area = "Admin" })">Quản lý loại sản phẩm</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="@Url.Action("Index", "Mau", new { area = "Admin" })">Quản lý màu</a>
-                    </li>
+
+                    <!-- Quản lý nhân viên -->
                     <li class="nav-item">
                         <a class="nav-link text-white" href="@Url.Action("Index", "NhanVien", new { area = "Admin" })">Quản lý nhân viên</a>
                     </li>
+                    <!-- Quản lý khách hàng -->
                     <li class="nav-item">
                         <a class="nav-link text-white" href="@Url.Action("Index", "KhachHang", new { area = "Admin" })">Quản lý khách hàng</a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="@Url.Action("Index", "HoaDon", new { area = "Admin" })">Quản lý hóa đơn</a>
+                        <a class="nav-link text-white" href="@Url.Action("Index", "HoaDon", new { area = "Admin" })">Hóa đơn</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="@Url.Action("Index", "NhaCungCap", new { area = "Admin" })">Nhà cung cấp</a>
+
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link text-white dropdown-toggle" href="#">Quản lý kho</a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "KHOs", new { area = "Admin" })">Quản lý kho</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "NhaCungCap", new { area = "Admin" })">Quản lý nhà cung cấp</a></li>
+                        </ul>
                     </li>
+
+                    <!-- Đăng xuất -->
                     <li class="nav-item">
                         <a class="nav-link text-white" href="@Url.Action("Logout", "Login",new { area = "" })">Đăng xuất</a>
                     </li>
                 </ul>
             </div>
+
             <!-- Nội dung chính -->
             <div id="div-content" class="col-lg-10">
                 @RenderBody()

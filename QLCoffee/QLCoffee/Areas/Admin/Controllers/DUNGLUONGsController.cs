@@ -12,7 +12,7 @@ namespace QLCoffee.Areas.Admin.Controllers
 {
     public class DUNGLUONGsController : Controller
     {
-        private QuanLyQuanCoffeeEntities db = new QuanLyQuanCoffeeEntities();
+        private QuanLyQuanCoffeeEntities1 db = new QuanLyQuanCoffeeEntities1();
 
         // GET: Admin/DUNGLUONGs
         public ActionResult Index()

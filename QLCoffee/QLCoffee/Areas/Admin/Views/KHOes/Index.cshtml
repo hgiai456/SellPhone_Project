@@ -1,0 +1,67 @@
+﻿@model IEnumerable<QLCoffee.Models.KHO>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2 class="text-center my-4">QUẢN LÝ KHO</h2>
+
+<p class="text-start">
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success" })
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>
+                Mã hàng hóa
+            </th>
+            <th>
+                Số lượng tồn kho
+            </th>
+            <th>
+                Ngày cập nhật
+            </th>
+            <th>
+                Nhà cung cấp
+            </th>
+            <th>
+                Sản phẩm
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaKho)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SoLuongTon)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastUpdate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NHACUNGCAP.TenNCC)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SANPHAM.TenSP)
+                </td>
+                <td class="text-center">
+                    <div class="d-flex justify-content-center">
+                        @Html.ActionLink("Edit", "Edit", new { id = item.MaKho }, new { @class = "btn btn-primary" }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.MaKho }, new { @class = "btn btn-dark" }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.MaKho }, new { @class = "btn btn-danger" })
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

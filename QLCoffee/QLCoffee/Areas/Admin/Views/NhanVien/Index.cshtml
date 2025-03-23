@@ -4,11 +4,12 @@
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
-
+<h2 class="text-center my-4">Quản lý nhân viên</h2>
 <p>
     @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success" })
 </p>
-    <table class="table">
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
         <tr>
             <th>
                 Mã nhân viên
@@ -30,8 +31,11 @@
             </th>
             <th>
                 Chức vụ
-            </th>           
+            </th>
+            <th></th>
         </tr>
+    </thead>
+    <tbody>
         @foreach (var item in Model)
         {
             <tr>
@@ -56,12 +60,17 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.ChucVu)
                 </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.MaNV }, new { @class = "btn btn-primary" }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.MaNV }, new { @class = "btn btn-dark" }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.MaNV }, new { @class = "btn btn-danger" })
+
+                <td class="text-center">
+                    <div class="d-flex justify-content-center">
+                        @Html.ActionLink("Edit", "Edit", new { id = item.MaNV }, new { @class = "btn btn-primary" }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.MaNV }, new { @class = "btn btn-dark" }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.MaNV }, new { @class = "btn btn-danger" })
+                    </div>
                 </td>
+                
             </tr>
         }
-
-    </table>
+        </tbody>
+</table>
+   

@@ -1,53 +1,133 @@
-﻿@model IEnumerable<QLCoffee.Models.HOADON>
+﻿@using PagedList
+@using PagedList.Mvc
+@model PagedList.IPagedList<QLCoffee.Models.HOADON>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+
 }
 
-<h2>QUẢN LÝ HÓA ĐƠN</h2>
+<h2 class="text-center my-4">QUẢN LÝ HÓA ĐƠN</h2>
 
-<table class="table">
-    <tr>
-        <th>
-            Mã hóa đơn
-        </th>
-        <th>
-            Địa Chỉ
-        </th>
-        <th>
-            Tổng giá trị hóa đơn
-        </th>
-        <th>
-            Trạng thái
-        </th>
-        <th>
-            Ngày đặt
-        </th>
-      
-    </tr>
+<form method="get" class="mb-3">
+    <div class="input-group">
+        <input type="text" name="searchString" class="form-control" placeholder="Tìm kiếm..." />
+        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+    </div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.MaHD)
-        </td>        
-        <td>
-            @Html.DisplayFor(modelItem => item.GhiChu)           
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TongGiaTriHD)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TrangThaiDH)
-        </td>  
-        <td>
-            @item.NgayTD.ToString("dd/MM/yyyy")      
-        </td>
-        <td>
-            @Html.ActionLink("Chi tiết", "Details", new { id = item.MaHD }, new { @class = "btn btn-primary" }) 
-        </td>                   
-    </tr>
-}
+</form>
 
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>
+                Mã HĐ
+            </th>
+            <th>
+                Khách hàng
+            </th>
+            <th>
+                SĐT
+            </th>
+            <th>
+                Địa Chỉ
+            </th>
+            <th>
+                Tổng tiền
+            </th>
+            <th>
+                Trạng thái
+            </th>
+            <th>Thao tác</th>
+            <th>
+                Ngày đặt
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaHD)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HoTenKH)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SDT)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GhiChu)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TongGiaTriHD)
+                </td>
+                <td>
+                    <select class="form-control status-dropdown" data-id="@item.MaHD">
+                        <option value="Đang giao" @(item.TrangThaiDH == "Đang giao" ? "selected" : "")>Đang giao</option>
+                        <option value="Đã giao" @(item.TrangThaiDH == "Đã giao" ? "selected" : "")>Đã giao</option>
+                        <option value="Hủy đơn" @(item.TrangThaiDH == "Hủy đơn" ? "selected" : "")>Hủy đơn</option>
+                    </select>
+                </td>
+                <td>
+                    <span class="text-success status-message" data-id="@item.MaHD"></span>
+                </td>
+                <td>
+                    @item.NgayTD.ToString("dd/MM/yyyy")
+                </td>
+                <td class="text-center">
+                    <div class="d-flex justify-content-center">
+                        @Html.ActionLink("Chi tiết", "Details", new { id = item.MaHD }, new { @class = "btn btn-primary" })
+                    </div>
+                </td>
+
+            </tr>
+        }
+    </tbody>
 </table>
+
+<div class="d-flex justify-content-center">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { searchString = Request.QueryString["searchString"], page }),
+        new PagedListRenderOptions
+        {
+            Display = PagedListDisplayMode.IfNeeded,
+            UlElementClasses = new[] { "pagination", "pagination-sm" }, // Nhỏ gọn
+            LiElementClasses = new[] { "page-item" }
+
+        })
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        $(".pagination li a").addClass("page-link");
+    });
+
+    $(document).ready(function () {
+        $(".status-dropdown").change(function () {
+            var maHD = $(this).data("id");
+            var trangThaiMoi = $(this).val();
+            var message = $(".status-message[data-id='" + maHD + "']");
+
+            $.ajax({
+                url: '@Url.Action("UpdateStatus","HoaDon")',
+                type: "POST",
+                data: { id: maHD, status: trangThaiMoi },
+                success: function (response) {
+                    if (response.success) {
+                        message.text("Đã cập nhật").fadeIn().delay(2000).fadeOut();
+                    } else {
+                        message.text("Lỗi cập nhật!").css("color", "red").fadeIn().delay(2000).fadeOut();
+                    }
+                }
+            });
+        });
+    });
+
+    
+</script>

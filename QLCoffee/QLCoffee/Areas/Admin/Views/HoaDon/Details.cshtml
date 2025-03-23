@@ -22,13 +22,18 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>@item.MaSP</td>
-            <td>@item.SANPHAM.TenSP</td>
-            <td>@item.Soluong</td>
-            <td>@string.Format("{0:N0} VNĐ", item.UnitPrice)</td>
-            <td>@string.Format("{0:N0} VNĐ", item.TotalPrice)</td>
+            <tr>
+                <td>@item.MaSP</td>
+                <td>@item.SANPHAM.TenSP</td>
+                <td>@item.Soluong</td>
+                <td>@string.Format("{0:N0} VNĐ", item.UnitPrice)</td>
+                <td>@string.Format("{0:N0} VNĐ", item.TotalPrice)</td>
 
-        </tr>}
+            </tr>
+        }
+
+
     </tbody>
 </table>
+
+<div id="bot-size">@Html.ActionLink("Back to List", "Index",null ,new { @class = "btn btn-primary" })</div>

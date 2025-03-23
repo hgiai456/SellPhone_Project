@@ -1,4 +1,8 @@
-﻿using System;
+﻿
+using PagedList;
+using PagedList.Mvc;
+
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -14,13 +18,23 @@ namespace QLCoffee.Areas.Admin.Controllers
 {
     public class PRODUCTsController : Controller
     {
-        private QuanLyQuanCoffeeEntities db = new QuanLyQuanCoffeeEntities();
+        private QuanLyQuanCoffeeEntities1 db = new QuanLyQuanCoffeeEntities1();
 
         // GET: Admin/PRODUCTs
-        public ActionResult Index()
+        public ActionResult Index(string searchString, int? page)
         {
-            var pRODUCTs = db.PRODUCTs.Include(p => p.LOAISANPHAM);
-            return View(pRODUCTs.ToList());
+            int pageSize = 4;
+
+            //Số trang hiện tại (nếu không có thì mặt định là 1)
+            int pageNumber = (page ?? 1);
+
+            var danhsachPro = db.PRODUCTs.AsQueryable();
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                danhsachPro = danhsachPro.Where(tk => tk.IDPro.Contains(searchString) || tk.NamePro.Contains(searchString));
+            }
+
+            return View(danhsachPro.OrderBy(tk => tk.IDPro).ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Admin/PRODUCTs/Details/5
@@ -109,18 +123,11 @@ namespace QLCoffee.Areas.Admin.Controllers
         }
 
         // GET: Admin/PRODUCTs/Edit/5
-        public ActionResult Edit(string id,PRODUCT pRODUCT)
+        public ActionResult EditProduct(string id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            pRODUCT = db.PRODUCTs.Find(id);
-            if (pRODUCT == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.MaLoaiSP = new SelectList(db.LOAISANPHAMs, "MaLoaiSP", "TenLoaiSP", pRODUCT.MaLoaiSP);
+                                   
+            ViewBag.MaLoaiSP = new SelectList(db.LOAISANPHAMs, "MaLoaiSP", "TenLoaiSP");
+
             return View(db.PRODUCTs.Where(s => s.IDPro == id).FirstOrDefault());
         }
 
@@ -128,16 +135,56 @@ namespace QLCoffee.Areas.Admin.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Edit(PRODUCT pRODUCT)
+        [ValidateAntiForgeryToken]
+        public ActionResult EditProduct([Bind(Include = "IDPro,NamePro,Desciption,Img1,Img2,Img3,MaLoaiSP,UploadImage,UploadImage1,UploadImage2")] PRODUCT product)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(pRODUCT).State = System.Data.Entity.EntityState.Modified;
+                
+                var existingProduct = db.PRODUCTs.Find(product.IDPro);
+                if (existingProduct == null)
+                {
+                    return HttpNotFound();
+                }
+                
+                string path = "~/Content/Image/";
+                // Kiểm tra và cập nhật ảnh mới nếu có
+                if (product.UploadImage != null && product.UploadImage.ContentLength > 0)
+                {
+                    
+                    string fileName = Path.GetFileName(product.UploadImage.FileName);
+                    string fullPath = Path.Combine(Server.MapPath(path), fileName);                    
+                    product.UploadImage.SaveAs(Path.Combine(fullPath));
+                    product.Img1 = path + fileName;
+                }
+
+                if (product.UploadImage1 != null && product.UploadImage1.ContentLength > 0)
+                {
+                    
+                    string fileName = Path.GetFileName(product.UploadImage1.FileName);
+                    string fullPath = Path.Combine(Server.MapPath(path), fileName);                   
+                    product.UploadImage1.SaveAs(fullPath);
+                    product.Img2 = path + fileName;
+
+                }
+
+                if (product.UploadImage2 != null && product.UploadImage2.ContentLength > 0)
+                {
+
+                    string fileName = Path.GetFileName(product.UploadImage2.FileName);
+                    string fullPath = Path.Combine(Server.MapPath(path), fileName);
+                    product.UploadImage2.SaveAs(fullPath);
+                    product.Img3 = path + fileName;
+                }
+
+                db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
+               
             }
-            ViewBag.MaLoaiSP = new SelectList(db.LOAISANPHAMs, "MaLoaiSP", "TenLoaiSP", pRODUCT.MaLoaiSP);
-            return View(pRODUCT);
+
+            ViewBag.MaLoaiSP = new SelectList(db.LOAISANPHAMs, "MaLoaiSP", "TenLoaiSP", product.MaLoaiSP);
+            return View(product);
         }
 
         // GET: Admin/PRODUCTs/Delete/5
@@ -170,13 +217,5 @@ namespace QLCoffee.Areas.Admin.Controllers
 
         //}
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
     }
 }

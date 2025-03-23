@@ -11,14 +11,13 @@ namespace QLCoffee.Controllers
     public class CartController : Controller
     {
         // GET: Cart
-        private QuanLyQuanCoffeeEntities db = new QuanLyQuanCoffeeEntities();
+        private QuanLyQuanCoffeeEntities1 db = new QuanLyQuanCoffeeEntities1();
         
        
         //Hàm lấy dịch vụ giỏ hàng
         private CartService GetCartService()
         {
             return new CartService(Session);
-
         }
         
 
@@ -31,13 +30,7 @@ namespace QLCoffee.Controllers
         //Thêm sản phẩm vào giỏ hàng       
         public ActionResult AddToCart(string id, int quantity = 1)
         {
-            //try
-            //{
-            //    if(quantity <= 0)
-            //    {
-
-            //    }
-            //}
+           
             var product = db.SANPHAMs.Find(id);     
             
             if(product == null)

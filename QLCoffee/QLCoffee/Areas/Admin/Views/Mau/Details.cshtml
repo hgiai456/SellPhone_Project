@@ -5,14 +5,13 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Details</h2>
+<h2>CHI TIẾT MÀU</h2>
 
 <div>
-    <h4>MAU</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.TenMau)
+            Tên màu
         </dt>
 
         <dd>
@@ -20,7 +19,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.RGB)
+           RGB
         </dt>
 
         <dd>
@@ -30,6 +29,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MaMau }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MaMau }, new { @class = "btn btn-success" }) |
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
 </p>

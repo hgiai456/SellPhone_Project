@@ -12,14 +12,14 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            Email
+            Email:
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Email)
         </dd>
         <dt>
-            Mật khẩu
+            Mật khẩu:
         </dt>
 
         <dd>
@@ -27,7 +27,7 @@
         </dd>
 
         <dt>
-            Phân Qyền
+            Phân Qyền:
         </dt>
 
         <dd>
@@ -35,7 +35,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.KHACHHANG.HoTenKH)
+           Tên khách hàng:
         </dt>
 
         <dd>
@@ -43,7 +43,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.NHANVIEN.TenNV)
+            Tên nhân viên:
         </dt>
 
         <dd>
@@ -53,6 +53,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.TenDN }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TenDN }, new { @class = "btn btn-sm btn-success" }) |
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-sm btn-primary" })
 </p>

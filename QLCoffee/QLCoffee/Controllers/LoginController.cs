@@ -17,7 +17,7 @@ namespace QLCoffee.Controllers
     public class LoginController : Controller
     {
         // GET: Login
-        QuanLyQuanCoffeeEntities database = new QuanLyQuanCoffeeEntities();
+        QuanLyQuanCoffeeEntities1 database = new QuanLyQuanCoffeeEntities1();
         public ActionResult Login()
         {
             return View();

@@ -59,7 +59,7 @@
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
+        <div class="form-actions no-color" id="bot-size">
             <input type="submit" value="Delete" class="btn btn-danger" /> |
             @Html.ActionLink("Quay về danh sách", "Index", null, new { @class = "btn btn-dark" })
         </div>

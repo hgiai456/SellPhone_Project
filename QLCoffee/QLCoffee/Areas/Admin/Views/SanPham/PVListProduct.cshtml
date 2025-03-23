@@ -2,33 +2,22 @@
 @using PagedList.Mvc;
 <head>
     <style>
-        .pagination-container {
-            margin: 20px;
-            text-align: center;
-        }
-
-            .pagination-container a{
-                margin: 0 5px;
-                padding: 5px 10px;
-                border: 1px solid #ddd;
-                border-radius: 4px;
-                text-decoration: none;
-                color: #333;
-                transition: background-color 0.3s, color 0.3s;
-            }
-
-                .pagination-container a:hover {
-                    background-color: #e91e63;
-                    color: #fff;
-                }
+      
     </style>
 </head>
 <!--Show Product List-->
 @if (Model.SanPhams != null && Model.SanPhams.Any())
 {
-    <h2>Danh sách chi tiết sản phẩm</h2>
-    <table class="table bg-info table-responsive" style="height: 430px">
-        <thead>
+    <h2 class="text-center my-4">Danh sách chi tiết sản phẩm</h2>
+
+    <div class="form-group" style="margin-bottom: 20px">
+        <div class="col-md-4">
+            @Html.ActionLink("Thêm mới", "Create", null, new { @class = "btn btn-success" })
+        </div>
+    </div>
+
+    <table class="table table-bordered table-striped" style="height: 430px">
+        <thead class="table-dark">
             <tr>
                 <th>
                     Mã sản phẩm
@@ -68,31 +57,44 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.NgaySX)
                     </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.MaSP }, new { @class = "btn btn-sm btn-primary" }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.MaSP }, new { @class = "btn btn-sm btn-dark" }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.MaSP }, new { @class = "btn btn-sm btn-danger" })
+                    <td class="text-center">
+                        <div class="d-flex justify-content-center">
+                            @Html.ActionLink("Edit", "Edit", new { id = item.MaSP }, new { @class = "btn btn-sm btn-primary" }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.MaSP }, new { @class = "btn btn-sm btn-dark" }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.MaSP }, new { @class = "btn btn-sm btn-danger" })
+                        </div>
                     </td>
+
                 </tr>
 
             }
         </tbody>
     </table>
-    
+
 }
 else
 {
     <p>Không tìm thấy sản phẩm nào phù hợp</p>
 }
-<div class="pagination-container" style="margin-bottom:20px;">
+<div class="d-flex justify-content-center">
     @Html.PagedListPager(Model.SanPhams, page => Url.Action("Index",
-    new { page, sortOrder = Model.SortOrder, searchTeam = Model.SearchTerm, minPrice = Model.MinPrice, maxPrice = Model.MaxPrice }))
+    new { page, sortOrder = Model.SortOrder, searchTeam = Model.SearchTerm, minPrice = Model.MinPrice, maxPrice = Model.MaxPrice }),
+    new PagedListRenderOptions
+    {
+        Display = PagedListDisplayMode.IfNeeded,
+        UlElementClasses = new[] { "pagination", "pagination-sm" }, // Nhỏ gọn
+        LiElementClasses = new[] { "page-item" }
+
+    })
 </div>
-<div class="form-group">
-    <div class="col-md-4 ">
-        @Html.ActionLink("Thêm mới", "Create", null, new { @class = "btn btn-success" })
-    </div>
-</div>
+
+
+<script>
+    $(document).ready(function () {
+        $(".pagination li a").addClass("page-link");
+    });
+</script>
+
 
 
 

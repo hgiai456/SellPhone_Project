@@ -5,23 +5,29 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Details</h2>
+<h2>CHI TIẾT DUNG LƯỢNG</h2>
 
 <div>
-    <h4>DUNGLUONG</h4>
+  
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            Mã dung lượng
+        </dt>
         <dt>
             @Html.DisplayNameFor(model => model.KichThuocDL)
         </dt>
 
+        <dd>
+            @Html.DisplayFor(model => model.MaDungLuong)
+        </dd>
         <dd>
             @Html.DisplayFor(model => model.KichThuocDL)
         </dd>
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MaDungLuong }) |
-    @Html.ActionLink("Back to List", "Index")
+<p id="bot-size">
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MaDungLuong }, new { @class = "btn btn-dark" }) |
+    @Html.ActionLink("Back to List", "Index", new { @class = "btn btn-primary" })
 </p>

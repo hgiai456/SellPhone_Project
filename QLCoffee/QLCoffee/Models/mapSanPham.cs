@@ -11,15 +11,34 @@ namespace QLCoffee.Models
         {
             try
             {
-                QuanLyQuanCoffeeEntities db = new QuanLyQuanCoffeeEntities();
+                QuanLyQuanCoffeeEntities1 db = new QuanLyQuanCoffeeEntities1();
                 var sp = db.SANPHAMs.Find(idSanPham);
-                sp.Image1 = Image_url;
+                sp.TenSP = Image_url;
                 db.SaveChanges();
                 return true;
             }
 
             catch
             { 
+                return false;
+            }
+        }
+        public bool UpdateImageProduct(string idPRODUCT, string Image1_url, string Image2_url, string Image3_url)
+        {
+            try
+            {
+                QuanLyQuanCoffeeEntities1 db = new QuanLyQuanCoffeeEntities1();
+                var sp = db.PRODUCTs.Find(idPRODUCT);
+                sp.Img1 = Image1_url;
+                sp.Img2 = Image2_url;
+                sp.Img3 = Image3_url;
+
+                db.SaveChanges();
+                return true;
+            }
+
+            catch
+            {
                 return false;
             }
         }

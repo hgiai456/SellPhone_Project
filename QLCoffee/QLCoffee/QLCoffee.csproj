@@ -222,6 +222,7 @@
     <Compile Include="Models\PRODUCT.cs">
       <DependentUpon>EntitiesDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\RequiredAttribute.cs" />
     <Compile Include="Models\SANPHAM.cs">
       <DependentUpon>EntitiesDB.tt</DependentUpon>
     </Compile>

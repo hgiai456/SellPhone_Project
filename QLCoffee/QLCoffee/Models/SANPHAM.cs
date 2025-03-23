@@ -26,7 +26,6 @@ namespace QLCoffee.Models
         public int GiaSP { get; set; }
         public Nullable<int> SoLuongSP { get; set; }
         public Nullable<System.DateTime> NgaySX { get; set; }
-        public string Image1 { get; set; }
         public Nullable<int> MaMau { get; set; }
         public string IDPro { get; set; }
         public Nullable<int> SoLuongDaBan { get; set; }

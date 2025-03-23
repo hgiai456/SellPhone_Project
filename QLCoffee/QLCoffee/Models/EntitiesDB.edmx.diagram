@@ -34,7 +34,6 @@
         <AssociationConnector Association="QuanLyQuanCoffeeModel.FK_SANPHAM_KHO" />
         <EntityTypeShape EntityType="QuanLyQuanCoffeeModel.KHO" Width="1.5" PointX="8.625" PointY="10.5" />
         <AssociationConnector Association="QuanLyQuanCoffeeModel.FK_NHACUNGCAP_KHO" />
-        <AssociationConnector Association="QuanLyQuanCoffeeModel.FK_SANPHAM_KHO" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -134,7 +134,6 @@
           <Property Name="GiaSP" Type="int" Nullable="false" />
           <Property Name="SoLuongSP" Type="int" />
           <Property Name="NgaySX" Type="date" />
-          <Property Name="Image1" Type="nvarchar(max)" />
           <Property Name="MaMau" Type="int" />
           <Property Name="IDPro" Type="char" MaxLength="4" />
           <Property Name="SoLuongDaBan" Type="int" />
@@ -513,7 +512,6 @@
           <Property Name="SoLuongSP" Type="Int32" />
           <Property Name="NgaySX" Type="DateTime" Precision="0" />
           <NavigationProperty Name="CHITIET_HOADON" Relationship="Self.FK_SANPHAM_CHITIETHOADON" FromRole="SANPHAM" ToRole="CHITIET_HOADON" />
-          <Property Name="Image1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="MaMau" Type="Int32" />
           <NavigationProperty Name="MAU" Relationship="QuanLyQuanCoffeeModel.FK_MAMAU_SANPHAM" FromRole="SANPHAM" ToRole="MAU" />
           <Property Name="IDPro" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
@@ -936,7 +934,6 @@
                 <ScalarProperty Name="SoLuongDaBan" ColumnName="SoLuongDaBan" />
                 <ScalarProperty Name="IDPro" ColumnName="IDPro" />
                 <ScalarProperty Name="MaMau" ColumnName="MaMau" />
-                <ScalarProperty Name="Image1" ColumnName="Image1" />
                 <ScalarProperty Name="MaSP" ColumnName="MaSP" />
                 <ScalarProperty Name="TenSP" ColumnName="TenSP" />
                 <ScalarProperty Name="GiaSP" ColumnName="GiaSP" />

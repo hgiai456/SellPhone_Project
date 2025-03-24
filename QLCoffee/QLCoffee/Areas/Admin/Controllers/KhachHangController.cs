@@ -10,7 +10,7 @@ namespace QLCoffee.Areas.Admin.Controllers
     public class KhachHangController : Controller
     {
         // GET: Admin/KhachHang
-        QuanLyQuanCoffeeEntities database = new QuanLyQuanCoffeeEntities();
+        QuanLyQuanCoffeeEntities1 database = new QuanLyQuanCoffeeEntities1();
         public ActionResult Index()
         {
             return View(database.KHACHHANGs.ToList());

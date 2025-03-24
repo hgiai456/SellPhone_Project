@@ -22,6 +22,7 @@ namespace QLCoffee.Models
         {
             this.HOADONs = new HashSet<HOADON>();
         }
+
         [DisplayName("TenDN")]
         [Required(ErrorMessage = "Error Empty")]
 
@@ -51,10 +52,9 @@ namespace QLCoffee.Models
         public string MaKH { get; set; }
         public string MaNV { get; set; }
 
-
-        public virtual KHACHHANG KHACHHANG { get; set; }
-        public virtual NHANVIEN NHANVIEN { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HOADON> HOADONs { get; set; }
+        public virtual KHACHHANG KHACHHANG { get; set; }
+        public virtual NHANVIEN NHANVIEN { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace QLCoffee.Areas.Admin.Controllers
     public class MauController : Controller
     {
         // GET: Admin/Mau
-        QuanLyQuanCoffeeEntities database = new QuanLyQuanCoffeeEntities();
+        QuanLyQuanCoffeeEntities1 database = new QuanLyQuanCoffeeEntities1();
         public ActionResult Index()
         {
             return View(database.MAUs.ToList());

@@ -10,7 +10,7 @@ namespace QLCoffee.Areas.Admin.Controllers
     public class NhanVienController : Controller
     {
         // GET: Admin/NhanVien
-        QuanLyQuanCoffeeEntities database = new QuanLyQuanCoffeeEntities();
+        QuanLyQuanCoffeeEntities1 database = new QuanLyQuanCoffeeEntities1();
         public ActionResult Index()
         {
             return View(database.NHANVIENs.ToList());

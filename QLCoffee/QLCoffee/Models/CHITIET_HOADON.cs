@@ -16,9 +16,9 @@ namespace QLCoffee.Models
     {
         public string MaHD { get; set; }
         public string MaSP { get; set; }
-        public int Soluong { get; set; }
+        public Nullable<int> Soluong { get; set; }
         public string MaKM { get; set; }
-        public int TongTien { get; set; }
+        public Nullable<int> TongTien { get; set; }
         public int UnitPrice { get; set; }
         public Nullable<int> TotalPrice { get; set; }
     

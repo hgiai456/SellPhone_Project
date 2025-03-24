@@ -11,7 +11,7 @@ namespace QLCoffee.Controllers
 
     public class OrderController : Controller
     {
-        private QuanLyQuanCoffeeEntities db = new QuanLyQuanCoffeeEntities();
+        private QuanLyQuanCoffeeEntities1 db = new QuanLyQuanCoffeeEntities1();
         // GET: Order
         public ActionResult Index()
         {
@@ -35,17 +35,17 @@ namespace QLCoffee.Controllers
 
             var login = GetLoginService().GetUserName();
 
-            if(cart == null || !cart.Items.Any())
+            if (cart == null || !cart.Items.Any())
             {
                 return RedirectToAction("TrangChu", "Home");
             }
-            if(login == null)
+            if (login == null)
             {
                 return RedirectToAction("Login", "Login");
             }
             //Xác thực người dùng đã đăng nhập chưa, nếu chưa thì chuyển hướng tới đăng nhập
             var user = db.TAIKHOANs.SingleOrDefault(u => u.TenDN == User.Identity.Name);
-           
+
             //Lấy thông tin khách hàng từ cơ sở dữ liệu
             //Nếu có rồi thì lấy địa chỉ khách hàng và gán vào GhiChu của CheckOutVM
             var model = new CheckoutVM
@@ -54,14 +54,14 @@ namespace QLCoffee.Controllers
                 CartItems = cart.Items,//Lấy danh sách các sản phẩm trong giỏ hàng
                 TongGiaTriHD = cart.TotalValue(),//Tổng giá trị các mặt hàng
                 NgayTD = DateTime.Now,
-                TenDN = login,               
+                TenDN = login,
 
             };
             return View(model);
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]        
+        [ValidateAntiForgeryToken]
         public ActionResult Checkout(CheckoutVM model)
         {
             var cart = GetCartService().GetCart();
@@ -73,13 +73,13 @@ namespace QLCoffee.Controllers
 
             string newOrderId = GenerateNewOrderId(lastOrderId);
 
-            
+
 
             if (ModelState.IsValid)
             {
 
                 //Khai bao Session Cart
-               
+
                 //Nếu giỏ hàng rổng sẽ điều hướng tới trang Home
                 if (cart == null || !cart.Items.Any())
                 {
@@ -91,10 +91,10 @@ namespace QLCoffee.Controllers
                 var user = db.TAIKHOANs.SingleOrDefault(u => u.TenDN == User.Identity.Name);
 
                 //Lấy hóa đơn lớn nhất hiện tại
-                
 
-               
-               
+
+
+
 
 
                 //Tạo đơn hàng và chi tiết hóa đơn liên quan
@@ -134,8 +134,8 @@ namespace QLCoffee.Controllers
             model.TongGiaTriHD = cart.TotalValue();
 
             return View(model);
-            
-            
+
+
         }
         //Hàm sinh mã hóa đơn mới
         private string GenerateNewOrderId(string lastOrderId)
@@ -155,7 +155,7 @@ namespace QLCoffee.Controllers
             //Lấy thông tin đơn hàng theo mã đơn hàng
             var order = db.HOADONs.Include("CHITIET_HOADON").SingleOrDefault(o => o.MaHD == id);
             //Nếu không tìm thấy đơn hàng, điều hướng về trang chủ
-            if(order == null)
+            if (order == null)
             {
                 return RedirectToAction("TrangChu", "Home");
             }
@@ -164,17 +164,18 @@ namespace QLCoffee.Controllers
             {
 
                 TenDN = order.TenDN,
-                NgayTD = order.NgayTD,
-                TongGiaTriHD = order.TongGiaTriHD,
+                NgayTD = order.NgayTD.GetValueOrDefault(DateTime.Now),
+                TongGiaTriHD = order.TongGiaTriHD.GetValueOrDefault(0),
                 DiaChiDH = order.GhiChu,
                 TrangThaiDH = order.TrangThaiDH,
-                CartItems = order.CHITIET_HOADON.Select(ct => new CartItem {
+                CartItems = order.CHITIET_HOADON.Select(ct => new CartItem
+                {
                     MaSP = ct.MaSP,
-                    Quantity = ct.Soluong,
-                    UnitPrice = ct.UnitPrice,                    
-                    
+                    Quantity = ct.Soluong.GetValueOrDefault(0),
+                    UnitPrice = ct.UnitPrice,
+
                 }).ToList()
-               
+
             };
             return View(model);
         }

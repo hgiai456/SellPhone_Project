@@ -7,12 +7,3 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-
-namespace QLCoffee.Models
-{
-    internal class RequiredAttribute : Attribute
-    {
-        public string ErrorMessage { get; set; }
-    }
-}

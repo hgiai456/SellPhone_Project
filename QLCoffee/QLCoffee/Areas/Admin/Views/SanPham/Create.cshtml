@@ -14,98 +14,105 @@
     <div class="form-horizontal">
         <h4>Thêm mới sản phẩm</h4>
         <hr />
-         
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    <label>Mã sản phẩm</label>
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.MaSP, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.MaSP, "", new { @class = "text-danger" })
-                    </div>
-                </div>
 
-                <div class="form-group">
-                    <label>Tên sản phẩm</label>
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.TenSP, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.TenSP, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <label>Mã sản phẩm</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MaSP, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MaSP, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-                <div class="form-group">
-                    <label>Giá sản phẩm:</label>
-                    <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.GiaSP, new List<SelectListItem>
-                           {
-                               new SelectListItem { Text = "10.000.000 VNĐ", Value = "10000000" },
-                             new SelectListItem { Text = "15.000.000 VNĐ", Value = "15000000" },
-                             new SelectListItem { Text = "20.000.000 VNĐ", Value = "20000000" },
-                             new SelectListItem { Text = "25.000.000 VNĐ", Value = "25000000" },
-                             new SelectListItem { Text = "30.000.000 VNĐ", Value = "30000000" },
-                             new SelectListItem { Text = "35.000.000 VNĐ", Value = "35000000" }
-                           }, "---Chọn mức giá---", new { @class = "form-control" })
+        <div class="form-group">
+            <label>Tên sản phẩm</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TenSP, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TenSP, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-                        @Html.ValidationMessageFor(model => model.GiaSP, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+        <div class="form-group">
+            <label>Giá sản phẩm:</label>
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.GiaSP, new List<SelectListItem>
+                {
+                    new SelectListItem { Text = "9.999.000 VNĐ", Value = "9990000" },
+                    new SelectListItem { Text = "14.999.000 VNĐ", Value = "14990000" },
+                    new SelectListItem { Text = "19.999.000 VNĐ", Value = "19990000" },
+                    new SelectListItem { Text = "24.999.000 VNĐ", Value = "24990000" },
+                    new SelectListItem { Text = "29.990.000 VNĐ", Value = "29990000" },
+                    new SelectListItem { Text = "34.990.000 VNĐ", Value = "34990000" }
+                }, "---Chọn mức giá---", new { @class = "form-control select2" })
 
-                <div class="form-group">
-                    <label>Số lượng sản phẩm</label>
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.SoLuongSP, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.SoLuongSP, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Số lượng bán ra</label>
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.SoLuongDaBan, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.SoLuongDaBan, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            
-                <div class="form-group">
-                    <label>Ngày sản xuất</label>
-                    <div class="col-md-10">
-                        <input name="NgaySX" class="form-control" value="@string.Format("0:yyyy-MM-dd",DateTime.Now)" type="date" />
-                        @Html.ValidationMessageFor(model => model.NgaySX, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Mã sản phẩm chính</label>
-                    <div class="col-md-10">
-                        @Html.DropDownList("IDPro", null, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.IDPro, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Màu</label>
-                    <div class="col-md-10">
-                        @Html.DropDownList("MaMau", null, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.MaMau, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Dung lượng</label>
-                    <div class="col-md-10">
-                        @Html.DropDownList("MaDungLuong", null, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.MaDungLuong, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+                @Html.ValidationMessageFor(model => model.GiaSP, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
 
-                <div class="form-group" id="bot-size">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Create" class="btn btn-outline-primary" />|
-                        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
-                    </div>
-                </div>
+        <div class="form-group">
+            <label>Số lượng sản phẩm</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SoLuongSP, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SoLuongSP, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Số lượng bán ra</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SoLuongDaBan, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SoLuongDaBan, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Ngày sản xuất</label>
+            <div class="col-md-10">
+                <input name="NgaySX" class="form-control" value="@string.Format("0:yyyy-MM-dd",DateTime.Now)" type="date" />
+                @Html.ValidationMessageFor(model => model.NgaySX, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Mã sản phẩm chính</label>
+            <div class="col-md-10">
+                @Html.DropDownList("IDPro", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IDPro, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Màu</label>
+            <div class="col-md-10">
+                @Html.DropDownList("MaMau", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.MaMau, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Dung lượng</label>
+            <div class="col-md-10">
+                @Html.DropDownList("MaDungLuong", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.MaDungLuong, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group" id="bot-size">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-outline-primary" />|
+                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+            </div>
+        </div>
     </div>
 
- 
+
 }
 
-<div>
-    
-</div>
+<script>
+    $(document).ready(function () {
+        $(".select2").select2({
+            tags: true,  // Cho phép nhập giá mới
+            placeholder: "---Chọn hoặc nhập giá---",
+            allowClear: true
+        });
+    });
+</script>

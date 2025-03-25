@@ -1,46 +1,46 @@
-﻿@model QLCoffee.Models.NHACUNGCAP
+﻿@model QLCoffee.Models.KHO
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>XÓA NHÀ CUNG CẤP</h2>
+<h2>XÓA HÀNG HÓA</h2>
+<h3>Bạn có chắc chắn muốn xóa hàng hóa này không ?</h3>
+<div>
 
-<h3>Bạn chắc chắn muốn xóa nhà cung cấp này không?</h3>
-<div>    
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            Mã nhà cung cấp
+            Số lượng tồn kho:
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.MaNCC)
+            @Html.DisplayFor(model => model.SoLuongTon)
         </dd>
 
         <dt>
-            Tên nhà cung cấp
+            Ngày cập nhật:
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.TenNCC)
+            @Html.DisplayFor(model => model.LastUpdate)
         </dd>
 
         <dt>
-            Địa chỉ
+            Nhà cung cấp:
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.DiaChi)
+            @Html.DisplayFor(model => model.NHACUNGCAP.TenNCC)
         </dd>
 
         <dt>
-            Số điện thoại
+            Chi tiết sản phẩm:
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.SoDT)
+            @Html.DisplayFor(model => model.SANPHAM.TenSP)
         </dd>
 
     </dl>

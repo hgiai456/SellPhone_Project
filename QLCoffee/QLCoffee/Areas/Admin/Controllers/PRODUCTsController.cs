@@ -18,7 +18,7 @@ namespace QLCoffee.Areas.Admin.Controllers
 {
     public class PRODUCTsController : Controller
     {
-        private QuanLyQuanCoffeeEntities1 db = new QuanLyQuanCoffeeEntities1();
+        private QuanLyQuanCoffeeEntities db = new QuanLyQuanCoffeeEntities();
 
         // GET: Admin/PRODUCTs
         public ActionResult Index(string searchString, int? page)

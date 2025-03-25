@@ -13,7 +13,7 @@ namespace QLCoffee.Areas.Admin.Controllers
     public class SanPhamController : Controller
     {
         // GET: SanPham
-        QuanLyQuanCoffeeEntities1 database = new QuanLyQuanCoffeeEntities1();
+        QuanLyQuanCoffeeEntities database = new QuanLyQuanCoffeeEntities();
         public ActionResult Index(string id,string searchTerm,int? minPrice,int? maxPrice, int? page, string sortOrder)
         {
             SANPHAM sp = database.SANPHAMs.Find(id); //Create Object of SANPHAM
@@ -138,54 +138,54 @@ namespace QLCoffee.Areas.Admin.Controllers
             database.SaveChanges();
             return RedirectToAction("Index");
         }
-        public ActionResult Update_Image(string idSanPham)
-        {
-            ViewBag.idSanPham = idSanPham;
-            return View();
+        //public ActionResult Update_Image(string idSanPham)
+        //{
+        //    ViewBag.idSanPham = idSanPham;
+        //    return View();
 
-        }
-        [HttpPost]
-        public ActionResult Update_Image(string idSanPham, HttpPostedFileBase fileImage, SANPHAM sanpham)
-        {
-            sanpham = database.SANPHAMs.Where(s => s.MaSP == idSanPham).FirstOrDefault();
-            if (fileImage == null) //nếu để trống thì báo lỗi
-            {
-                ViewBag.error = "File empty";
-                ViewBag.idSanPham = idSanPham;
-                return View();
+        //}
+        //[HttpPost]
+        //public ActionResult Update_Image(string idSanPham, HttpPostedFileBase fileImage, SANPHAM sanpham)
+        //{
+        //    sanpham = database.SANPHAMs.Where(s => s.MaSP == idSanPham).FirstOrDefault();
+        //    if (fileImage == null) //nếu để trống thì báo lỗi
+        //    {
+        //        ViewBag.error = "File empty";
+        //        ViewBag.idSanPham = idSanPham;
+        //        return View();
 
-            }
-            if (fileImage.ContentLength == 0)//nếu thêm dữ liệu nhưng đó không có nội dung thì báo lỗi
-            {
-                ViewBag.error = "Don't have topic";
-                ViewBag.idSanpham = idSanPham;
-                return View();
-            }
-            //Xác định đường dẫn lưu file : Url tương đối => tuyệt đối 
-            var urlTuongDoi = "/Data/Image/";
-            var urlTuyetDoi = Server.MapPath(urlTuongDoi);
-            //Lưu file (Chưa check same file)
-            fileImage.SaveAs(urlTuyetDoi + fileImage.FileName);
+        //    }
+        //    if (fileImage.ContentLength == 0)//nếu thêm dữ liệu nhưng đó không có nội dung thì báo lỗi
+        //    {
+        //        ViewBag.error = "Don't have topic";
+        //        ViewBag.idSanpham = idSanPham;
+        //        return View();
+        //    }
+        //    //Xác định đường dẫn lưu file : Url tương đối => tuyệt đối 
+        //    var urlTuongDoi = "/Data/Image/";
+        //    var urlTuyetDoi = Server.MapPath(urlTuongDoi);
+        //    //Lưu file (Chưa check same file)
+        //    fileImage.SaveAs(urlTuyetDoi + fileImage.FileName);
 
-            string fullDuongDan = urlTuyetDoi + fileImage.FileName;
-            int i = 1;
-            while (System.IO.File.Exists(fullDuongDan) == true)
-            {
-                string ten = Path.GetFileNameWithoutExtension(fullDuongDan);
-                string duoi = Path.GetExtension(fileImage.FileName);
-                fullDuongDan = urlTuyetDoi + ten + "-" + i + duoi;
-                i++;
-            }
-            fileImage.SaveAs(fullDuongDan);
+        //    string fullDuongDan = urlTuyetDoi + fileImage.FileName;
+        //    int i = 1;
+        //    while (System.IO.File.Exists(fullDuongDan) == true)
+        //    {
+        //        string ten = Path.GetFileNameWithoutExtension(fullDuongDan);
+        //        string duoi = Path.GetExtension(fileImage.FileName);
+        //        fullDuongDan = urlTuyetDoi + ten + "-" + i + duoi;
+        //        i++;
+        //    }
+        //    fileImage.SaveAs(fullDuongDan);
 
-            mapSanPham map = new mapSanPham();
-            map.UpdateImage(idSanPham, urlTuongDoi + fileImage.FileName);
+        //    mapSanPham map = new mapSanPham();
+        //    map.UpdateImage(idSanPham, urlTuongDoi + fileImage.FileName);
 
 
-            ViewBag.idSanPham = idSanPham;
-            return RedirectToAction("Index");
+        //    ViewBag.idSanPham = idSanPham;
+        //    return RedirectToAction("Index");
 
-        }
+        //}
 
     }
 }

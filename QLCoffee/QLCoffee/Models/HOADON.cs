@@ -21,8 +21,8 @@ namespace QLCoffee.Models
         }
     
         public string MaHD { get; set; }
-        public Nullable<System.DateTime> NgayTD { get; set; }
-        public Nullable<int> TongGiaTriHD { get; set; }
+        public System.DateTime NgayTD { get; set; }
+        public int TongGiaTriHD { get; set; }
         public string GhiChu { get; set; }
         public string TrangThaiDH { get; set; }
         public string MaShipper { get; set; }

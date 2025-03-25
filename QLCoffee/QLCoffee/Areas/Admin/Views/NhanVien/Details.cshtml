@@ -4,6 +4,7 @@
     ViewBag.Title = "Details";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
+<h2>CHI TIẾT NHÂN VIÊN</h2>
 <div>
     <hr />
     <dl class="dl-horizontal">
@@ -67,5 +68,5 @@
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.MaNV }, new { @class = "btn btn-primary" })  |
-    @Html.ActionLink("Back to List", "Index", new { @class = "btn btn-primary" })
+    @Html.ActionLink("Back to List", "Index", null ,new { @class = "btn btn-primary" })
 </p>

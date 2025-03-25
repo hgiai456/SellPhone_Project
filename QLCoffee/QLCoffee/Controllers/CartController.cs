@@ -11,7 +11,7 @@ namespace QLCoffee.Controllers
     public class CartController : Controller
     {
         // GET: Cart
-        private QuanLyQuanCoffeeEntities1 db = new QuanLyQuanCoffeeEntities1();
+        private QuanLyQuanCoffeeEntities db = new QuanLyQuanCoffeeEntities();
         
        
         //Hàm lấy dịch vụ giỏ hàng

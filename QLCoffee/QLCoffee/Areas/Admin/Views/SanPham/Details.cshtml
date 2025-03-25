@@ -52,25 +52,18 @@
             @Html.DisplayFor(model => model.NgaySX)
         </dd>
 
-        <dt>
-            Hình ảnh
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Image1)
-        </dd>
 
     </dl>
-    <!--<div class="form-group">
+    @*<div class="form-group">
         <div class="col-md-10">
             <h4>Ảnh</h4>
             <img src="@Model.Image1" style="width:200px" />
             <p>
-                <a href="/Admin/SanPham/Update_Image?idSanPham=@Model.MaSP" class="pull-right btn btn-sm btn-success">Upload</a>-->
-    @*/Areas/Controller/Action*@
-    <!--</p>
+                <a href="/Admin/SanPham/Update_Image?idSanPham=@Model.MaSP" class="pull-right btn btn-sm btn-success">Upload</a>
+    /Areas/Controller/Action
+    </p>
         </div>
-    </div>-->
+    </div>*@
     <p id="bot-size">
         @Html.ActionLink("Edit", "Edit", new { id = Model.MaSP }, new { @class = "btn btn-primary" }) |
         @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-success" })

@@ -29,7 +29,14 @@ namespace QLCoffee.Models.ViewModel
             session["Cart"] = null;
         }
 
+        internal void AddToCart(int productId)
+        {
+            throw new NotImplementedException();
+        }
 
-
+        internal void RemoveFromCart(int productId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

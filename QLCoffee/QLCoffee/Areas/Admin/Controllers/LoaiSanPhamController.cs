@@ -10,7 +10,7 @@ namespace QLCoffee.Areas.Admin.Controllers
     public class LoaiSanPhamController : Controller
     {
         // GET: Admin/LoaiSanPham
-        QuanLyQuanCoffeeEntities1 database = new QuanLyQuanCoffeeEntities1();
+        QuanLyQuanCoffeeEntities database = new QuanLyQuanCoffeeEntities();
         public ActionResult Index()
         {
             return View(database.LOAISANPHAMs.ToList());

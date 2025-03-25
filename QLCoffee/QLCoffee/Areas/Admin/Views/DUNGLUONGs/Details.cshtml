@@ -14,13 +14,13 @@
         <dt>
             Mã dung lượng
         </dt>
-        <dt>
-            @Html.DisplayNameFor(model => model.KichThuocDL)
-        </dt>
-
         <dd>
             @Html.DisplayFor(model => model.MaDungLuong)
         </dd>
+
+        <dt>
+            Kích thước dung lượng
+        </dt>
         <dd>
             @Html.DisplayFor(model => model.KichThuocDL)
         </dd>
@@ -29,5 +29,5 @@
 </div>
 <p id="bot-size">
     @Html.ActionLink("Edit", "Edit", new { id = Model.MaDungLuong }, new { @class = "btn btn-dark" }) |
-    @Html.ActionLink("Back to List", "Index", new { @class = "btn btn-primary" })
+    @Html.ActionLink("Back to List", "Index", null ,new { @class = "btn btn-primary" })
 </p>

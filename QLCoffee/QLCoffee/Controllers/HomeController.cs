@@ -12,7 +12,7 @@ namespace QLCoffee.Controllers
 {
     public class HomeController : Controller
     {
-        QuanLyQuanCoffeeEntities1 db = new QuanLyQuanCoffeeEntities1();
+        QuanLyQuanCoffeeEntities db = new QuanLyQuanCoffeeEntities();
                 
         public ActionResult TrangChu(string searchTerm, int? page) //PageList - Not Search
         {

@@ -9,10 +9,10 @@ using System.Web.Mvc;
 using QLCoffee.Models;
 
 namespace QLCoffee.Areas.Admin.Controllers
-{
+{   
     public class DUNGLUONGsController : Controller
     {
-        private QuanLyQuanCoffeeEntities1 db = new QuanLyQuanCoffeeEntities1();
+        private QuanLyQuanCoffeeEntities db = new QuanLyQuanCoffeeEntities();
 
         // GET: Admin/DUNGLUONGs
         public ActionResult Index()

@@ -13,7 +13,7 @@ namespace QLCoffee.Areas.Admin.Controllers
     public class TaiKhoanController : Controller
     {
         // GET: Admin/TaiKhoan
-        QuanLyQuanCoffeeEntities1 database = new QuanLyQuanCoffeeEntities1();
+        QuanLyQuanCoffeeEntities database = new QuanLyQuanCoffeeEntities();
         public ActionResult Index(string searchString, int? page)
         {
             //Số dòng trên mỗi trang

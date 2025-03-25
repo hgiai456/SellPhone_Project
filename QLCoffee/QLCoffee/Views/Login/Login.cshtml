@@ -51,7 +51,7 @@
 
     .error-message {
         color: red;
-        font-size: 8px;
+        font-size: 11px;
         text-align: left;
     }
 
@@ -80,15 +80,13 @@
             <div class="login-container">
                 <h2>Đăng Nhập</h2>
                     <!-- Tên đăng nhập -->
-                    <input type="text" name="TenDN" placeholder="Tên đăng nhập">
-                    @Html.ValidationMessageFor(m => m.TenDN)
+                    <input type="text" name="TenDN" placeholder="Tên đăng nhập">                    
                     @if (ViewBag.ErrorID != null)
                     {
                         <div class="error-message">@ViewBag.ErrorID</div>
                     }
                     <!-- Mật khẩu -->
-                    <input type="password" name="MatKhau" placeholder="Mật khẩu">
-                    @Html.ValidationMessageFor(m => m.MatKhau)
+                    <input type="password" name="MatKhau" placeholder="Mật khẩu">                    
                     @if (ViewBag.ErrorPass != null)
                     {
                         <div class="error-message">@ViewBag.ErrorPass</div>

@@ -10,7 +10,7 @@ namespace QLCoffee.Areas.Admin.Controllers
     public class NhaCungCapController : Controller
     {
         // GET: NCC
-        QuanLyQuanCoffeeEntities1 database = new QuanLyQuanCoffeeEntities1();
+        QuanLyQuanCoffeeEntities database = new QuanLyQuanCoffeeEntities();
         public ActionResult Index()
         {
             return View(database.NHACUNGCAPs.ToList());

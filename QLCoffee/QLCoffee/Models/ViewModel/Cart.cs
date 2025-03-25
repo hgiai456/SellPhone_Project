@@ -7,7 +7,7 @@ namespace QLCoffee.Models.ViewModel
 {
     public class Cart//Để quản lý danh sách các sản phẩm trong giỏ
     {
-        public QuanLyQuanCoffeeEntities1 db = new QuanLyQuanCoffeeEntities1();
+        public QuanLyQuanCoffeeEntities db = new QuanLyQuanCoffeeEntities();
 
         public List<CartItem> Items { get; set; } = new List<CartItem>();
         

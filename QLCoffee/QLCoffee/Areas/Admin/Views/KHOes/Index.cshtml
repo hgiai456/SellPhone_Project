@@ -18,6 +18,9 @@
                 Mã hàng hóa
             </th>
             <th>
+                Sản phẩm
+            </th>
+            <th>
                 Số lượng tồn kho
             </th>
             <th>
@@ -26,9 +29,7 @@
             <th>
                 Nhà cung cấp
             </th>
-            <th>
-                Sản phẩm
-            </th>
+
             <th></th>
         </tr>
     </thead>
@@ -41,17 +42,19 @@
                     @Html.DisplayFor(modelItem => item.MaKho)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.SANPHAM.TenSP)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.SoLuongTon)
                 </td>
+
                 <td>
                     @Html.DisplayFor(modelItem => item.LastUpdate)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.NHACUNGCAP.TenNCC)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SANPHAM.TenSP)
-                </td>
+
                 <td class="text-center">
                     <div class="d-flex justify-content-center">
                         @Html.ActionLink("Edit", "Edit", new { id = item.MaKho }, new { @class = "btn btn-primary" }) |

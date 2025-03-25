@@ -13,11 +13,11 @@ namespace QLCoffee.Areas.Admin.Controllers
     public class HoaDonController : Controller
     {
         // GET: Admin/HoaDon
-        QuanLyQuanCoffeeEntities1 database = new QuanLyQuanCoffeeEntities1();
+        QuanLyQuanCoffeeEntities database = new QuanLyQuanCoffeeEntities();
         public ActionResult Index(string searchString, int? page)
         {
             //Số dòng trên mỗi trang
-            int pageSize = 10;
+            int pageSize = 9;
 
             //Số trang hiện tại (nếu không có thì mặt định là 1)
             int pageNumber = (page ?? 1);

@@ -11,6 +11,9 @@ namespace QLCoffee.Models.ViewModel
         public string TenSP { get; set; }
         public int Quantity { get; set; }
 
+        public string Color { get; set; }
+
+        public string Size { get; set; }
         public int UnitPrice { get; set; }
 
         public string ProImage { get; set; }

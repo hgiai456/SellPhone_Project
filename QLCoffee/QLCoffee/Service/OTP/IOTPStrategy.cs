@@ -8,5 +8,7 @@ namespace QLCoffee.Service.OTP
     public interface IOTPStrategy
     {
         string GenerateOTP();
+
+        bool ValidateOTP(string inputOTP,string generateOTP);
     }
 }

@@ -13,5 +13,10 @@ namespace QLCoffee.Service.OTP
             return random.Next(100000, 999999).ToString();//Tạo OTP có 6 số
 
         }
+        public bool ValidateOTP(string inputOTP, string generateOTP) {           
+            return inputOTP == generateOTP;
+        }
+            
+        
     }
 }

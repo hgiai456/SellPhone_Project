@@ -10,13 +10,13 @@ namespace QLCoffee.Models.ViewModel
         public QuanLyQuanCoffeeEntities db = new QuanLyQuanCoffeeEntities();
 
         public List<CartItem> Items { get; set; } = new List<CartItem>();
-        
 
-        
-        public void AddItem(string productId, string ImgPro, string TenSP, int GiaSP, int quantity )
+
+
+        public void AddItem(string productId, string ImgPro, string TenSP, int GiaSP, int quantity)
         {
             var existingItem = Items.FirstOrDefault(i => i.MaSP == productId);
-            if(existingItem != null)
+            if (existingItem != null)
             {
                 existingItem.Quantity += quantity;
             }
@@ -25,8 +25,8 @@ namespace QLCoffee.Models.ViewModel
 
                 Items.Add(new CartItem { MaSP = productId, ProImage = ImgPro, TenSP = TenSP, UnitPrice = GiaSP, Quantity = quantity });
             }
-           
-           
+
+
         }
         //Delete Product from Cart
         public void RemoveItem(string productId)

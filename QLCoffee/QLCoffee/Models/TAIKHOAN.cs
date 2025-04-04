@@ -22,35 +22,41 @@ namespace QLCoffee.Models
         {
             this.HOADONs = new HashSet<HOADON>();
         }
+
         [DisplayName("TenDN")]
-        [Required(ErrorMessage = "Không được bỏ trống tên đăng nhập.")]
+        [Required(ErrorMessage = "Error Empty")]
 
         public string TenDN { get; set; }
 
         [DisplayName("Email")]
-        [Required(ErrorMessage = "Không được bỏ trống Email.")]
+        [Required(ErrorMessage = "Error Empty")]
         public string Email { get; set; }
 
         [DisplayName("MatKhau")]
-        [Required(ErrorMessage = "Không được bỏ trống mật khẩu.")]
+        [Required(ErrorMessage = "Error Empty")]
         public string MatKhau { get; set; }
         [NotMapped]
-        [Required(ErrorMessage = "Vui lòng xác thực mật khẩu.")]
+        [Required(ErrorMessage = "Error Empty")]
         [Compare("MatKhau")]
         public string RePass { get; set; }
 
         private string _PhanQuyen;
         [DisplayName("PhanQuyen")]
-        [Required(ErrorMessage = "Không được bỏ trống phân quyền.")]
+        [Required(ErrorMessage = "Error Empty")]
         [StringLength(1, ErrorMessage = "PhanQuyen save only 1 character")]
         public string PhanQuyen
         {
             get { return _PhanQuyen; }
             set { _PhanQuyen = value?.Trim(); }
         }
+        [DisplayName("Số điện thoại")]
+        [Required(ErrorMessage = "Error Empty")]
+        public string SDT { get; set; }
+
         public string MaKH { get; set; }
         public string MaNV { get; set; }
-
+       
+    
         public virtual KHACHHANG KHACHHANG { get; set; }
         public virtual NHANVIEN NHANVIEN { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

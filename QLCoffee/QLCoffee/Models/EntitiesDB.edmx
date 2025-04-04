@@ -156,6 +156,7 @@
           <Property Name="MaKH" Type="char" MaxLength="6" />
           <Property Name="MaNV" Type="char" MaxLength="4" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="SDT" Type="varchar" MaxLength="11" />
         </EntityType>
         <Association Name="FK_DUNGLUONG_SANPHAM">
           <End Role="DUNGLUONG" Type="Self.DUNGLUONG" Multiplicity="0..1" />
@@ -542,6 +543,7 @@
           <NavigationProperty Name="NHANVIEN" Relationship="Self.FK_NHANVIEN_TAIKHOAN" FromRole="TAIKHOAN" ToRole="NHANVIEN" />
           <NavigationProperty Name="HOADONs" Relationship="QuanLyQuanCoffeeModel.FK_TAIKHOAN_HOADON" FromRole="TAIKHOAN" ToRole="HOADON" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SDT" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_HOADON_CHITIETHOADON">
           <End Role="HOADON" Type="Self.HOADON" Multiplicity="1" />
@@ -953,6 +955,7 @@
           <EntitySetMapping Name="TAIKHOANs">
             <EntityTypeMapping TypeName="QuanLyQuanCoffeeModel.TAIKHOAN">
               <MappingFragment StoreEntitySet="TAIKHOAN">
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="TenDN" ColumnName="TenDN" />
                 <ScalarProperty Name="MatKhau" ColumnName="MatKhau" />

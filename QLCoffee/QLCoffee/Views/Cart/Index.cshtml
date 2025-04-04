@@ -167,6 +167,7 @@
         @if (!Model.Items.Any())
         {
             <p style="text-align: center; color: #999;">Bạn chưa có sản phẩm nào trong giỏ hàng.</p>
+            <a href="@Url.Action("Undo", "Cart")" class="btn btn-warning">Hoàn tác</a>
         }
         else
         {
@@ -212,6 +213,8 @@
             <div class="cart-buttons">
                 <a href="@Url.Action("_ProductList", "Home")" class="btn">Tiếp tục mua hàng</a>
                 <a href="@Url.Action("ClearCart", "Cart")" class="btn">Xóa tất cả</a>
+                <a href="@Url.Action("Undo", "Cart")" class="btn btn-warning">Hoàn tác</a>
+
             </div>
         }
     </div>

@@ -17,6 +17,9 @@
             <th>Số Lượng</th>
             <th>Đơn Giá</th>
             <th>Thành Tiền</th>
+            <th>Tên Loại Sản Phẩm</th>
+            <th>Khuyến mãi cho loại sản phẩm</th>
+
         </tr>
     </thead>
     <tbody>
@@ -28,7 +31,28 @@
                 <td>@item.Soluong</td>
                 <td>@string.Format("{0:N0} VNĐ", item.UnitPrice)</td>
                 <td>@string.Format("{0:N0} VNĐ", item.TotalPrice)</td>
+                <td>@(item.SANPHAM?.PRODUCT?.LOAISANPHAM?.TenLoaiSP ?? "Không có loại sản phẩm")</td>
+                <td>
+                    @if (item.SANPHAM?.PRODUCT?.LOAISANPHAM != null)
+                    {
+                        foreach (var key in ViewBag.InvoiceData.Keys)
+                        {
+                            if (ViewBag.InvoiceData.ContainsKey(key))
+                            {
+                                <p>@($"{ViewBag.InvoiceData[key]*100}%")</p>
+                            }
+                        }
+                    }
+                    else
+                    {
+                        @ViewBag.Khuyenmai
 
+                    }
+
+                </td>
+                <td>
+                   
+                </td>
             </tr>
         }
 

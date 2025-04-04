@@ -8,8 +8,8 @@ namespace QLCoffee.Service.Email
     public class EmailServiceFactory
     {
        public static IEmailService CreateEmailService()
-        {
+       {
             return new GmailService();
-        }
+       }
     }
 }

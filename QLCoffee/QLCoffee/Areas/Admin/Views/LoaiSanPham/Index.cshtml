@@ -9,45 +9,88 @@
 
 <h2 class="text-center my-4">QUẢN LÝ LOẠI SẢN PHẨM</h2>
 
+<!-- Dropdown chọn kiểu menu -->
+<div class="mb-3">
+    <label for="styleSelector" class="form-label">Chọn giao diện menu:</label>
+    <select id="styleSelector" class="form-control">
+        <option value="bootstrap" @(ViewBag.Style == "bootstrap" ? "selected" : "")>Bootstrap</option>
+        <option value="material" @(ViewBag.Style == "material" ? "selected" : "")>Material</option>
+    </select>
+    <button id="applyStyle" class="btn btn-primary mt-2">Áp dụng</button>
+</div>
+
+<!-- Hiển thị menu đã render -->
+@*@Html.Raw(ViewBag.MenuHtml)*@
+
 <p class="text-start">
     @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success" })
 </p>
+<div id="partial-container">
+    @*@if (ViewBag.MenuHtml.Contains("Material"))
+    {
+        @Html.Partial("~/Views/Shared/View.cshtml", Model)
+        @Html.Raw(ViewBag.MenuHtml)
 
-<table class="table table-bordered table-striped">
-    <thead class="table-dark">
-        <tr>
-            <th>
-                Mã loại
-            </th>
-            <th>
-                Tên loại
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+    }
+    else
+    {
+        @Html.Partial("~/Views/Shared/View1.cshtml", Model)
+        @Html.Raw(ViewBag.MenuHtml)
+
+    }*@
+</div>
+
+@*<table class="table table-bordered table-striped">
+        <thead class="table-dark">
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MaLoaiSP)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TenLoaiSP)
-                </td>
-
-                <td class="text-center">
-                    <div class="d-flex justify-content-center">
-                        @Html.ActionLink("Edit", "Edit", new { id = item.MaLoaiSP }, new { @class = "btn btn-primary" }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.MaLoaiSP }, new { @class = "btn btn-dark" }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.MaLoaiSP }, new { @class = "btn btn-danger" })
-                    </div>
-
-                </td>
+                <th>Mã loại</th>
+                <th>Tên loại</th>
+                <th></th>
             </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.MaLoaiSP)</td>
+                    <td>@Html.DisplayFor(modelItem => item.TenLoaiSP)</td>
+                    <td class="text-center">
+                        <div class="d-flex justify-content-center">
+                            @Html.ActionLink("Edit", "Edit", new { id = item.MaLoaiSP }, new { @class = "btn btn-primary" }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.MaLoaiSP }, new { @class = "btn btn-dark" }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.MaLoaiSP }, new { @class = "btn btn-danger" })
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>*@
+
+@*<script>
+    document.getElementById("applyStyle").addEventListener("click", function () {
+        var style = document.getElementById("styleSelector").value;
+        window.location.href = "/LoaiSanPham/Index?style=" + style;
+    });
+</script>*@
+<script>
+    $(document).ready(function () {
+        function loadPartialView(style) {
+            $.get("/LoaiSanPham/LoadPartialView", { style: style }, function (data) {
+                $("#partial-container").html(data);
+            });
         }
-    </tbody>
-</table>
+
+        // Khi trang load lần đầu, load menu mặc định
+        loadPartialView("bootstrap");
+
+        // Khi bấm áp dụng, load menu tương ứng
+        $("#applyStyle").click(function () {
+            var style = $("#styleSelector").val();
+            loadPartialView(style);
+        });
+    });
+</script>
+
 
 
 

@@ -1,7 +1,6 @@
 ﻿using QLCoffee.Models;
 using QLCoffee.Models.ViewModel;
-using QLCoffee.Service.Email;
-using QLCoffee.Service.OTP;
+using QLCoffee.Service.Strategy;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -10,6 +9,7 @@ using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Security;
+using static System.Net.WebRequestMethods;
 
 
 namespace QLCoffee.Controllers
@@ -130,28 +130,75 @@ namespace QLCoffee.Controllers
                 return View(model);
             }
             
-            var user = database.TAIKHOANs.Where(s => s.TenDN == model.UserName && s.Email == model.Email).FirstOrDefault();
+            var user_Email = database.TAIKHOANs.Where(s => s.TenDN == model.UserName && s.Email == model.Email).FirstOrDefault();
+            var user_Phone = database.TAIKHOANs.Where(s => s.TenDN == model.UserName && s.SDT == model.SDT).FirstOrDefault();
 
-            if (user == null)
+        
+            try
             {
-                ViewBag.ErrorMessage = "Email hoặc tài khoản không tồn tại.";
-                return View();
+                //IOTPStrategy otpStrategy = new RandomOTPStrategy();
+                //OTPManager otpManager = new OTPManager(otpStrategy);
+                //string otp = otpManager.GenerateOTP();
+
+
+                IOTPStrategy otpStrategy;
+
+                if(model.Method == "Email")
+                {
+                    otpStrategy = new EmailOTPStrategy();
+                    if (user_Email == null)
+                    {
+                        ViewBag.ErrorMessage = "Email hoặc tên đăng nhập không tồn tại.";
+                        return View(model);
+                    }
+                }
+                else if (model.Method == "SMS")
+                {
+                    otpStrategy = new SMSOTPStrategy();
+                    if (user_Phone == null)
+                    {
+                        ViewBag.ErrorMessage = "Số điện thoại hoặc tên đăng nhập không tồn tại.";
+                        return View(model);
+                    }
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = "Phương thức gửi mã OTP không hợp lệ" ;
+                    return View(model);
+                }
+
+                OTPService oTPService = new OTPService();
+                oTPService.SetStrategy(otpStrategy);
+                string otp = oTPService.GenerateOTP();
+
+                //Tạo mã OTP
+                Session["OTP"] = otp;
+                Session["Email"] = model.Email;
+                Session["SDT"] = model.SDT;
+                Session["UserName"] = model.UserName;
+                Session["OTP_Expiration"] = DateTime.Now.AddMinutes(5);
+
+                if (model.Method == "Email")
+                {
+                    oTPService.SendOTP(model.Email);
+                   
+                }
+                else if (model.Method == "SMS")
+                {
+                    oTPService.SendOTP(model.SDT);
+                }
+
+                //IEmailService emailService = EmailServiceFactory.CreateEmailService();
+                //emailService.SendEmail(model.Email, "Mã OTP đặt lại mật khẩu", $"Mã OTP của bạn là: {otp}");
+
+                return RedirectToAction("VerifyOTP");
             }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorMessage = "Gửi mã OTP thất bại: " + ex.Message;
+                return View(model);
+            }  
 
-
-            IOTPStrategy otpStrategy = new RandomOTPStrategy();
-            OTPManager otpManager = new OTPManager(otpStrategy);
-            string otp = otpManager.GenerateOTP();
-
-            Session["OTP"] = otp;
-            Session["Email"] = model.Email;
-            Session["UserName"] = model.UserName;
-            Session["OTP_Expiration"] = DateTime.Now.AddMinutes(5);
-
-            IEmailService emailService = EmailServiceFactory.CreateEmailService();
-            emailService.SendEmail(model.Email, "Mã OTP đặt lại mật khẩu", $"Mã OTP của bạn là: {otp}");
-
-            return RedirectToAction("VerifyOTP");
         }
 
         public ActionResult VerifyOTP()
@@ -195,8 +242,6 @@ namespace QLCoffee.Controllers
                 {
                     return View(model);
                 }
-
-                
 
                 string email = Session["Email"] as string;
                 string username = Session["UserName"] as string;

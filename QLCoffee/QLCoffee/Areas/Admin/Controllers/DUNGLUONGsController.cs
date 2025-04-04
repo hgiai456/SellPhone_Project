@@ -7,31 +7,31 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using QLCoffee.Models;
+using QLCoffee.Service.DungLuongFacade;
 
 namespace QLCoffee.Areas.Admin.Controllers
-{   
+{
     public class DUNGLUONGsController : Controller
     {
-        private QuanLyQuanCoffeeEntities db = new QuanLyQuanCoffeeEntities();
+        private readonly DungLuongService _dungLuongService;
+
+        public DUNGLUONGsController()
+        {
+            _dungLuongService = new DungLuongService();
+        }
 
         // GET: Admin/DUNGLUONGs
         public ActionResult Index()
         {
-            return View(db.DUNGLUONGs.ToList());
+            return View(_dungLuongService.GetAll());
         }
 
         // GET: Admin/DUNGLUONGs/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DUNGLUONG dUNGLUONG = db.DUNGLUONGs.Find(id);
-            if (dUNGLUONG == null)
-            {
-                return HttpNotFound();
-            }
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var dUNGLUONG = _dungLuongService.GetById(id.Value);
+            if (dUNGLUONG == null) return HttpNotFound();
             return View(dUNGLUONG);
         }
 
@@ -42,48 +42,35 @@ namespace QLCoffee.Areas.Admin.Controllers
         }
 
         // POST: Admin/DUNGLUONGs/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "MaDungLuong,KichThuocDL")] DUNGLUONG dUNGLUONG)
         {
             if (ModelState.IsValid)
             {
-                db.DUNGLUONGs.Add(dUNGLUONG);
-                db.SaveChanges();
+                _dungLuongService.Create(dUNGLUONG);
                 return RedirectToAction("Index");
             }
-
             return View(dUNGLUONG);
         }
 
         // GET: Admin/DUNGLUONGs/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DUNGLUONG dUNGLUONG = db.DUNGLUONGs.Find(id);
-            if (dUNGLUONG == null)
-            {
-                return HttpNotFound();
-            }
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var dUNGLUONG = _dungLuongService.GetById(id.Value);
+            if (dUNGLUONG == null) return HttpNotFound();
             return View(dUNGLUONG);
         }
 
         // POST: Admin/DUNGLUONGs/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "MaDungLuong,KichThuocDL")] DUNGLUONG dUNGLUONG)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(dUNGLUONG).State = EntityState.Modified;
-                db.SaveChanges();
+                _dungLuongService.Update(dUNGLUONG);
                 return RedirectToAction("Index");
             }
             return View(dUNGLUONG);
@@ -92,15 +79,9 @@ namespace QLCoffee.Areas.Admin.Controllers
         // GET: Admin/DUNGLUONGs/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DUNGLUONG dUNGLUONG = db.DUNGLUONGs.Find(id);
-            if (dUNGLUONG == null)
-            {
-                return HttpNotFound();
-            }
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var dUNGLUONG = _dungLuongService.GetById(id.Value);
+            if (dUNGLUONG == null) return HttpNotFound();
             return View(dUNGLUONG);
         }
 
@@ -109,19 +90,8 @@ namespace QLCoffee.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            DUNGLUONG dUNGLUONG = db.DUNGLUONGs.Find(id);
-            db.DUNGLUONGs.Remove(dUNGLUONG);
-            db.SaveChanges();
+            _dungLuongService.Delete(id);
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

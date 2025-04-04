@@ -68,10 +68,13 @@
                     @Html.DisplayFor(modelItem => item.TongGiaTriHD)
                 </td>
                 <td>
-                    <select class="form-control status-dropdown" data-id="@item.MaHD">
+                    <select class="form-control status-dropdown" data-id="@item.MaHD"
+                            @(item.TrangThaiDH == "Đã giao" || item.TrangThaiDH == "Đã hủy" ? "disabled" : "")>
+                        <option value="Đang xử lý" @(item.TrangThaiDH == "Đang xử lý" ? "selected" : "")>Đang xử lý</option>
+                        <option value="Đã duyệt" @(item.TrangThaiDH == "Đã duyệt" ? "selected" : "")>Đã duyệt</option>
                         <option value="Đang giao" @(item.TrangThaiDH == "Đang giao" ? "selected" : "")>Đang giao</option>
                         <option value="Đã giao" @(item.TrangThaiDH == "Đã giao" ? "selected" : "")>Đã giao</option>
-                        <option value="Hủy đơn" @(item.TrangThaiDH == "Hủy đơn" ? "selected" : "")>Hủy đơn</option>
+                        <option value="Đã hủy" @(item.TrangThaiDH == "Đã hủy" ? "selected" : "")>Đã hủy</option>
                     </select>
                 </td>
                 <td>
@@ -109,25 +112,32 @@
     });
 
     $(document).ready(function () {
-        $(".status-dropdown").change(function () {
-            var maHD = $(this).data("id");
-            var trangThaiMoi = $(this).val();
-            var message = $(".status-message[data-id='" + maHD + "']");
+       $(".status-dropdown").change(function () {
+    var dropdown = $(this);
+    var maHD = dropdown.data("id");
+    var trangThaiMoi = dropdown.val();
+    var message = $(".status-message[data-id='" + maHD + "']");
 
-            $.ajax({
-                url: '@Url.Action("UpdateStatus","HoaDon")',
-                type: "POST",
-                data: { id: maHD, status: trangThaiMoi },
-                success: function (response) {
-                    if (response.success) {
-                        message.text("Đã cập nhật").fadeIn().delay(2000).fadeOut();
-                    } else {
-                        message.text("Lỗi cập nhật!").css("color", "red").fadeIn().delay(2000).fadeOut();
-                    }
+    $.ajax({
+        url: '@Url.Action("UpdateStatus","HoaDon", new { area = "Admin" })',
+        type: "POST",
+        data: { id: maHD, status: trangThaiMoi },
+        success: function (response) {
+            if (response.success) {
+                message.text("Đã cập nhật").fadeIn().delay(2000).fadeOut();
+                if (trangThaiMoi == "Đã giao" || trangThaiMoi == "Đã hủy") {
+                    dropdown.prop("disabled", true); // Chỉ vô hiệu hóa khi cập nhật thành công
                 }
-            });
-        });
+            } else {
+                message.text(response.message).css("color", "red").fadeIn().delay(2000).fadeOut();
+            }
+        },
+        error: function () {
+            message.text("Lỗi kết nối đến server!").css("color", "red").fadeIn().delay(2000).fadeOut();
+        }
+    });
+});
     });
 
-    
+
 </script>

@@ -16,5 +16,11 @@ namespace QLCoffee.Service.OTP
         {
             return _oTPStrategy.GenerateOTP();
         }
+        public bool ValidateOTP(string inputOTP)
+        {
+            return _oTPStrategy.ValidateOTP(inputOTP, GenerateOTP());
+        }
+
+
     }
 }

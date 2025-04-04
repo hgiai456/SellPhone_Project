@@ -1,0 +1,61 @@
+﻿@model IEnumerable<QLCoffee.Models.LOAISANPHAM>
+
+@{
+    ViewBag.Title = "View";
+    //Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+}
+<!--<div class="mb-3">
+    <label for="styleSelector" class="form-label">Chọn giao diện menu:</label>
+    <select id="styleSelector" class="form-control">
+        <option value="bootstrap" @(ViewBag.Style == "bootstrap" ? "selected" : "")>Bootstrap</option>
+        <option value="material" @(ViewBag.Style == "material" ? "selected" : "")>Material</option>
+    </select>
+    <button id="applyStyle" class="btn btn-primary mt-2">Áp dụng</button>
+</div>-->
+
+<!-- Hiển thị menu đã render -->
+<!--@Html.Raw(ViewBag.MenuHtml)-->
+@*<p class="text-start">
+    @Html.ActionLink((String)ViewBag.MenuItems[1], "Create", null, new { @class = "btn btn-success" })
+</p>*@
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th style="width: 50%;">Mã loại</th>
+            <th style="width: 50%;">Tên loại</th>
+            @*<th>Actions</th>*@
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MaLoaiSP</td>
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-@item.MaLoaiSP" data-bs-toggle="dropdown" aria-expanded="false">
+                            @item.TenLoaiSP
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdown-@item.MaLoaiSP">
+                            <li>@Html.ActionLink("Edit", "Edit", new { id = item.MaLoaiSP }, new { @class = "dropdown-item" })</li>
+                            <li>@Html.ActionLink("Details", "Details", new { id = item.MaLoaiSP }, new { @class = "dropdown-item" })</li>
+                            <li>@Html.ActionLink("Delete", "Delete", new { id = item.MaLoaiSP }, new { @class = "dropdown-item text-danger" })</li>
+                        </ul>
+                    </div>
+                </td>
+                @*<td class="text-center">
+                    @Html.ActionLink("Edit", "Edit", new { id = item.MaLoaiSP }, new { @class = "btn btn-primary" }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.MaLoaiSP }, new { @class = "btn btn-dark" }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.MaLoaiSP }, new { @class = "btn btn-danger" })
+                </td>*@
+            </tr>
+        }
+    </tbody>
+</table>
+@*<script>
+    document.getElementById("applyStyle").addEventListener("click", function () {
+        var style = document.getElementById("styleSelector").value;
+        window.location.href = "/LoaiSanPham/Index?style=" + style;
+    });</script>*@
+

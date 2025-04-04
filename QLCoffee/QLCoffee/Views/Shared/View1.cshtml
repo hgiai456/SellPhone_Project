@@ -1,0 +1,48 @@
+﻿@model IEnumerable<QLCoffee.Models.LOAISANPHAM>
+
+@{
+    ViewBag.Title = "View1";
+    //Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@*<h2 class="text-center my-4">QUẢN LÝ LOẠI SẢN PHẨM</h2>*@
+
+@*<p class="text-start">
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success" })
+</p>*@
+
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>
+                Mã loại
+            </th>
+            <th>
+                Tên loại
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaLoaiSP)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenLoaiSP)
+                </td>
+
+                <td class="text-center">
+                    <div class="d-flex justify-content-center">
+                        @Html.ActionLink("Edit", "Edit", new { id = item.MaLoaiSP }, new { @class = "btn btn-primary" }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.MaLoaiSP }, new { @class = "btn btn-dark" }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.MaLoaiSP }, new { @class = "btn btn-danger" })
+                    </div>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

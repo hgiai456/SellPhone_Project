@@ -12,7 +12,8 @@ using System.Web;
 using System.Web.Mvc;
 using QLCoffee.Models;
 
-using System.IO; //Thu vien nhap xuat file
+using System.IO;
+using QLCoffee.Service.LoaiSanPham; //Thu vien nhap xuat file
 
 namespace QLCoffee.Areas.Admin.Controllers
 {
@@ -45,9 +46,19 @@ namespace QLCoffee.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             PRODUCT pRODUCT = db.PRODUCTs.Find(id);
+            ElectronicProduct electronicProduct = ElectronicProduct.CreateElectronicProduct(pRODUCT.LOAISANPHAM);
+
             if (pRODUCT == null)
             {
                 return HttpNotFound();
+            }
+            if (electronicProduct is Laptop laptop)
+            {
+                ViewBag.MoTa = laptop.mota;
+            }
+            if (electronicProduct is Phone phone)
+            {
+                ViewBag.MoTa = phone.mota;
             }
             return View(pRODUCT);
         }
@@ -125,11 +136,28 @@ namespace QLCoffee.Areas.Admin.Controllers
         // GET: Admin/PRODUCTs/Edit/5
         public ActionResult EditProduct(string id)
         {
-                                   
-            ViewBag.MaLoaiSP = new SelectList(db.LOAISANPHAMs, "MaLoaiSP", "TenLoaiSP");
+            var product = db.PRODUCTs.FirstOrDefault(s => s.IDPro == id);
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+            ElectronicProduct electronicProduct = ElectronicProduct.CreateElectronicProduct(product.LOAISANPHAM);
+            if (electronicProduct is Laptop laptop)
+            {
+                ViewBag.MaLoaiSP = new SelectList(db.LOAISANPHAMs, "MaLoaiSP", "TenLoaiSP", electronicProduct.MaLoaiSP);
+            }
+            else if (electronicProduct is Phone phone)
+            {
+                ViewBag.MaLoaiSP = new SelectList(db.LOAISANPHAMs, "MaLoaiSP", "TenLoaiSP", electronicProduct.MaLoaiSP);
 
-            return View(db.PRODUCTs.Where(s => s.IDPro == id).FirstOrDefault());
+            }
+            else
+            {
+                ViewBag.MaLoaiSP = new SelectList(db.LOAISANPHAMs, "MaLoaiSP", "TenLoaiSP", product.MaLoaiSP);
+            }
+            return View(product);
         }
+
 
         // POST: Admin/PRODUCTs/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 

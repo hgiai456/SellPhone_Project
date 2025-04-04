@@ -7,6 +7,8 @@ using System.Web;
 using System.Web.Mvc;
 using PagedList;
 using System.Net;
+using QLCoffee.Service.Variotion;
+using QLCoffee.Service.LoaiSanPham;
 
 namespace QLCoffee.Controllers
 {
@@ -37,6 +39,8 @@ namespace QLCoffee.Controllers
             return View(model);
             
         }
+        ///Customize ProductDetail
+        
         public ActionResult ProductDetail(string id,int? quantity, int? page, string searchTerm) //PageList - Not Search
         {
             if (id == null)
@@ -44,15 +48,56 @@ namespace QLCoffee.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             SANPHAM sp = db.SANPHAMs.Find(id); //1
-
             if (sp == null)
             {
                 return HttpNotFound();
             }
-            
+            ElectronicProduct product = ElectronicProduct.CreateElectronicProduct(sp.PRODUCT.LOAISANPHAM);
+            if (product != null)
+            {
+                product.Price = sp.GiaSP;
+                double discount = 0.0;
+                if (product is Laptop laptop)
+                {
+                    discount = laptop.discount;
+                }
+                else if (product is Phone phone)
+                {
+                    discount = phone.discount;
+                }
+                ViewBag.Discount = discount * 100;
+            }
+            //Lấy danh sách màu sách và dung lượng từ cơ sở dữ liệu
+            var colors = db.SANPHAMs.Where(s => s.IDPro == sp.IDPro)
+                .Select(s => s.MAU.TenMau)
+                .Distinct()
+                .ToList();
+
+            var sizes = db.SANPHAMs.Where(s => s.IDPro == sp.IDPro)
+                .Select(s => s.DUNGLUONG.KichThuocDL)
+                .Distinct()
+                .ToList();
+
+            ProductVM model = new ProductVM()
+            {
+                sanpham = sp,
+                Colors = colors.Select(c => new SelectListItem
+                {
+                    Text = c,
+                    Value = c
+                }).ToList(),
+
+                Sizes = sizes.Select(s => new SelectListItem
+                {
+                    Text = s,
+                    Value = s
+                }).ToList()
+
+            };
+
             //Lấy tất cả sản phẩm cùng danh mục
             var sanphams = db.SANPHAMs.Where(s => s.PRODUCT.MaLoaiSP == sp.PRODUCT.MaLoaiSP && s.MaSP != sp.MaSP).AsQueryable();
-            ProductVM model = new ProductVM();
+
             if (!string.IsNullOrEmpty(searchTerm))
             {
                 model.SearchTerm = searchTerm;
@@ -74,6 +119,8 @@ namespace QLCoffee.Controllers
             }
             return View(model);
         }
+        
+
         public ActionResult Index()
         {
             return View();

@@ -52,12 +52,23 @@ namespace QLCoffee.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (_khoRepository != null) _khoRepository.Add(kho);
+                // Kiểm tra xem MaSP đã tồn tại trong bảng KHO chưa
+                bool exists = db.KHOes.Any(k => k.MaSP == kho.MaSP);
+                if (exists)
+                {
+                    ModelState.AddModelError("MaSP", "Sản phẩm này đã tồn tại trong kho.");
+                    LoadViewBags(kho);
+                    return View(kho);
+                }
+
+                if (_khoRepository != null)
+                    _khoRepository.Add(kho);
                 else
                 {
                     db.KHOes.Add(kho);
                     db.SaveChanges();
                 }
+
                 return RedirectToAction("Index");
             }
 

@@ -10,5 +10,7 @@ namespace QLCoffee.Service.StatusOrder
         void ChangeState(OrderContext  order, string newState); 
         string GetStateName();
 
+        string HandleWareHouse(OrderContext order);  
+
     }
 }

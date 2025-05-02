@@ -9,12 +9,17 @@ namespace QLCoffee.Service.StatusOrder
     {
         public void ChangeState(OrderContext order, string newState)
         {
-            throw new InvalidOperationException("Không thể thay đổi trạng thái vì đơn hàng đã giao. ");
+            throw new InvalidOperationException("Không thể thay đổi trạng thái vì đơn hàng đã giao.");
         }
 
         public string GetStateName()
         {
-            return "Đã giao";
+            return OrderStates.Delivered;
+        }
+        public string HandleWareHouse(OrderContext order)
+        {
+            // Không cần cập nhật kho khi đang giao hàng
+            return "Trạng thái đã giao, không cần cập nhật kho.";
         }
     }
 }

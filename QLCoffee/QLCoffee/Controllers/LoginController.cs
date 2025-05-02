@@ -121,6 +121,7 @@ namespace QLCoffee.Controllers
             return View();
         }
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult ForgotPassword(OTPViewModel model)
@@ -132,29 +133,22 @@ namespace QLCoffee.Controllers
             
             var user_Email = database.TAIKHOANs.Where(s => s.TenDN == model.UserName && s.Email == model.Email).FirstOrDefault();
             var user_Phone = database.TAIKHOANs.Where(s => s.TenDN == model.UserName && s.SDT == model.SDT).FirstOrDefault();
-
-        
+            IOTPStrategy otpStrategy;
             try
             {
-                //IOTPStrategy otpStrategy = new RandomOTPStrategy();
-                //OTPManager otpManager = new OTPManager(otpStrategy);
-                //string otp = otpManager.GenerateOTP();
-
-
-                IOTPStrategy otpStrategy;
-
-                if(model.Method == "Email")
+                          
+                if(model.Method == "Email") //NẾu như người dùng chọn gửi mã OTP qua email
                 {
-                    otpStrategy = new EmailOTPStrategy();
+                    otpStrategy = new EmailOTPStrategy(); //Khởi tạo phương thức gửi OTP qua email
                     if (user_Email == null)
                     {
                         ViewBag.ErrorMessage = "Email hoặc tên đăng nhập không tồn tại.";
                         return View(model);
                     }
                 }
-                else if (model.Method == "SMS")
+                else if (model.Method == "SMS")//Nếu như người dùng chọn gửi mã OTP qua số điện thoại
                 {
-                    otpStrategy = new SMSOTPStrategy();
+                    otpStrategy = new SMSOTPStrategy();//Khởi tạo phương thức gửi OTP qua số điện thoại
                     if (user_Phone == null)
                     {
                         ViewBag.ErrorMessage = "Số điện thoại hoặc tên đăng nhập không tồn tại.";
@@ -180,8 +174,7 @@ namespace QLCoffee.Controllers
 
                 if (model.Method == "Email")
                 {
-                    oTPService.SendOTP(model.Email);
-                   
+                    oTPService.SendOTP(model.Email);                
                 }
                 else if (model.Method == "SMS")
                 {
@@ -208,7 +201,7 @@ namespace QLCoffee.Controllers
 
         [HttpPost]
         public ActionResult VerifyOTP(string otp)
-        {
+        { 
 
             string sessionOTP = Session["OTP"] as string;
             DateTime? expiration = Session["OTP_Expiration"] as DateTime?;

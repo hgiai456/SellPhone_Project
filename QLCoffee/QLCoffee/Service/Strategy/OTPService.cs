@@ -22,6 +22,8 @@ namespace QLCoffee.Service.Strategy
             {
                 throw new InvalidOperationException("Vui lòng thiết lập Strategy trước khi gửi OTP.");
             }
+
+
             string otp = GenerateOTP();
             _strategy.SendOTP(to, otp);       
         }

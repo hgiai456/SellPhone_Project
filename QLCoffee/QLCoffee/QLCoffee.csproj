@@ -327,7 +327,7 @@
     <Compile Include="Service\OrderDecorator\DungLuong1TDecorator.cs" />
     <Compile Include="Service\OrderDecorator\IOrder.cs" />
     <Compile Include="Service\OrderDecorator\ProDecorator.cs" />
-    <Compile Include="Service\StatusOrder\OrderStateEnum.cs" />
+    <Compile Include="Service\StatusOrder\OrderStates.cs" />
     <Compile Include="Service\Strategy\EmailOTPStrategy.cs" />
     <Compile Include="Service\Strategy\IOTPStrategy.cs" />
     <Compile Include="Service\Strategy\OTPService.cs" />

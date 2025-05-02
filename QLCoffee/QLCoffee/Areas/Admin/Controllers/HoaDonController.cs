@@ -76,24 +76,20 @@ namespace QLCoffee.Areas.Admin.Controllers
             }           
             try
             {
-                var orderContext = new OrderContext(hoaDon);
+                //khởi tạo context hóa đơn
+                var orderContext = new OrderContext(hoaDon);              
+                //Thay đổi trạng thái hóa đơn
                 orderContext.ChangeState(status);
+
+                orderContext.Process(); //Xử lý trạng thái hóa đơn hiện tại
+
                 database.SaveChanges();
                 return Json(new { success = true, message = "Cập nhật trạng thái hóa đơn thành công." });
 
             }
             catch (Exception ex) {
                 return Json(new { success = false, message = ex.Message });
-            }
-            //if (hoaDon != null)
-            //{
-            //    hoaDon.TrangThaiDH = status;
-            //    database.SaveChanges();
-
-            //    return Json(new { success = true });
-            //}
-
-            //return Json(new { success = false });
+            }            
 
         } 
 

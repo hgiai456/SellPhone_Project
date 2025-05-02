@@ -23,20 +23,23 @@ namespace QLCoffee.Service.StatusOrder
         {
             switch (state)
             {
-                case "Đang xử lý": return new PendingState();
+                case OrderStates.Pending:
+                    return new PendingState();
 
-                case "Đã duyệt": return new ApprovedState();
+                case OrderStates.Approved:
+                    return new ApprovedState();
 
-                case "Đang giao": return new ShippingState();
+                case OrderStates.Shipping:
+                    return new ShippingState();
 
-                case "Đã giao": return new DeliveredState();
+                case OrderStates.Delivered:
+                    return new DeliveredState();
 
-                case "Đã hủy": return new CanceledState();
-
-                default : throw new ArgumentException("Trạng thái hóa đơn không hợp lệ.");
+                case OrderStates.Canceled:
+                    return new CanceledState();
+                default : throw new ArgumentException($"Trạng thái hóa đơn không hợp lệ: {state}");
 
             }
-                                
         }
 
         public void SetState(IOrderState state) {
@@ -48,6 +51,10 @@ namespace QLCoffee.Service.StatusOrder
         public void ChangeState(string newState) {
 
             _state.ChangeState(this, newState);         
+        }
+        public string Process()
+        {
+            return _state.HandleWareHouse(this);
         }
 
 

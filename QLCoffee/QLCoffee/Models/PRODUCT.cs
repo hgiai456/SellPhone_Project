@@ -11,10 +11,7 @@ namespace QLCoffee.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Web;
-
+    
     public partial class PRODUCT
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,7 +19,7 @@ namespace QLCoffee.Models
         {
             this.SANPHAMs = new HashSet<SANPHAM>();
         }
-
+    
         public string IDPro { get; set; }
         public string NamePro { get; set; }
         public string Desciption { get; set; }
@@ -30,23 +27,7 @@ namespace QLCoffee.Models
         public string Img2 { get; set; }
         public string Img3 { get; set; }
         public string MaLoaiSP { get; set; }
-
-
-        [Required(ErrorMessage = "Hay chon file anh")]
-        //[RegularExpression(@"[a-zA-Z0-9\s_\\.\-:] + (.png|.jpg|.gif)$",ErrorMessage = "Chi nhan dinh dang .PNG, .JPG , .GIF")]
-        [NotMapped]
-        public HttpPostedFileBase UploadImage { get; set; } //Anh 1
-
-        [Required(ErrorMessage = "Hay chon file anh")]
-        //[RegularExpression(@"[a-zA-Z0-9\s_\\.\-:] + (.png|.jpg|.gif)$",ErrorMessage = "Chi nhan dinh dang .PNG, .JPG , .GIF")]
-        [NotMapped]
-        public HttpPostedFileBase UploadImage1 { get; set; } //Anh 1
-
-        [Required(ErrorMessage = "Hay chon file anh")]
-        //[RegularExpression(@"[a-zA-Z0-9\s_\\.\-:] + (.png|.jpg|.gif)$",ErrorMessage = "Chi nhan dinh dang .PNG, .JPG , .GIF")]
-        [NotMapped]
-        public HttpPostedFileBase UploadImage2 { get; set; } //Anh 1
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SANPHAM> SANPHAMs { get; set; }
         public virtual LOAISANPHAM LOAISANPHAM { get; set; }
